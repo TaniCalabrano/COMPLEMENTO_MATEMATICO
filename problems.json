@@ -28,5 +28,20 @@
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://youtu.be/Nw0P_GtoALI"
+  },
+  {
+    "id": "P34-PAES-M1-AD-2023-R-DEMRE",
+    "nombre": "P34-PAES-M1-AD-2023-R-DEMRE",
+    "prueba": "M1",
+    "eje": "Geometría",
+    "imagen": "images/m1/P34-PAES-M1-AD-2023-R-DEMRE.png",
+    "alternativas": {
+      "A": "\sqrt{2}",
+      "B": "2",
+      "C": "2\sqrt{2}",
+      "D": "4"
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://www.youtube.com/watch?v=0B4UbBRw9AA&t=15s"
   }
 ]

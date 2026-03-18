@@ -1,4 +1,5 @@
 import streamlit as st
+import streamlit.components.v1 as components
 import json
 import time
 import random
@@ -59,12 +60,13 @@ problems = load_problems()
 def init_state():
     defaults = {
         "problema_actual": None,
-        "respondido": False,
-        "seleccion": None,
-        "timer_start": None,
-        "timer_duracion": 90,
-        "tiempo_agotado": False,
-        "timer_iniciado": False,   # ← NUEVO: el timer no corre hasta que el usuario lo inicie
+        "respondido":      False,
+        "seleccion":       None,
+        "timer_start":     None,
+        "timer_duracion":  90,
+        "tiempo_agotado":  False,
+        "timer_iniciado":  False,
+        "tiempo_respuesta": None,   # segundos que tardó en responder
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -109,23 +111,22 @@ with st.sidebar:
 # ─── Lógica de selección ───────────────────────────────────────────────────────
 pool = [p for p in problems if p["prueba"] in filtro_prueba and p["eje"] in filtro_eje]
  
+def cargar_problema(p):
+    st.session_state.problema_actual  = p
+    st.session_state.respondido       = False
+    st.session_state.seleccion        = None
+    st.session_state.timer_start      = None
+    st.session_state.tiempo_agotado   = False
+    st.session_state.timer_iniciado   = False
+    st.session_state.tiempo_respuesta = None
+ 
 if btn_aleatorio and pool:
-    st.session_state.problema_actual = random.choice(pool)
-    st.session_state.respondido      = False
-    st.session_state.seleccion       = None
-    st.session_state.timer_start     = None
-    st.session_state.tiempo_agotado  = False
-    st.session_state.timer_iniciado  = False
+    cargar_problema(random.choice(pool))
  
 if btn_buscar and busqueda != "— Selecciona —":
     encontrado = next((p for p in problems if p["nombre"] == busqueda), None)
     if encontrado:
-        st.session_state.problema_actual = encontrado
-        st.session_state.respondido      = False
-        st.session_state.seleccion       = None
-        st.session_state.timer_start     = None
-        st.session_state.tiempo_agotado  = False
-        st.session_state.timer_iniciado  = False
+        cargar_problema(encontrado)
  
 # ─── ÁREA PRINCIPAL ────────────────────────────────────────────────────────────
 st.markdown('<div class="main-title">📐 Repositorio PAES</div>', unsafe_allow_html=True)
@@ -137,17 +138,29 @@ if prob is None:
     st.info("👈 Usa el panel izquierdo para seleccionar un problema aleatorio o buscarlo por nombre.")
     st.stop()
  
+# ── Detectar timeout por query param ──────────────────────────────────────────
+params = st.query_params
+if params.get("timeout") == "1" and not st.session_state.respondido:
+    elapsed = int(time.time() - st.session_state.timer_start) if st.session_state.timer_start else st.session_state.timer_duracion
+    st.session_state.tiempo_agotado   = True
+    st.session_state.respondido       = True
+    st.session_state.tiempo_respuesta = st.session_state.timer_duracion
+    st.query_params.clear()
+    st.rerun()
+ 
 col_q, col_t = st.columns([3, 1])
  
-# ── TIMER ──────────────────────────────────────────────────────────────────────
+# ══════════════════════════════════════════════════════════════════════════════
+# TIMER — usando st.components.v1.html para que el JS funcione correctamente
+# ══════════════════════════════════════════════════════════════════════════════
 with col_t:
     duracion = st.session_state.timer_duracion
  
-    # ── Caso 1: Ya respondió → timer congelado en 0:00
+    # ── Caso 1: ya respondió ──────────────────────────────────────────────────
     if st.session_state.respondido:
-        st.markdown(f"""
+        components.html(f"""
         <div style="background:#1a1d2e; border:2px solid #2a2d3e; border-radius:12px;
-                    padding:1.2rem; text-align:center;">
+                    padding:1.2rem; text-align:center; font-family:sans-serif;">
             <div style="font-size:2rem;">⌛</div>
             <div style="font-size:2.8rem; font-weight:800; font-family:monospace;
                         color:#EF5350; line-height:1.1;">0:00</div>
@@ -155,69 +168,86 @@ with col_t:
                 ⏱ {duracion}s disponibles
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        """, height=130)
  
-    # ── Caso 2: Problema cargado pero timer NO iniciado → mostrar botón Iniciar
+    # ── Caso 2: problema cargado, timer no iniciado ───────────────────────────
     elif not st.session_state.timer_iniciado:
-        st.markdown(f"""
+        components.html(f"""
         <div style="background:#1a1d2e; border:2px solid #2a2d3e; border-radius:12px;
-                    padding:1.2rem; text-align:center;">
+                    padding:1.2rem; text-align:center; font-family:sans-serif;">
             <div style="font-size:2rem;">⏳</div>
             <div style="font-size:2.8rem; font-weight:800; font-family:monospace;
-                        color:#555; line-height:1.1;">
+                        color:#444; line-height:1.1;">
                 {duracion // 60}:{duracion % 60:02d}
             </div>
             <div style="font-size:0.75rem; color:#888; margin-top:4px;">
                 ⏱ {duracion}s disponibles
             </div>
         </div>
-        """, unsafe_allow_html=True)
+        """, height=130)
  
-        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
- 
+        st.markdown("<div style='height:6px'></div>", unsafe_allow_html=True)
         if st.button("▶️ Iniciar cronómetro", use_container_width=True, type="primary"):
             st.session_state.timer_iniciado = True
             st.session_state.timer_start    = time.time()
             st.rerun()
  
-    # ── Caso 3: Timer corriendo → widget JS con pausa
+    # ── Caso 3: timer corriendo ───────────────────────────────────────────────
     else:
         elapsed  = int(time.time() - st.session_state.timer_start)
         restante = max(0, duracion - elapsed)
  
-        st.markdown(f"""
-        <div style="background:#1a1d2e; border:2px solid #2a2d3e; border-radius:12px;
-                    padding:1.2rem; text-align:center;" id="timerBox">
-            <div style="font-size:2rem;" id="timerEmoji">⏳</div>
-            <div style="font-size:2.8rem; font-weight:800; font-family:monospace;
-                        line-height:1.1;" id="timerDigits">
-                {restante // 60}:{restante % 60:02d}
-            </div>
-            <div style="font-size:0.75rem; color:#888; margin-top:4px;">
-                ⏱ {duracion}s disponibles
-            </div>
+        # Construimos la URL de timeout para pasársela al JS
+        # (sin depender de window.location que puede fallar en iframes)
+        components.html(f"""
+        <!DOCTYPE html>
+        <html>
+        <head>
+        <style>
+            * {{ margin:0; padding:0; box-sizing:border-box; }}
+            body {{ background: transparent; font-family: sans-serif; }}
+            #timerBox {{
+                background:#1a1d2e; border:2px solid #2a2d3e; border-radius:12px;
+                padding:1.2rem; text-align:center;
+            }}
+            #timerDigits {{
+                font-size:2.8rem; font-weight:800; font-family:monospace;
+                line-height:1.1; color:#90CAF9;
+            }}
+            #timerLabel {{ font-size:0.75rem; color:#888; margin-top:4px; }}
+            #pauseBtn {{
+                margin-top:10px; width:100%; padding:9px 0; border-radius:8px;
+                border:1.5px solid #3a3d5e; background:#23263a; color:#90CAF9;
+                font-size:1rem; font-weight:700; cursor:pointer;
+            }}
+        </style>
+        </head>
+        <body>
+        <div id="timerBox">
+            <div id="timerEmoji" style="font-size:2rem;">⏳</div>
+            <div id="timerDigits">{restante // 60}:{restante % 60:02d}</div>
+            <div id="timerLabel">⏱ {duracion}s disponibles</div>
         </div>
- 
-        <button id="pauseBtn" onclick="togglePause()" style="
-            margin-top:10px; width:100%; padding:9px 0; border-radius:8px;
-            border:1.5px solid #3a3d5e; background:#23263a; color:#90CAF9;
-            font-size:1rem; font-weight:700; cursor:pointer; letter-spacing:0.5px;
-            transition: background 0.2s, color 0.2s;">
-            ⏸ Pausar
-        </button>
+        <button id="pauseBtn" onclick="togglePause()">⏸ Pausar</button>
  
         <script>
-        (function() {{
             var remaining = {restante};
+            var total     = {duracion};
             var paused    = false;
             var digits    = document.getElementById('timerDigits');
             var emoji     = document.getElementById('timerEmoji');
             var btn       = document.getElementById('pauseBtn');
  
-            // Color inicial
-            updateColor(remaining, {duracion});
+            function pad(n) {{ return n < 10 ? '0' + n : '' + n; }}
  
-            window.togglePause = function() {{
+            function setColor(r) {{
+                var pct = r / total;
+                if (pct > 0.4)      digits.style.color = '#90CAF9';
+                else if (pct > 0.2) digits.style.color = '#FFD54F';
+                else                digits.style.color = '#EF5350';
+            }}
+ 
+            function togglePause() {{
                 paused = !paused;
                 if (paused) {{
                     btn.innerText         = '▶️ Reanudar';
@@ -231,49 +261,34 @@ with col_t:
                     btn.style.borderColor = '#3a3d5e';
                     btn.style.background  = '#23263a';
                 }}
-            }};
- 
-            function updateColor(r, total) {{
-                var pct = r / total;
-                if (pct > 0.4)      digits.style.color = '#90CAF9';
-                else if (pct > 0.2) digits.style.color = '#FFD54F';
-                else                digits.style.color = '#EF5350';
             }}
  
-            var interval = setInterval(function() {{
-                if (paused) return;
+            setColor(remaining);
  
+            var iv = setInterval(function() {{
+                if (paused) return;
                 if (remaining <= 0) {{
-                    clearInterval(interval);
+                    clearInterval(iv);
                     digits.innerText   = '0:00';
                     digits.style.color = '#EF5350';
                     emoji.innerText    = '⌛';
                     btn.style.display  = 'none';
-                    var url = new URL(window.location.href);
-                    url.searchParams.set('timeout', '1');
-                    window.location.href = url.toString();
+                    // Notificar a Streamlit via URL del padre
+                    window.parent.location.href =
+                        window.parent.location.href.split('?')[0] + '?timeout=1';
                     return;
                 }}
- 
                 var m = Math.floor(remaining / 60);
                 var s = remaining % 60;
-                digits.innerText = m + ':' + (s < 10 ? '0' : '') + s;
+                digits.innerText = m + ':' + pad(s);
                 emoji.innerText  = (remaining % 2 === 0) ? '⏳' : '⌛';
-                updateColor(remaining, {duracion});
+                setColor(remaining);
                 remaining--;
- 
             }}, 1000);
-        }})();
         </script>
-        """, unsafe_allow_html=True)
- 
-# ── Detectar timeout por query param ──────────────────────────────────────────
-params = st.query_params
-if params.get("timeout") == "1" and not st.session_state.respondido:
-    st.session_state.tiempo_agotado = True
-    st.session_state.respondido     = True
-    st.query_params.clear()
-    st.rerun()
+        </body>
+        </html>
+        """, height=175)
  
 # ── Pregunta ───────────────────────────────────────────────────────────────────
 with col_q:
@@ -314,6 +329,13 @@ with col_q:
             if seleccion_idx is None:
                 st.warning("Selecciona una alternativa antes de confirmar.")
             else:
+                # Calcular tiempo de respuesta
+                if st.session_state.timer_start:
+                    elapsed_resp = int(time.time() - st.session_state.timer_start)
+                    st.session_state.tiempo_respuesta = min(elapsed_resp, duracion)
+                else:
+                    st.session_state.tiempo_respuesta = None
+ 
                 st.session_state.seleccion  = letras[seleccion_idx]
                 st.session_state.respondido = True
                 st.rerun()
@@ -323,18 +345,22 @@ with col_q:
  
     # ── Resultado ──────────────────────────────────────────────────────────────
     if st.session_state.respondido:
-        correcta = prob["respuesta_correcta"]
+        correcta  = prob["respuesta_correcta"]
+        t_resp    = st.session_state.tiempo_respuesta
+        t_str     = f"<br><span style='font-size:0.9rem; font-weight:400; opacity:0.85;'>⏱ Tiempo de respuesta: <strong>{t_resp}s</strong></span>" if t_resp is not None else ""
  
         if st.session_state.tiempo_agotado:
             st.markdown(f"""
             <div class="result-incorrect">
                 ⏰ ¡Tiempo agotado! La respuesta correcta era <strong>{correcta}</strong>.
+                {t_str}
             </div>
             """, unsafe_allow_html=True)
         elif st.session_state.seleccion == correcta:
             st.markdown(f"""
             <div class="result-correct">
                 ✅ ¡Correcto! La alternativa <strong>{correcta}</strong> es la respuesta correcta.
+                {t_str}
             </div>
             """, unsafe_allow_html=True)
         else:
@@ -342,6 +368,7 @@ with col_q:
             <div class="result-incorrect">
                 ❌ Incorrecto. Seleccionaste <strong>{st.session_state.seleccion}</strong>,
                 pero la respuesta correcta es <strong>{correcta}</strong>.
+                {t_str}
             </div>
             """, unsafe_allow_html=True)
  
@@ -352,10 +379,5 @@ with col_q:
         st.markdown("")
         if st.button("➡️ Otro problema aleatorio"):
             if pool:
-                st.session_state.problema_actual = random.choice(pool)
-                st.session_state.respondido      = False
-                st.session_state.seleccion       = None
-                st.session_state.timer_start     = None
-                st.session_state.tiempo_agotado  = False
-                st.session_state.timer_iniciado  = False
+                cargar_problema(random.choice(pool))
                 st.rerun()

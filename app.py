@@ -5,9 +5,12 @@ import time
 import random
 from pathlib import Path
 
+from PIL import Image
+logo_favicon = Image.open("LogoCM.png")
+
 st.set_page_config(
     page_title="Complemento Matemático - PAES",
-    page_icon="📐",
+    page_icon=logo_favicon,
     layout="wide",
     initial_sidebar_state="expanded"
 )

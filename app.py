@@ -4,7 +4,6 @@ import time
 import random
 from pathlib import Path
  
-# ─── Configuración de página ───────────────────────────────────────────────────
 st.set_page_config(
     page_title="PAES Repositorio",
     page_icon="📐",
@@ -12,11 +11,9 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
  
-# ─── CSS ──────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
     .stApp { background-color: #0f1117; }
- 
     .main-title {
         font-size: 2.2rem; font-weight: 800; color: #ffffff;
         text-align: center; padding: 1rem 0 0.2rem 0; letter-spacing: 1px;
@@ -32,35 +29,6 @@ st.markdown("""
     .badge-m2  { background: #1e3a2a; color: #A5D6A7; }
     .badge-fis { background: #3a1e2a; color: #F48FB1; }
     .badge-eje { background: #2a2a1e; color: #FFD54F; }
- 
-    .timer-box {
-        background: #1a1d2e; border: 2px solid #2a2d3e;
-        border-radius: 12px; padding: 1rem; text-align: center; margin-bottom: 0.5rem;
-    }
-    .timer-label { font-size: 0.75rem; color: #888; margin-top: 4px; }
- 
-    /* Botón pausa */
-    #pauseBtn {
-        margin-top: 10px;
-        width: 100%;
-        padding: 8px 0;
-        border-radius: 8px;
-        border: 1.5px solid #3a3d5e;
-        background: #23263a;
-        color: #90CAF9;
-        font-size: 1rem;
-        font-weight: 700;
-        cursor: pointer;
-        transition: background 0.2s, color 0.2s;
-        letter-spacing: 0.5px;
-    }
-    #pauseBtn:hover { background: #2e3250; color: #ffffff; }
-    #pauseBtn.paused {
-        background: #1e3a5f;
-        color: #FFD54F;
-        border-color: #FFD54F;
-    }
- 
     .result-correct {
         background: #1b3a2a; border: 1.5px solid #4CAF50; border-radius: 10px;
         padding: 0.9rem 1.2rem; color: #A5D6A7; font-size: 1.05rem;
@@ -96,6 +64,7 @@ def init_state():
         "timer_start": None,
         "timer_duracion": 90,
         "tiempo_agotado": False,
+        "timer_iniciado": False,   # ← NUEVO: el timer no corre hasta que el usuario lo inicie
     }
     for k, v in defaults.items():
         if k not in st.session_state:
@@ -144,8 +113,9 @@ if btn_aleatorio and pool:
     st.session_state.problema_actual = random.choice(pool)
     st.session_state.respondido      = False
     st.session_state.seleccion       = None
-    st.session_state.timer_start     = time.time()
+    st.session_state.timer_start     = None
     st.session_state.tiempo_agotado  = False
+    st.session_state.timer_iniciado  = False
  
 if btn_buscar and busqueda != "— Selecciona —":
     encontrado = next((p for p in problems if p["nombre"] == busqueda), None)
@@ -153,8 +123,9 @@ if btn_buscar and busqueda != "— Selecciona —":
         st.session_state.problema_actual = encontrado
         st.session_state.respondido      = False
         st.session_state.seleccion       = None
-        st.session_state.timer_start     = time.time()
+        st.session_state.timer_start     = None
         st.session_state.tiempo_agotado  = False
+        st.session_state.timer_iniciado  = False
  
 # ─── ÁREA PRINCIPAL ────────────────────────────────────────────────────────────
 st.markdown('<div class="main-title">📐 Repositorio PAES</div>', unsafe_allow_html=True)
@@ -168,61 +139,116 @@ if prob is None:
  
 col_q, col_t = st.columns([3, 1])
  
-# ── Timer con botón pausa (100% JavaScript) ────────────────────────────────────
+# ── TIMER ──────────────────────────────────────────────────────────────────────
 with col_t:
     duracion = st.session_state.timer_duracion
  
+    # ── Caso 1: Ya respondió → timer congelado en 0:00
     if st.session_state.respondido:
         st.markdown(f"""
-        <div class="timer-box">
+        <div style="background:#1a1d2e; border:2px solid #2a2d3e; border-radius:12px;
+                    padding:1.2rem; text-align:center;">
             <div style="font-size:2rem;">⌛</div>
-            <div style="font-size:2.8rem; font-weight:800; font-family:monospace; color:#EF5350;">0:00</div>
-            <div class="timer-label">⏱ {duracion}s disponibles</div>
+            <div style="font-size:2.8rem; font-weight:800; font-family:monospace;
+                        color:#EF5350; line-height:1.1;">0:00</div>
+            <div style="font-size:0.75rem; color:#888; margin-top:4px;">
+                ⏱ {duracion}s disponibles
+            </div>
         </div>
         """, unsafe_allow_html=True)
+ 
+    # ── Caso 2: Problema cargado pero timer NO iniciado → mostrar botón Iniciar
+    elif not st.session_state.timer_iniciado:
+        st.markdown(f"""
+        <div style="background:#1a1d2e; border:2px solid #2a2d3e; border-radius:12px;
+                    padding:1.2rem; text-align:center;">
+            <div style="font-size:2rem;">⏳</div>
+            <div style="font-size:2.8rem; font-weight:800; font-family:monospace;
+                        color:#555; line-height:1.1;">
+                {duracion // 60}:{duracion % 60:02d}
+            </div>
+            <div style="font-size:0.75rem; color:#888; margin-top:4px;">
+                ⏱ {duracion}s disponibles
+            </div>
+        </div>
+        """, unsafe_allow_html=True)
+ 
+        st.markdown("<div style='height:8px'></div>", unsafe_allow_html=True)
+ 
+        if st.button("▶️ Iniciar cronómetro", use_container_width=True, type="primary"):
+            st.session_state.timer_iniciado = True
+            st.session_state.timer_start    = time.time()
+            st.rerun()
+ 
+    # ── Caso 3: Timer corriendo → widget JS con pausa
     else:
-        elapsed  = int(time.time() - (st.session_state.timer_start or time.time()))
+        elapsed  = int(time.time() - st.session_state.timer_start)
         restante = max(0, duracion - elapsed)
  
         st.markdown(f"""
-        <div class="timer-box" id="timerBox">
+        <div style="background:#1a1d2e; border:2px solid #2a2d3e; border-radius:12px;
+                    padding:1.2rem; text-align:center;" id="timerBox">
             <div style="font-size:2rem;" id="timerEmoji">⏳</div>
-            <div style="font-size:2.8rem; font-weight:800; font-family:monospace; color:#90CAF9;"
-                 id="timerDigits">{restante // 60}:{restante % 60:02d}</div>
-            <div class="timer-label">⏱ {duracion}s disponibles</div>
+            <div style="font-size:2.8rem; font-weight:800; font-family:monospace;
+                        line-height:1.1;" id="timerDigits">
+                {restante // 60}:{restante % 60:02d}
+            </div>
+            <div style="font-size:0.75rem; color:#888; margin-top:4px;">
+                ⏱ {duracion}s disponibles
+            </div>
         </div>
-        <button id="pauseBtn" onclick="togglePause()">⏸ Pausar</button>
+ 
+        <button id="pauseBtn" onclick="togglePause()" style="
+            margin-top:10px; width:100%; padding:9px 0; border-radius:8px;
+            border:1.5px solid #3a3d5e; background:#23263a; color:#90CAF9;
+            font-size:1rem; font-weight:700; cursor:pointer; letter-spacing:0.5px;
+            transition: background 0.2s, color 0.2s;">
+            ⏸ Pausar
+        </button>
  
         <script>
         (function() {{
             var remaining = {restante};
             var paused    = false;
-            var interval  = null;
+            var digits    = document.getElementById('timerDigits');
+            var emoji     = document.getElementById('timerEmoji');
+            var btn       = document.getElementById('pauseBtn');
  
-            var digits = document.getElementById('timerDigits');
-            var emoji  = document.getElementById('timerEmoji');
-            var btn    = document.getElementById('pauseBtn');
+            // Color inicial
+            updateColor(remaining, {duracion});
  
             window.togglePause = function() {{
                 paused = !paused;
                 if (paused) {{
-                    btn.textContent = '▶️ Reanudar';
-                    btn.classList.add('paused');
-                    emoji.innerText = '⏸';
+                    btn.innerText         = '▶️ Reanudar';
+                    btn.style.color       = '#FFD54F';
+                    btn.style.borderColor = '#FFD54F';
+                    btn.style.background  = '#1e3a5f';
+                    emoji.innerText       = '⏸';
                 }} else {{
-                    btn.textContent = '⏸ Pausar';
-                    btn.classList.remove('paused');
+                    btn.innerText         = '⏸ Pausar';
+                    btn.style.color       = '#90CAF9';
+                    btn.style.borderColor = '#3a3d5e';
+                    btn.style.background  = '#23263a';
                 }}
             }};
  
-            function tick() {{
+            function updateColor(r, total) {{
+                var pct = r / total;
+                if (pct > 0.4)      digits.style.color = '#90CAF9';
+                else if (pct > 0.2) digits.style.color = '#FFD54F';
+                else                digits.style.color = '#EF5350';
+            }}
+ 
+            var interval = setInterval(function() {{
                 if (paused) return;
  
                 if (remaining <= 0) {{
-                    digits.innerText      = '0:00';
-                    digits.style.color    = '#EF5350';
-                    emoji.innerText       = '⌛';
-                    btn.style.display     = 'none';
+                    clearInterval(interval);
+                    digits.innerText   = '0:00';
+                    digits.style.color = '#EF5350';
+                    emoji.innerText    = '⌛';
+                    btn.style.display  = 'none';
                     var url = new URL(window.location.href);
                     url.searchParams.set('timeout', '1');
                     window.location.href = url.toString();
@@ -232,21 +258,11 @@ with col_t:
                 var m = Math.floor(remaining / 60);
                 var s = remaining % 60;
                 digits.innerText = m + ':' + (s < 10 ? '0' : '') + s;
- 
-                if (!paused) {{
-                    emoji.innerText = (remaining % 2 === 0) ? '⏳' : '⌛';
-                }}
- 
-                var pct = remaining / {duracion};
-                if (pct > 0.4)      digits.style.color = '#90CAF9';
-                else if (pct > 0.2) digits.style.color = '#FFD54F';
-                else                digits.style.color = '#EF5350';
- 
+                emoji.innerText  = (remaining % 2 === 0) ? '⏳' : '⌛';
+                updateColor(remaining, {duracion});
                 remaining--;
-            }}
  
-            // Usar setInterval en lugar de setTimeout para más precisión
-            interval = setInterval(tick, 1000);
+            }}, 1000);
         }})();
         </script>
         """, unsafe_allow_html=True)
@@ -331,11 +347,7 @@ with col_q:
  
         if prob.get("video_youtube"):
             st.markdown("---")
-            st.link_button(
-                "▶️ Ver explicación en YouTube",
-                prob["video_youtube"],
-                type="secondary"
-            )
+            st.link_button("▶️ Ver explicación en YouTube", prob["video_youtube"], type="secondary")
  
         st.markdown("")
         if st.button("➡️ Otro problema aleatorio"):
@@ -343,6 +355,7 @@ with col_q:
                 st.session_state.problema_actual = random.choice(pool)
                 st.session_state.respondido      = False
                 st.session_state.seleccion       = None
-                st.session_state.timer_start     = time.time()
+                st.session_state.timer_start     = None
                 st.session_state.tiempo_agotado  = False
+                st.session_state.timer_iniciado  = False
                 st.rerun()

@@ -1,0 +1,17 @@
+[
+  {
+    "id": "P27-PAES-M1-AD-2026-R",
+    "nombre": "P27-PAES-M1-AD-2026-R",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P27-PAES-M1-AD-2026-R.png",
+    "alternativas": {
+      "A": "(10x + 30) metros",
+      "B": "(10x + 10) metros",
+      "C": "(15x + 15) metros",
+      "D": "(15x + 25) metros"
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://www.youtube.com/shorts/-9DnFx0--7g"
+  }
+]

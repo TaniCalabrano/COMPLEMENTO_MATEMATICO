@@ -1,11 +1,11 @@
 import streamlit as st
+from PIL import Image
 import streamlit.components.v1 as components
 import json
 import time
 import random
 from pathlib import Path
 
-from PIL import Image
 logo_favicon = Image.open("LogoCM.png")
 
 st.set_page_config(

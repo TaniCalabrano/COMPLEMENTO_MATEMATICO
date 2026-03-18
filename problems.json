@@ -1,10 +1,10 @@
 [
   {
-    "id": "P27-PAES-M1-AD-2026-R-DEMRE",
-    "nombre": "P27-PAES-M1-AD-2026-R-DEMRE",
+    "id": "P27-PAES-M1-AD-2026-R",
+    "nombre": "P27-PAES-M1-AD-2026-R",
     "prueba": "M1",
     "eje": "Álgebra",
-    "imagen": "images/m1/P27-PAES-M1-AD-2026-R-DEMRE.png",
+    "imagen": "images/m1/P27-PAES-M1-AD-2026-R.png",
     "alternativas": {
       "A": "(10x + 30) metros",
       "B": "(10x + 10) metros",
@@ -15,11 +15,11 @@
     "video_youtube": "https://www.youtube.com/shorts/-9DnFx0--7g"
   },
   {
-    "id": "P08-PAES-M1-AD-2026-I-DEMRE",
-    "nombre": "P08-PAES-M1-AD-2026-I-DEMRE",
+    "id": "P08-PAES-M1-AD-2026-R",
+    "nombre": "P08-PAES-M1-AD-2026-R",
     "prueba": "M1",
     "eje": "Números",
-    "imagen": "images/m1/P08-PAES-M1-AD-2026-I-DEMRE.png",
+    "imagen": "images/m1/P08-PAES-M1-AD-2026-R.png",
     "alternativas": {
       "A": "300 mL",
       "B": "7500 mL",
@@ -36,10 +36,10 @@
     "eje": "Geometría",
     "imagen": "images/m1/P34-PAES-M1-AD-2023-R-DEMRE.png",
     "alternativas": {
-      "A": "\sqrt{2}",
-      "B": "2",
-      "C": "2\sqrt{2}",
-      "D": "4"
+      "A": "√2 cm",
+      "B": "2 cm",
+      "C": "2√2 cm",
+      "D": "4 cm"
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://www.youtube.com/watch?v=0B4UbBRw9AA&t=15s"

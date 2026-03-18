@@ -1,10 +1,10 @@
 [
   {
-    "id": "P27-PAES-M1-AD-2026-R",
-    "nombre": "P27-PAES-M1-AD-2026-R",
+    "id": "P27-PAES-M1-AD-2026-R-DEMRE",
+    "nombre": "P27-PAES-M1-AD-2026-R-DEMRE",
     "prueba": "M1",
     "eje": "Álgebra",
-    "imagen": "images/m1/P27-PAES-M1-AD-2026-R.png",
+    "imagen": "images/m1/P27-PAES-M1-AD-2026-R-DEMRE.png",
     "alternativas": {
       "A": "(10x + 30) metros",
       "B": "(10x + 10) metros",
@@ -15,11 +15,11 @@
     "video_youtube": "https://www.youtube.com/shorts/-9DnFx0--7g"
   },
   {
-    "id": "P08-PAES-M1-AD-2026-I",
-    "nombre": "P08-PAES-M1-AD-2026-I",
+    "id": "P08-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P08-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Números",
-    "imagen": "images/m1/P08-PAES-M1-AD-2026-I.png",
+    "imagen": "images/m1/P08-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
       "A": "300 mL",
       "B": "7500 mL",

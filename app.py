@@ -12,115 +12,47 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ─── CSS personalizado ─────────────────────────────────────────────────────────
+# ─── CSS ──────────────────────────────────────────────────────────────────────
 st.markdown("""
 <style>
-    /* Fondo general */
     .stApp { background-color: #0f1117; }
 
-    /* Título principal */
     .main-title {
-        font-size: 2.2rem;
-        font-weight: 800;
-        color: #ffffff;
-        text-align: center;
-        padding: 1rem 0 0.2rem 0;
-        letter-spacing: 1px;
+        font-size: 2.2rem; font-weight: 800; color: #ffffff;
+        text-align: center; padding: 1rem 0 0.2rem 0; letter-spacing: 1px;
     }
     .main-subtitle {
-        text-align: center;
-        color: #888;
-        font-size: 0.95rem;
-        margin-bottom: 1.5rem;
+        text-align: center; color: #888; font-size: 0.95rem; margin-bottom: 1.5rem;
     }
-
-    /* Tarjeta de pregunta */
-    .question-card {
-        background: #1a1d2e;
-        border-radius: 14px;
-        padding: 1.5rem;
-        border: 1px solid #2a2d3e;
-        margin-bottom: 1rem;
-    }
-
-    /* Badge prueba/eje */
     .badge {
-        display: inline-block;
-        padding: 3px 12px;
-        border-radius: 20px;
-        font-size: 0.78rem;
-        font-weight: 600;
-        margin-right: 6px;
-        margin-bottom: 10px;
+        display: inline-block; padding: 3px 12px; border-radius: 20px;
+        font-size: 0.78rem; font-weight: 600; margin-right: 6px; margin-bottom: 10px;
     }
     .badge-m1  { background: #1e3a5f; color: #90CAF9; }
     .badge-m2  { background: #1e3a2a; color: #A5D6A7; }
     .badge-fis { background: #3a1e2a; color: #F48FB1; }
     .badge-eje { background: #2a2a1e; color: #FFD54F; }
 
-    /* Timer */
     .timer-box {
-        background: #1a1d2e;
-        border: 2px solid #2a2d3e;
-        border-radius: 12px;
-        padding: 1rem;
-        text-align: center;
-        margin-bottom: 1rem;
+        background: #1a1d2e; border: 2px solid #2a2d3e;
+        border-radius: 12px; padding: 1rem; text-align: center; margin-bottom: 1rem;
     }
-    .timer-digits {
-        font-size: 2.8rem;
-        font-weight: 800;
-        font-family: monospace;
-        color: #90CAF9;
-        line-height: 1;
-    }
-    .timer-digits.warning { color: #FFD54F; }
-    .timer-digits.danger  { color: #EF5350; }
-    .timer-label {
-        font-size: 0.75rem;
-        color: #888;
-        margin-top: 4px;
-    }
+    .timer-label { font-size: 0.75rem; color: #888; margin-top: 4px; }
 
-    /* Botones alternativas */
-    div[data-testid="stRadio"] > label {
-        font-size: 1rem;
-        color: #ddd;
-    }
-
-    /* Resultado correcto/incorrecto */
     .result-correct {
-        background: #1b3a2a;
-        border: 1.5px solid #4CAF50;
-        border-radius: 10px;
-        padding: 0.9rem 1.2rem;
-        color: #A5D6A7;
-        font-size: 1.05rem;
-        font-weight: 600;
-        margin-top: 0.8rem;
+        background: #1b3a2a; border: 1.5px solid #4CAF50; border-radius: 10px;
+        padding: 0.9rem 1.2rem; color: #A5D6A7; font-size: 1.05rem;
+        font-weight: 600; margin-top: 0.8rem;
     }
     .result-incorrect {
-        background: #3a1a1a;
-        border: 1.5px solid #EF5350;
-        border-radius: 10px;
-        padding: 0.9rem 1.2rem;
-        color: #EF9A9A;
-        font-size: 1.05rem;
-        font-weight: 600;
-        margin-top: 0.8rem;
+        background: #3a1a1a; border: 1.5px solid #EF5350; border-radius: 10px;
+        padding: 0.9rem 1.2rem; color: #EF9A9A; font-size: 1.05rem;
+        font-weight: 600; margin-top: 0.8rem;
     }
-
-    /* Sidebar */
-    section[data-testid="stSidebar"] {
-        background: #13151f;
-    }
+    section[data-testid="stSidebar"] { background: #13151f; }
     .sidebar-section {
-        font-size: 0.8rem;
-        color: #888;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        margin: 1rem 0 0.4rem 0;
-        font-weight: 700;
+        font-size: 0.8rem; color: #888; text-transform: uppercase;
+        letter-spacing: 1px; margin: 1rem 0 0.4rem 0; font-weight: 700;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -156,26 +88,24 @@ with st.sidebar:
 
     st.markdown('<div class="sidebar-section">⏱ Tiempo por pregunta</div>', unsafe_allow_html=True)
     timer_choice = st.radio(
-        "Selecciona duración",
-        [90, 120],
+        "Duración", [90, 120],
         format_func=lambda x: f"{x} segundos",
-        index=0,
-        label_visibility="collapsed"
+        index=0, label_visibility="collapsed"
     )
     st.session_state.timer_duracion = timer_choice
 
     st.markdown("---")
     st.markdown('<div class="sidebar-section">🔍 Buscar por nombre</div>', unsafe_allow_html=True)
-    nombres = [p["nombre"] for p in problems]
-    busqueda = st.selectbox("Buscar problema", ["— Selecciona —"] + nombres, label_visibility="collapsed")
+    nombres  = [p["nombre"] for p in problems]
+    busqueda = st.selectbox("Buscar", ["— Selecciona —"] + nombres, label_visibility="collapsed")
 
     st.markdown("---")
     st.markdown('<div class="sidebar-section">🎯 Filtrar por prueba</div>', unsafe_allow_html=True)
-    pruebas_disp = sorted(set(p["prueba"] for p in problems))
+    pruebas_disp  = sorted(set(p["prueba"] for p in problems))
     filtro_prueba = st.multiselect("Prueba", pruebas_disp, default=pruebas_disp, label_visibility="collapsed")
 
     st.markdown('<div class="sidebar-section">📚 Filtrar por eje</div>', unsafe_allow_html=True)
-    ejes_disp = sorted(set(p["eje"] for p in problems))
+    ejes_disp  = sorted(set(p["eje"] for p in problems))
     filtro_eje = st.multiselect("Eje", ejes_disp, default=ejes_disp, label_visibility="collapsed")
 
     st.markdown("---")
@@ -185,24 +115,24 @@ with st.sidebar:
     with col_s2:
         btn_buscar = st.button("🔎 Buscar", use_container_width=True)
 
-# ─── Lógica de selección de problema ──────────────────────────────────────────
+# ─── Lógica de selección ───────────────────────────────────────────────────────
 pool = [p for p in problems if p["prueba"] in filtro_prueba and p["eje"] in filtro_eje]
 
 if btn_aleatorio and pool:
     st.session_state.problema_actual = random.choice(pool)
-    st.session_state.respondido     = False
-    st.session_state.seleccion      = None
-    st.session_state.timer_start    = time.time()
-    st.session_state.tiempo_agotado = False
+    st.session_state.respondido      = False
+    st.session_state.seleccion       = None
+    st.session_state.timer_start     = time.time()
+    st.session_state.tiempo_agotado  = False
 
 if btn_buscar and busqueda != "— Selecciona —":
     encontrado = next((p for p in problems if p["nombre"] == busqueda), None)
     if encontrado:
         st.session_state.problema_actual = encontrado
-        st.session_state.respondido     = False
-        st.session_state.seleccion      = None
-        st.session_state.timer_start    = time.time()
-        st.session_state.tiempo_agotado = False
+        st.session_state.respondido      = False
+        st.session_state.seleccion       = None
+        st.session_state.timer_start     = time.time()
+        st.session_state.tiempo_agotado  = False
 
 # ─── ÁREA PRINCIPAL ────────────────────────────────────────────────────────────
 st.markdown('<div class="main-title">📐 Repositorio PAES</div>', unsafe_allow_html=True)
@@ -214,49 +144,85 @@ if prob is None:
     st.info("👈 Usa el panel izquierdo para seleccionar un problema aleatorio o buscarlo por nombre.")
     st.stop()
 
-# ─── Layout: pregunta (izq) + timer (der) ─────────────────────────────────────
+# ─── Layout ────────────────────────────────────────────────────────────────────
 col_q, col_t = st.columns([3, 1])
 
-# ── Timer ──────────────────────────────────────────────────────────────────────
+# ── Timer 100% JavaScript (no bloquea el render de Python) ────────────────────
 with col_t:
     duracion = st.session_state.timer_duracion
-    elapsed  = time.time() - (st.session_state.timer_start or time.time())
-    restante = max(0, duracion - int(elapsed))
 
-    mins = restante // 60
-    segs = restante % 60
-
-    # Color según tiempo restante
-    pct = restante / duracion
-    if pct > 0.4:
-        cls = ""
-    elif pct > 0.2:
-        cls = "warning"
+    if st.session_state.respondido:
+        # Mostrar timer estático en 0 si ya respondió
+        st.markdown(f"""
+        <div class="timer-box">
+            <div style="font-size:2rem;">⌛</div>
+            <div style="font-size:2.8rem; font-weight:800; font-family:monospace; color:#EF5350;">0:00</div>
+            <div class="timer-label">⏱ {duracion}s disponibles</div>
+        </div>
+        """, unsafe_allow_html=True)
     else:
-        cls = "danger"
+        # Calcular segundos restantes al momento del render
+        elapsed  = int(time.time() - (st.session_state.timer_start or time.time()))
+        restante = max(0, duracion - elapsed)
 
-    # Emoji reloj de arena animado
-    hourglass = "⏳" if segs % 2 == 0 else "⌛"
+        # El timer corre en JS puro: cuenta hacia atrás desde `restante`
+        # Cuando llega a 0 hace submit automático del formulario via URL param
+        st.markdown(f"""
+        <div class="timer-box" id="timerBox">
+            <div style="font-size:2rem;" id="timerEmoji">⏳</div>
+            <div style="font-size:2.8rem; font-weight:800; font-family:monospace;"
+                 id="timerDigits">{restante // 60}:{restante % 60:02d}</div>
+            <div class="timer-label">⏱ {duracion}s disponibles</div>
+        </div>
 
-    st.markdown(f"""
-    <div class="timer-box">
-        <div style="font-size:2rem;">{hourglass}</div>
-        <div class="timer-digits {cls}">{mins:01d}:{segs:02d}</div>
-        <div class="timer-label">{'⏱ '+str(duracion)+'s disponibles'}</div>
-    </div>
-    """, unsafe_allow_html=True)
+        <script>
+        (function() {{
+            var remaining = {restante};
+            var digits    = document.getElementById('timerDigits');
+            var emoji     = document.getElementById('timerEmoji');
+            var box       = document.getElementById('timerBox');
 
-    if restante == 0 and not st.session_state.respondido:
-        st.session_state.tiempo_agotado = True
-        st.session_state.respondido     = True
+            function tick() {{
+                if (remaining <= 0) {{
+                    digits.innerText = '0:00';
+                    digits.style.color = '#EF5350';
+                    emoji.innerText = '⌛';
+                    // Recarga la página con parámetro ?timeout=1 para avisar a Python
+                    var url = new URL(window.location.href);
+                    url.searchParams.set('timeout', '1');
+                    window.location.href = url.toString();
+                    return;
+                }}
 
-    if not st.session_state.respondido:
-        time.sleep(1)
-        st.rerun()
+                var m = Math.floor(remaining / 60);
+                var s = remaining % 60;
+                digits.innerText = m + ':' + (s < 10 ? '0' : '') + s;
+                emoji.innerText  = (remaining % 2 === 0) ? '⏳' : '⌛';
+
+                var pct = remaining / {duracion};
+                if (pct > 0.4)      digits.style.color = '#90CAF9';
+                else if (pct > 0.2) digits.style.color = '#FFD54F';
+                else                digits.style.color = '#EF5350';
+
+                remaining--;
+                setTimeout(tick, 1000);
+            }}
+
+            tick();
+        }})();
+        </script>
+        """, unsafe_allow_html=True)
+
+# ── Detectar timeout por query param ──────────────────────────────────────────
+params = st.query_params
+if params.get("timeout") == "1" and not st.session_state.respondido:
+    st.session_state.tiempo_agotado = True
+    st.session_state.respondido     = True
+    st.query_params.clear()
+    st.rerun()
 
 # ── Pregunta ───────────────────────────────────────────────────────────────────
 with col_q:
-    # Badges
     badge_cls = {"M1": "badge-m1", "M2": "badge-m2", "Física": "badge-fis"}.get(prob["prueba"], "badge-m1")
     st.markdown(f"""
     <span class="badge {badge_cls}">{prob['prueba']}</span>
@@ -264,17 +230,20 @@ with col_q:
     <span style="color:#666; font-size:0.8rem;">{prob['nombre']}</span>
     """, unsafe_allow_html=True)
 
-    # Imagen del problema
-    img_path = Path(prob["imagen"])
-    if img_path.exists():
-        st.image(str(img_path), use_container_width=True)
+    # Imagen (URL o ruta local)
+    img_src = prob["imagen"]
+    if img_src.startswith("http://") or img_src.startswith("https://"):
+        st.image(img_src, use_container_width=True)
     else:
-        st.warning(f"⚠️ Imagen no encontrada: `{prob['imagen']}`")
+        img_path = Path(img_src)
+        if img_path.exists():
+            st.image(str(img_path), use_container_width=True)
+        else:
+            st.warning(f"⚠️ Imagen no encontrada: `{img_src}`")
 
     st.markdown("---")
 
-    # Alternativas
-    alt = prob["alternativas"]
+    alt     = prob["alternativas"]
     opciones = [f"**{k})** {v}" for k, v in alt.items()]
     letras   = list(alt.keys())
 
@@ -286,10 +255,7 @@ with col_q:
             index=None,
             key="radio_resp"
         )
-
-        col_b1, col_b2 = st.columns([1, 3])
-        with col_b1:
-            confirmar = st.button("✅ Confirmar", use_container_width=True, type="primary")
+        confirmar = st.button("✅ Confirmar respuesta", type="primary")
 
         if confirmar:
             if seleccion_idx is None:
@@ -299,7 +265,7 @@ with col_q:
                 st.session_state.respondido = True
                 st.rerun()
     else:
-        # Mostrar alternativas sin interacción
+        # Solo mostrar las alternativas como texto (sin radio)
         for k, v in alt.items():
             st.markdown(f"**{k})** {v}")
 
@@ -313,7 +279,6 @@ with col_q:
                 ⏰ ¡Tiempo agotado! La respuesta correcta era <strong>{correcta}</strong>.
             </div>
             """, unsafe_allow_html=True)
-
         elif st.session_state.seleccion == correcta:
             st.markdown(f"""
             <div class="result-correct">
@@ -328,23 +293,20 @@ with col_q:
             </div>
             """, unsafe_allow_html=True)
 
-        # Botón YouTube
         if prob.get("video_youtube"):
             st.markdown("---")
             st.link_button(
                 "▶️ Ver explicación en YouTube",
                 prob["video_youtube"],
-                use_container_width=False,
                 type="secondary"
             )
 
-        # Botón siguiente problema
         st.markdown("")
-        if st.button("➡️ Otro problema aleatorio", use_container_width=False):
+        if st.button("➡️ Otro problema aleatorio"):
             if pool:
                 st.session_state.problema_actual = random.choice(pool)
-                st.session_state.respondido     = False
-                st.session_state.seleccion      = None
-                st.session_state.timer_start    = time.time()
-                st.session_state.tiempo_agotado = False
+                st.session_state.respondido      = False
+                st.session_state.seleccion       = None
+                st.session_state.timer_start     = time.time()
+                st.session_state.tiempo_agotado  = False
                 st.rerun()

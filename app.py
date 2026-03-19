@@ -68,7 +68,7 @@ st.markdown("""
     .sidebar-brand {
         display: flex; flex-direction: column; align-items: center;
         padding: 1.2rem 0.5rem 0.8rem 0.5rem; text-align: center;
-        border-bottom: 1px solid #2d3748; margin-bottom: 0.5rem;
+        border-bottom: 1px solid #7a5a1a; margin-bottom: 0.5rem;
     }
     .sidebar-brand img {
         height: 90px; width: 90px;
@@ -77,38 +77,44 @@ st.markdown("""
         object-position: center;
         clip-path: circle(47% at 50% 50%);
         margin-bottom: 0.6rem;
+        box-shadow: 0 0 14px rgba(245,166,35,0.4);
     }
     .sidebar-brand-title {
-        font-size: 0.95rem; font-weight: 900; color: #ffffff;
-        letter-spacing: 1px; line-height: 1.2;
+        font-size: 0.95rem; font-weight: 900; letter-spacing: 1.5px; line-height: 1.2;
+        background: linear-gradient(135deg, #f5a623, #f0c040);
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        background-clip: text;
     }
     .sidebar-brand-prof {
-        font-size: 0.72rem; color: #7ecfff; font-weight: 600;
+        font-size: 0.72rem; color: #c8a96e; font-weight: 600;
         margin-top: 4px; letter-spacing: 0.3px;
     }
-    [data-testid="stSidebar"] { background-color: #161b27 !important; }
+    [data-testid="stSidebar"] {
+        background: linear-gradient(180deg, #1a1200 0%, #2a1f00 60%, #1a1200 100%) !important;
+    }
     div[data-testid="stSidebarContent"] { padding: 1.5rem 1rem; }
     .sidebar-section {
-        color: #7ecfff; font-size: 0.75rem; font-weight: 700;
+        color: #f5a623; font-size: 0.75rem; font-weight: 700;
         letter-spacing: 2px; text-transform: uppercase; margin: 1.2rem 0 0.4rem;
+        border-left: 3px solid #f5a623; padding-left: 8px;
     }
-    .stRadio label { color: #c8d0e0 !important; font-size: 0.9rem; }
-    .stSelectbox label { color: #7ecfff !important; font-weight: 700;
+    .stRadio label { color: #e8d5a0 !important; font-size: 0.9rem; }
+    .stSelectbox label { color: #f5a623 !important; font-weight: 700;
         font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; }
     .stButton > button {
         width: 100%; border-radius: 8px; font-weight: 700;
         transition: all 0.2s; border: none; cursor: pointer;
     }
     .btn-aleatorio > button {
-        background: linear-gradient(135deg, #1e3a5f, #2d5986);
-        color: #7ecfff; border: 1px solid #2d5986;
+        background: linear-gradient(135deg, #7a4a00, #c07a00);
+        color: #fff8e0; border: 1px solid #f5a623;
     }
-    .btn-aleatorio > button:hover { background: linear-gradient(135deg, #2d5986, #3d78c4); }
+    .btn-aleatorio > button:hover { background: linear-gradient(135deg, #c07a00, #f5a623); color: #1a1200; }
     .btn-buscar > button {
-        background: linear-gradient(135deg, #1a4a2e, #2d7a4f);
-        color: #5debb0; border: 1px solid #2d7a4f;
+        background: linear-gradient(135deg, #5a3a00, #8a5a00);
+        color: #fde68a; border: 1px solid #c07a00;
     }
-    .btn-buscar > button:hover { background: linear-gradient(135deg, #2d7a4f, #3daa6f); }
+    .btn-buscar > button:hover { background: linear-gradient(135deg, #8a5a00, #c07a00); }
     .question-card {
         background: #ffffff; border-radius: 16px; padding: 2rem 2.5rem;
         box-shadow: 0 4px 32px rgba(0,0,0,0.4); color: #1a1a2e;
@@ -171,9 +177,9 @@ st.markdown("""
     }
     .youtube-btn a:hover { background: linear-gradient(135deg, #e74c3c, #ff6b6b); }
     .stSelectbox > div > div {
-        background-color: #1e2535 !important;
-        color: #c8d0e0 !important;
-        border-color: #2d3748 !important;
+        background-color: #2a1f00 !important;
+        color: #e8d5a0 !important;
+        border-color: #7a5a1a !important;
     }
     /* Eliminar el padding/margin que crea el bloque blanco vacío arriba del card */
     .block-container { padding-top: 1.5rem !important; }

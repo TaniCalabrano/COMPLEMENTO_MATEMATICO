@@ -40,7 +40,35 @@ st.markdown("""
     .header-subtitle3 {
         font-size: 0.72rem; color: #6b7280; font-weight: 400; margin-top: 1px; font-style: italic;
     }
-    .header-logo img { height: 80px; }
+    .header-logo img {
+        height: 120px; width: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        /* recorta el fondo negro mostrando solo el círculo dorado */
+        clip-path: circle(47% at 50% 50%);
+    }
+    .sidebar-brand {
+        display: flex; flex-direction: column; align-items: center;
+        padding: 1.2rem 0.5rem 0.8rem 0.5rem; text-align: center;
+        border-bottom: 1px solid #2d3748; margin-bottom: 0.5rem;
+    }
+    .sidebar-brand img {
+        height: 90px; width: 90px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center;
+        clip-path: circle(47% at 50% 50%);
+        margin-bottom: 0.6rem;
+    }
+    .sidebar-brand-title {
+        font-size: 0.95rem; font-weight: 900; color: #ffffff;
+        letter-spacing: 1px; line-height: 1.2;
+    }
+    .sidebar-brand-prof {
+        font-size: 0.72rem; color: #7ecfff; font-weight: 600;
+        margin-top: 4px; letter-spacing: 0.3px;
+    }
     [data-testid="stSidebar"] { background-color: #161b27 !important; }
     div[data-testid="stSidebarContent"] { padding: 1.5rem 1rem; }
     .sidebar-section {
@@ -153,7 +181,7 @@ def mostrar_header():
             <div class="header-subtitle3">(Los problemas son de autoría del DEMRE)</div>
         </div>
         <div class="header-logo">
-            <img src="data:image/jpeg;base64,{LOGO_B64}" alt="Logo">
+            <img src="data:image/png;base64,{LOGO_B64}" alt="Logo">
         </div>
     </div>
     """, unsafe_allow_html=True)
@@ -232,6 +260,15 @@ def mostrar_pregunta_card(pregunta, preguntas):
 
 
 def sidebar_timer():
+    # ── Logo + marca en el sidebar ──────────────────────────────────────────
+    st.sidebar.markdown(f"""
+    <div class="sidebar-brand">
+        <img src="data:image/png;base64,{LOGO_B64}" alt="Logo CM">
+        <div class="sidebar-brand-title">COMPLEMENTO<br>MATEMÁTICO</div>
+        <div class="sidebar-brand-prof">Prof. Bastiani Calabrano Inostroza</div>
+    </div>
+    """, unsafe_allow_html=True)
+
     st.sidebar.markdown('<div class="sidebar-section">⏱ TIEMPO POR PREGUNTA</div>', unsafe_allow_html=True)
     tiempo_seg = st.sidebar.radio(
         "",

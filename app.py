@@ -21,32 +21,38 @@ st.markdown("""
 <style>
     .stApp { background-color: #0f1117; }
     .header-bar {
-        display: flex; align-items: center; justify-content: space-between;
-        padding: 1.5rem 2rem 0.8rem 2rem;
+        display: flex; flex-direction: column;
+        align-items: center; justify-content: center;
+        padding: 1.8rem 2rem 1rem 2rem;
+        text-align: center;
+        border-bottom: 1px solid #2d3748;
+        margin-bottom: 0.8rem;
     }
-    .header-left {
-        display: flex; flex-direction: column; justify-content: center;
-    }
-    .header-title {
-        font-size: 2rem; font-weight: 900; color: #ffffff;
-        letter-spacing: 1px; line-height: 1.1;
-    }
-    .header-subtitle {
-        font-size: 0.88rem; color: #7ecfff; font-weight: 600; margin-top: 4px; letter-spacing: 0.5px;
-    }
-    .header-subtitle2 {
-        font-size: 0.78rem; color: #a0a0b0; font-weight: 400; margin-top: 2px;
-    }
-    .header-subtitle3 {
-        font-size: 0.72rem; color: #6b7280; font-weight: 400; margin-top: 1px; font-style: italic;
+    .header-top {
+        display: flex; align-items: center; justify-content: center; gap: 1rem;
+        margin-bottom: 0.5rem;
     }
     .header-logo img {
-        height: 120px; width: 120px;
+        height: 80px; width: 80px;
         border-radius: 50%;
-        object-fit: cover;
-        object-position: center;
-        /* recorta el fondo negro mostrando solo el círculo dorado */
+        object-fit: cover; object-position: center;
         clip-path: circle(47% at 50% 50%);
+        flex-shrink: 0;
+    }
+    .header-title {
+        font-size: 2.2rem; font-weight: 900; color: #ffffff;
+        letter-spacing: 2px; line-height: 1; white-space: nowrap;
+    }
+    .header-title span { color: #7ecfff; }
+    .header-subtitle {
+        font-size: 0.88rem; color: #7ecfff; font-weight: 600;
+        margin-top: 2px; letter-spacing: 0.5px;
+    }
+    .header-subtitle2 {
+        font-size: 0.78rem; color: #a0a0b0; font-weight: 400; margin-top: 3px;
+    }
+    .header-subtitle3 {
+        font-size: 0.72rem; color: #6b7280; font-weight: 400; margin-top: 2px; font-style: italic;
     }
     .sidebar-brand {
         display: flex; flex-direction: column; align-items: center;
@@ -179,15 +185,15 @@ def cargar_preguntas():
 def mostrar_header():
     st.markdown(f"""
     <div class="header-bar">
-        <div class="header-left">
-            <div class="header-title">COMPLEMENTO<br>MATEMÁTICO</div>
-            <div class="header-subtitle">Prof. Bastiani Calabrano Inostroza</div>
-            <div class="header-subtitle2">Entrenamiento PAES · M1 · M2 · Física</div>
-            <div class="header-subtitle3">(Los problemas son de autoría del DEMRE)</div>
+        <div class="header-top">
+            <div class="header-logo">
+                <img src="data:image/png;base64,{LOGO_B64}" alt="Logo">
+            </div>
+            <div class="header-title">COMPLEMENTO <span>MATEMÁTICO</span></div>
         </div>
-        <div class="header-logo">
-            <img src="data:image/png;base64,{LOGO_B64}" alt="Logo">
-        </div>
+        <div class="header-subtitle">Prof. Bastiani Calabrano Inostroza</div>
+        <div class="header-subtitle2">Entrenamiento PAES · M1 · M2 · Física</div>
+        <div class="header-subtitle3">(Los problemas son de autoría del DEMRE)</div>
     </div>
     """, unsafe_allow_html=True)
 

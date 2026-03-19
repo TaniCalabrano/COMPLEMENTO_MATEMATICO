@@ -130,7 +130,7 @@ st.markdown("""
 
 @st.cache_data
 def cargar_preguntas():
-    ruta = Path("preguntas.json")
+    ruta = Path("problems.json")
     if ruta.exists():
         with open(ruta, "r", encoding="utf-8") as f:
             return json.load(f)

@@ -233,17 +233,34 @@ def mostrar_pregunta_card(pregunta, preguntas):
             if st.button(
                 f"{letra})  {texto}",
                 key=f"alt_{nombre}_{letra}",
-                use_container_width=True
+                use_container_width=True,
+                disabled=(st.session_state[sel_key] is not None)
             ):
                 st.session_state[sel_key] = letra
+                # Snapshot del tiempo al responder (timer_start_ts guardado al iniciar)
                 st.rerun()
 
         if st.session_state[sel_key] is not None:
+            # Calcular tiempo transcurrido
+            tiempo_str = ""
+            t_start_key = "timer_start_ts"
+            t_dur_key   = "timer_duracion_ts"
+            if st.session_state.get(t_start_key) is not None:
+                import time as _time
+                elapsed  = int(_time.time() - st.session_state[t_start_key])
+                duracion = st.session_state.get(t_dur_key, 90)
+                usados   = min(elapsed, duracion)
+                m_u = usados // 60
+                s_u = usados % 60
+                if m_u > 0:
+                    tiempo_str = f" · ⏱ {m_u}m {s_u}s"
+                else:
+                    tiempo_str = f" · ⏱ {s_u} segundos"
             if st.session_state[sel_key] == resp:
-                st.markdown('<div class="result-msg-correct">✅ ¡Correcto! Muy bien.</div>', unsafe_allow_html=True)
+                st.markdown(f'<div class="result-msg-correct">✅ ¡Correcto! Muy bien.{tiempo_str}</div>', unsafe_allow_html=True)
             else:
                 st.markdown(
-                    f'<div class="result-msg-incorrect">❌ Incorrecto. La respuesta correcta es <strong>{resp}</strong>.</div>',
+                    f'<div class="result-msg-incorrect">❌ Incorrecto. La respuesta correcta es <strong>{resp}</strong>.{tiempo_str}</div>',
                     unsafe_allow_html=True
                 )
 
@@ -304,7 +321,10 @@ def main():
     def on_select_change():
         nombre_sel = st.session_state["buscar_select"]
         if nombre_sel in nombres:
-            st.session_state.pregunta_idx = nombres.index(nombre_sel)
+            st.session_state.pregunta_idx     = nombres.index(nombre_sel)
+            # Resetear timer al cambiar pregunta
+            st.session_state.timer_start_ts   = None
+            st.session_state.timer_stopped    = False
 
     st.sidebar.selectbox(
         "",
@@ -321,8 +341,11 @@ def main():
     with col1:
         st.markdown('<div class="btn-aleatorio">', unsafe_allow_html=True)
         if st.button("🎲 Aleatorio", key="btn_aleatorio"):
-            st.session_state.pregunta_idx = random.randint(0, len(preguntas) - 1)
-            st.session_state.selectbox_nombre = nombres[st.session_state.pregunta_idx]
+            st.session_state.pregunta_idx          = random.randint(0, len(preguntas) - 1)
+            st.session_state.selectbox_nombre      = nombres[st.session_state.pregunta_idx]
+            # Resetear timer al cambiar pregunta
+            st.session_state.timer_start_ts        = None
+            st.session_state.timer_stopped         = False
             st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 
@@ -334,74 +357,91 @@ def main():
     with col_pregunta:
         mostrar_pregunta_card(pregunta, preguntas)
     with col_timer:
+        import time as _time
         mins_init = tiempo_seg // 60
         secs_init = tiempo_seg % 60
+
+        # Iniciar timer desde Python cuando se presiona el botón Streamlit
+        if "timer_start_ts" not in st.session_state:
+            st.session_state.timer_start_ts   = None
+            st.session_state.timer_duracion_ts = tiempo_seg
+            st.session_state.timer_stopped    = False
+
+        # Detectar si la pregunta ya fue respondida → detener timer
+        nombre_actual = preguntas[st.session_state.pregunta_idx].get("nombre",
+                        preguntas[st.session_state.pregunta_idx].get("id",""))
+        sel_key_actual = f"sel_{nombre_actual}"
+        ya_respondio   = st.session_state.get(sel_key_actual) is not None
+
+        if ya_respondio and not st.session_state.timer_stopped and st.session_state.timer_start_ts:
+            st.session_state.timer_stopped = True  # congela el tiempo mostrado
+
+        # Calcular tiempo restante para mostrar en el iframe
+        if st.session_state.timer_start_ts and not st.session_state.timer_stopped:
+            elapsed_now  = int(_time.time() - st.session_state.timer_start_ts)
+            restante_now = max(0, st.session_state.timer_duracion_ts - elapsed_now)
+        elif st.session_state.timer_start_ts and st.session_state.timer_stopped:
+            elapsed_stop = int(_time.time() - st.session_state.timer_start_ts)
+            restante_now = max(0, st.session_state.timer_duracion_ts - elapsed_stop)
+        else:
+            restante_now = tiempo_seg
+
+        m_show = restante_now // 60
+        s_show = restante_now % 60
+        color_show = "#e74c3c" if restante_now <= 10 else "#7ecfff"
+        agotado    = restante_now <= 0
+        detenido   = st.session_state.timer_stopped
+
+        status_msg = ""
+        if agotado:
+            status_msg = "⏰ ¡Tiempo agotado!"
+        elif detenido:
+            elapsed_used = st.session_state.timer_duracion_ts - restante_now
+            m_u = elapsed_used // 60
+            s_u = elapsed_used % 60
+            if m_u > 0:
+                status_msg = f"✅ Detenido: {m_u}m {s_u}s"
+            else:
+                status_msg = f"✅ Detenido: {s_u}s"
+
         timer_html = f"""
         <style>
-            body {{ margin:0; background:transparent; }}
+            body {{ margin:0; background:transparent; font-family:sans-serif; }}
             .cm-timer-wrap {{
                 background:#161b27; border-radius:16px; padding:1rem 0.8rem;
-                text-align:center; border:1px solid #2d3748; font-family:sans-serif;
+                text-align:center; border:1px solid #2d3748;
             }}
             .cm-timer-icon {{ font-size:1.5rem; margin-bottom:2px; }}
-            #cm-timer-display {{
-                font-size:2.6rem; font-weight:900; color:#7ecfff;
+            .cm-timer-display {{
+                font-size:2.6rem; font-weight:900; color:{color_show};
                 font-family:'Courier New',monospace; letter-spacing:4px; display:block;
             }}
-            #cm-timer-msg {{
-                font-size:0.82rem; font-weight:700; color:#e74c3c;
-                margin-top:6px; display:none;
+            .cm-timer-msg {{
+                font-size:0.82rem; font-weight:700; margin-top:6px;
+                color:{"#059669" if detenido and not agotado else "#e74c3c"};
+                {"" if (agotado or detenido) else "display:none;"}
             }}
-            #cm-btn {{
-                width:100%; padding:0.6rem 0.5rem; border-radius:10px; border:none;
-                background:linear-gradient(135deg,#c0392b,#e74c3c);
-                color:white; font-size:0.95rem; font-weight:700;
-                cursor:pointer; margin-top:0.5rem;
-            }}
-            #cm-btn:hover {{ background:linear-gradient(135deg,#e74c3c,#ff6b6b); }}
         </style>
         <div class="cm-timer-wrap">
-            <div class="cm-timer-icon">⏳</div>
-            <span id="cm-timer-display">{mins_init}:{secs_init:02d}</span>
-            <div id="cm-timer-msg">⏰ ¡Tiempo agotado!</div>
+            <div class="cm-timer-icon">{"🛑" if detenido else "⏳"}</div>
+            <span class="cm-timer-display">{m_show}:{s_show:02d}</span>
+            <div class="cm-timer-msg">{status_msg}</div>
         </div>
-        <button id="cm-btn" onclick="cmStart()">▶ Iniciar cronómetro</button>
-        <script>
-            var _iv = null;
-            function cmStart() {{
-                if (_iv) {{ clearInterval(_iv); _iv = null; }}
-                var total    = {tiempo_seg};
-                var restante = total;
-                var disp = document.getElementById('cm-timer-display');
-                var msg  = document.getElementById('cm-timer-msg');
-                var btn  = document.getElementById('cm-btn');
-                msg.style.display = 'none';
-                disp.style.visibility = 'visible';
-                btn.textContent = '⏹ Reiniciar';
-                function upd() {{
-                    var m = Math.floor(restante/60);
-                    var s = restante % 60;
-                    disp.textContent = m + ':' + (s<10?'0':'') + s;
-                    disp.style.color = restante <= 10 ? '#e74c3c' : '#7ecfff';
-                }}
-                upd();
-                _iv = setInterval(function() {{
-                    restante--;
-                    upd();
-                    if (restante <= 0) {{
-                        clearInterval(_iv); _iv = null;
-                        msg.style.display = 'block';
-                        btn.textContent = '▶ Iniciar cronómetro';
-                        var n=0, blink=setInterval(function() {{
-                            disp.style.visibility = disp.style.visibility==='hidden'?'visible':'hidden';
-                            if(++n>=6){{ clearInterval(blink); disp.style.visibility='visible'; }}
-                        }},400);
-                    }}
-                }}, 1000);
-            }}
-        </script>
         """
-        components.html(timer_html, height=200)
+        components.html(timer_html, height=150)
+
+        st.markdown("")
+        if not detenido:
+            if st.button("▶ Iniciar cronómetro", key="btn_timer_main", use_container_width=True):
+                st.session_state.timer_start_ts    = _time.time()
+                st.session_state.timer_duracion_ts = tiempo_seg
+                st.session_state.timer_stopped     = False
+                st.rerun()
+        else:
+            if st.button("🔄 Nuevo cronómetro", key="btn_timer_reset", use_container_width=True):
+                st.session_state.timer_start_ts  = None
+                st.session_state.timer_stopped   = False
+                st.rerun()
 
 
 if __name__ == "__main__":

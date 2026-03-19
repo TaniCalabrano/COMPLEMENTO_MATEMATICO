@@ -89,8 +89,12 @@ st.markdown("""
         font-size: 0.72rem; color: #c8a96e; font-weight: 600;
         margin-top: 4px; letter-spacing: 0.3px;
     }
-    [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1a1200 0%, #2a1f00 60%, #1a1200 100%) !important;
+    [data-testid="stSidebar"],
+    [data-testid="stSidebar"] > div,
+    [data-testid="stSidebar"] > div:first-child,
+    section[data-testid="stSidebar"] {
+        background-color: #1a1200 !important;
+        background: #1a1200 !important;
     }
     div[data-testid="stSidebarContent"] { padding: 1.5rem 1rem; }
     .sidebar-section {

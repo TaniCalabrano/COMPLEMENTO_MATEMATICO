@@ -114,6 +114,18 @@ st.markdown("""
         color: #fff8e0; border: 1px solid #f5a623;
     }
     .btn-aleatorio > button:hover { background: linear-gradient(135deg, #c07a00, #f5a623); color: #1a1200; }
+    /* Botón aleatorio en col_timer */
+    [data-testid="column"] .stButton button[kind="secondary"]:has(+ *),
+    div[data-testid="stVerticalBlock"] .stButton > button {
+        transition: all 0.2s;
+    }
+    /* Estilo específico btn_random_timer */
+    .btn-random-timer > button {
+        background: linear-gradient(135deg, #7a4a00, #c07a00) !important;
+        color: #fff8e0 !important; border: 1px solid #f5a623 !important;
+        margin-top: 0.3rem;
+    }
+    .btn-random-timer > button:hover { background: linear-gradient(135deg, #c07a00, #f5a623) !important; color: #1a1200 !important; }
     .btn-buscar > button {
         background: linear-gradient(135deg, #5a3a00, #8a5a00);
         color: #fde68a; border: 1px solid #c07a00;
@@ -293,17 +305,15 @@ def mostrar_pregunta_card(pregunta, preguntas):
                 f'<div class="result-msg-incorrect">❌ Incorrecto. La respuesta correcta es <strong>{resp}</strong>.{tiempo_str}</div>',
                 unsafe_allow_html=True
             )
-
-    st.markdown('</div>', unsafe_allow_html=True)
-
-    col_yt, _ = st.columns([1, 2])
-    with col_yt:
+        # Botón YouTube justo debajo del resultado
         if video:
-            st.markdown(f"""
-            <div class="youtube-btn">
+            st.markdown(f'''
+            <div class="youtube-btn" style="margin-top:0.6rem;">
                 <a href="{video}" target="_blank">▶ Ver solución en YouTube</a>
             </div>
-            """, unsafe_allow_html=True)
+            ''', unsafe_allow_html=True)
+
+    st.markdown('</div>', unsafe_allow_html=True)
 
 
 def sidebar_timer():
@@ -527,6 +537,16 @@ def main():
                 st.session_state.timer_start_ts  = None
                 st.session_state.timer_stopped   = False
                 st.rerun()
+
+        st.markdown("")
+        if st.button("🎲 Pregunta aleatoria", key="btn_random_timer", use_container_width=True):
+            p_random = random.choice(preguntas_filtradas)
+            nombre_random = p_random.get("nombre", p_random.get("id", ""))
+            st.session_state.pregunta_idx     = nombres.index(nombre_random)
+            st.session_state.selectbox_nombre = nombre_random
+            st.session_state.timer_start_ts   = None
+            st.session_state.timer_stopped    = False
+            st.rerun()
 
 if __name__ == "__main__":
     main()

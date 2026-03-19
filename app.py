@@ -158,6 +158,11 @@ st.markdown("""
         color: #c8d0e0 !important;
         border-color: #2d3748 !important;
     }
+    /* Eliminar el padding/margin que crea el bloque blanco vacío arriba del card */
+    .block-container { padding-top: 0 !important; }
+    div[data-testid="stMarkdownContainer"]:has(> div.question-card) {
+        padding: 0 !important; margin: 0 !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -222,8 +227,8 @@ def mostrar_pregunta_card(pregunta, preguntas):
     else:
         img_html = f'<div style="color:#e74c3c;padding:1rem;">⚠ Imagen no encontrada: {imagen}</div>'
 
-    st.markdown('<div class="question-card">', unsafe_allow_html=True)
-    st.markdown(img_html, unsafe_allow_html=True)
+    # Unir apertura del card + imagen en UN SOLO markdown → sin bloque blanco vacío
+    st.markdown(f'<div class="question-card">{img_html}', unsafe_allow_html=True)
     st.markdown("**Selecciona una alternativa:**")
 
     sel_key = f"sel_{nombre}"

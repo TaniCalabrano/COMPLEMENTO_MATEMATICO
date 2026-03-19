@@ -40,19 +40,30 @@ st.markdown("""
         flex-shrink: 0;
     }
     .header-title {
-        font-size: 2.2rem; font-weight: 900; color: #ffffff;
-        letter-spacing: 2px; line-height: 1; white-space: nowrap;
+        font-size: 2.2rem; font-weight: 900;
+        letter-spacing: 3px; line-height: 1; white-space: nowrap;
+        background: linear-gradient(135deg, #f5a623 0%, #f0c040 50%, #e8890a 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none;
+        filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.5));
     }
-    .header-title span { color: #7ecfff; }
+    .header-title span {
+        background: linear-gradient(135deg, #ffffff 0%, #f5e6c8 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
     .header-subtitle {
-        font-size: 0.88rem; color: #7ecfff; font-weight: 600;
-        margin-top: 2px; letter-spacing: 0.5px;
+        font-size: 0.88rem; color: #f5a623; font-weight: 600;
+        margin-top: 4px; letter-spacing: 0.5px;
     }
     .header-subtitle2 {
-        font-size: 0.78rem; color: #a0a0b0; font-weight: 400; margin-top: 3px;
+        font-size: 0.78rem; color: #c8a96e; font-weight: 400; margin-top: 3px;
     }
     .header-subtitle3 {
-        font-size: 0.72rem; color: #6b7280; font-weight: 400; margin-top: 2px; font-style: italic;
+        font-size: 0.72rem; color: #8a7355; font-weight: 400; margin-top: 2px; font-style: italic;
     }
     .sidebar-brand {
         display: flex; flex-direction: column; align-items: center;

@@ -74,4 +74,34 @@
     "respuesta_correcta": "C",
     "video_youtube": "https://www.youtube.com/shorts/8_XPy8Ndhjw"
   }
+  {
+    "id": "P60-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P60-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P60-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "El promedio de la cantidad de seguidores en el grupo de estudiantes es de 270.",
+        "B": "La mitad de estudiantes del grupo tiene 270 seguidores.",
+        "C": "Hay 60 estudiantes en el grupo que tienen entre 80 y 140 seguidores.",
+        "D": "Al menos un 25% de los estudiantes del grupo tiene desde 140 hasta 270 seguidores."
+    },
+    "respuesta": "D",
+    "youtube": "https://www.youtube.com/shorts/zLJKFEMTa2s?feature=share"
+ },
+ {
+    "id": "P05-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P05-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Números",
+    "imagen": "images/m1/P05-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "Liderazgo",
+        "B": "Cercanía",
+        "C": "Honestidad",
+        "D": "Capacidad de diálogo"
+    },
+    "respuesta": "B",
+    "youtube": "https://www.youtube.com/shorts/P6D851cango"
+ }
 ]

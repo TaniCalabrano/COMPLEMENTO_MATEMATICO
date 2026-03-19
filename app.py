@@ -22,7 +22,7 @@ st.markdown("""
     .stApp { background-color: #0f1117; }
     .header-bar {
         display: flex; align-items: center; justify-content: space-between;
-        padding: 1rem 2rem 0.5rem 2rem;
+        padding: 1.5rem 2rem 0.8rem 2rem;
     }
     .header-left {
         display: flex; flex-direction: column; justify-content: center;
@@ -159,7 +159,7 @@ st.markdown("""
         border-color: #2d3748 !important;
     }
     /* Eliminar el padding/margin que crea el bloque blanco vacío arriba del card */
-    .block-container { padding-top: 0 !important; }
+    .block-container { padding-top: 1.5rem !important; }
     div[data-testid="stMarkdownContainer"]:has(> div.question-card) {
         padding: 0 !important; margin: 0 !important;
     }

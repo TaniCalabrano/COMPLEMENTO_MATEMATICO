@@ -315,37 +315,86 @@ def main():
     # ── Sidebar ─────────────────────────────────────────────────────────────
     tiempo_seg = sidebar_timer()
 
-    st.sidebar.markdown('<div class="sidebar-section">🔍 BUSCAR POR NOMBRE</div>', unsafe_allow_html=True)
+    # ── Filtro por eje ───────────────────────────────────────────────────────
+    st.sidebar.markdown('<div class="sidebar-section">📚 FILTRAR POR EJE</div>', unsafe_allow_html=True)
 
-    # ── CAMBIO CLAVE: on_change actualiza el índice automáticamente ──────────
-    def on_select_change():
-        nombre_sel = st.session_state["buscar_select"]
-        if nombre_sel in nombres:
-            st.session_state.pregunta_idx     = nombres.index(nombre_sel)
-            # Resetear timer al cambiar pregunta
-            st.session_state.timer_start_ts   = None
-            st.session_state.timer_stopped    = False
+    ejes_disponibles = ["Todos"] + sorted(list(set(
+        p.get("eje", "Sin eje") for p in preguntas if p.get("eje")
+    )))
+
+    if "filtro_eje" not in st.session_state:
+        st.session_state.filtro_eje = "Todos"
+
+    def on_eje_change():
+        eje_sel = st.session_state["filtro_eje"]
+        if eje_sel == "Todos":
+            filtradas = preguntas
+        else:
+            filtradas = [p for p in preguntas if p.get("eje") == eje_sel]
+        if filtradas:
+            primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id", ""))
+            idx_global = nombres.index(primer_nombre)
+            st.session_state.pregunta_idx   = idx_global
+            st.session_state.timer_start_ts = None
+            st.session_state.timer_stopped  = False
 
     st.sidebar.selectbox(
         "",
-        options=nombres,
-        index=st.session_state.pregunta_idx,
-        key="buscar_select",
-        on_change=on_select_change,          # ← se dispara al cambiar selección
+        options=ejes_disponibles,
+        key="filtro_eje",
+        on_change=on_eje_change,
     )
 
-    # ── Botón Aleatorio (se mantiene) ────────────────────────────────────────
+    # ── Construir lista filtrada ─────────────────────────────────────────────
+    eje_activo = st.session_state.filtro_eje
+    if eje_activo == "Todos":
+        preguntas_filtradas = preguntas
+    else:
+        preguntas_filtradas = [p for p in preguntas if p.get("eje") == eje_activo]
+
+    if not preguntas_filtradas:
+        st.sidebar.warning("No hay preguntas para este eje.")
+        preguntas_filtradas = preguntas
+
+    nombres_filtrados = [p.get("nombre", p.get("id", "")) for p in preguntas_filtradas]
+
+    nombre_actual_global = nombres[st.session_state.pregunta_idx]
+    if nombre_actual_global in nombres_filtrados:
+        idx_en_filtro = nombres_filtrados.index(nombre_actual_global)
+    else:
+        idx_en_filtro = 0
+        st.session_state.pregunta_idx = nombres.index(nombres_filtrados[0])
+
+    st.sidebar.markdown('<div class="sidebar-section">🔍 BUSCAR POR NOMBRE</div>', unsafe_allow_html=True)
+
+    def on_select_change():
+        nombre_sel = st.session_state["buscar_select"]
+        if nombre_sel in nombres:
+            st.session_state.pregunta_idx   = nombres.index(nombre_sel)
+            st.session_state.timer_start_ts = None
+            st.session_state.timer_stopped  = False
+
+    st.sidebar.selectbox(
+        "",
+        options=nombres_filtrados,
+        index=idx_en_filtro,
+        key="buscar_select",
+        on_change=on_select_change,
+    )
+
+    # ── Botón Aleatorio (respeta el filtro activo) ───────────────────────────
     st.sidebar.markdown("")
     col1, col2 = st.sidebar.columns(2)
 
     with col1:
         st.markdown('<div class="btn-aleatorio">', unsafe_allow_html=True)
         if st.button("🎲 Aleatorio", key="btn_aleatorio"):
-            st.session_state.pregunta_idx          = random.randint(0, len(preguntas) - 1)
-            st.session_state.selectbox_nombre      = nombres[st.session_state.pregunta_idx]
-            # Resetear timer al cambiar pregunta
-            st.session_state.timer_start_ts        = None
-            st.session_state.timer_stopped         = False
+            p_random      = random.choice(preguntas_filtradas)
+            nombre_random = p_random.get("nombre", p_random.get("id", ""))
+            st.session_state.pregunta_idx     = nombres.index(nombre_random)
+            st.session_state.selectbox_nombre = nombre_random
+            st.session_state.timer_start_ts   = None
+            st.session_state.timer_stopped    = False
             st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 

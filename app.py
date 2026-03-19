@@ -204,67 +204,65 @@ def mostrar_pregunta_card(pregunta, preguntas):
     </div>
     """, unsafe_allow_html=True)
 
-    with st.container():
-        st.markdown('<div class="question-card">', unsafe_allow_html=True)
+    # Imagen embebida en base64 dentro del card para evitar el bloque blanco de st.image()
+    import base64 as _b64
+    img_path = Path(imagen)
+    if img_path.exists():
+        with open(img_path, "rb") as _f:
+            _img_b64 = _b64.b64encode(_f.read()).decode()
+        _img_ext = img_path.suffix.lower().replace(".", "")
+        if _img_ext == "jpg":
+            _img_ext = "jpeg"
+        img_html = (
+            f'<div style="margin-bottom:1rem;">'
+            f'<img src="data:image/{_img_ext};base64,{_img_b64}" '
+            f'style="width:100%;border-radius:8px;" alt="pregunta"/>'
+            f'</div>'
+        )
+    else:
+        img_html = f'<div style="color:#e74c3c;padding:1rem;">⚠ Imagen no encontrada: {imagen}</div>'
 
-        img_path = Path(imagen)
-        if img_path.exists():
-            img = Image.open(img_path)
-            st.image(img, use_container_width=True)
+    st.markdown('<div class="question-card">', unsafe_allow_html=True)
+    st.markdown(img_html, unsafe_allow_html=True)
+    st.markdown("**Selecciona una alternativa:**")
+
+    sel_key = f"sel_{nombre}"
+    if sel_key not in st.session_state:
+        st.session_state[sel_key] = None
+
+    for letra, texto in alts.items():
+        if st.button(
+            f"{letra})  {texto}",
+            key=f"alt_{nombre}_{letra}",
+            use_container_width=True,
+            disabled=(st.session_state[sel_key] is not None)
+        ):
+            st.session_state[sel_key] = letra
+            st.rerun()
+
+    if st.session_state[sel_key] is not None:
+        import time as _time
+        tiempo_str = ""
+        t_start = st.session_state.get("timer_start_ts")
+        if t_start is not None:
+            elapsed  = int(_time.time() - t_start)
+            duracion = st.session_state.get("timer_duracion_ts", 90)
+            usados   = min(elapsed, duracion)
+            m_u = usados // 60
+            s_u = usados % 60
+            tiempo_str = f" · ⏱ {m_u}m {s_u}s" if m_u > 0 else f" · ⏱ {s_u} segundos"
+        if st.session_state[sel_key] == resp:
+            st.markdown(
+                f'<div class="result-msg-correct">✅ ¡Correcto! Muy bien.{tiempo_str}</div>',
+                unsafe_allow_html=True
+            )
         else:
-            st.warning(f"Imagen no encontrada: {imagen}")
+            st.markdown(
+                f'<div class="result-msg-incorrect">❌ Incorrecto. La respuesta correcta es <strong>{resp}</strong>.{tiempo_str}</div>',
+                unsafe_allow_html=True
+            )
 
-        st.markdown("**Selecciona una alternativa:**")
-
-        sel_key = f"sel_{nombre}"
-        if sel_key not in st.session_state:
-            st.session_state[sel_key] = None
-
-        for letra, texto in alts.items():
-            estilo = "alt-btn"
-            if st.session_state[sel_key] is not None:
-                if letra == resp:
-                    estilo += " correct"
-                elif letra == st.session_state[sel_key]:
-                    estilo += " incorrect"
-                else:
-                    estilo += " selected" if letra == st.session_state[sel_key] else ""
-
-            if st.button(
-                f"{letra})  {texto}",
-                key=f"alt_{nombre}_{letra}",
-                use_container_width=True,
-                disabled=(st.session_state[sel_key] is not None)
-            ):
-                st.session_state[sel_key] = letra
-                # Snapshot del tiempo al responder (timer_start_ts guardado al iniciar)
-                st.rerun()
-
-        if st.session_state[sel_key] is not None:
-            # Calcular tiempo transcurrido
-            tiempo_str = ""
-            t_start_key = "timer_start_ts"
-            t_dur_key   = "timer_duracion_ts"
-            if st.session_state.get(t_start_key) is not None:
-                import time as _time
-                elapsed  = int(_time.time() - st.session_state[t_start_key])
-                duracion = st.session_state.get(t_dur_key, 90)
-                usados   = min(elapsed, duracion)
-                m_u = usados // 60
-                s_u = usados % 60
-                if m_u > 0:
-                    tiempo_str = f" · ⏱ {m_u}m {s_u}s"
-                else:
-                    tiempo_str = f" · ⏱ {s_u} segundos"
-            if st.session_state[sel_key] == resp:
-                st.markdown(f'<div class="result-msg-correct">✅ ¡Correcto! Muy bien.{tiempo_str}</div>', unsafe_allow_html=True)
-            else:
-                st.markdown(
-                    f'<div class="result-msg-incorrect">❌ Incorrecto. La respuesta correcta es <strong>{resp}</strong>.{tiempo_str}</div>',
-                    unsafe_allow_html=True
-                )
-
-        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
 
     col_yt, _ = st.columns([1, 2])
     with col_yt:

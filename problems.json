@@ -43,5 +43,20 @@
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://www.youtube.com/watch?v=0B4UbBRw9AA&t=15s"
+  },
+  {
+    "id": "P37-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P37-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P37-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+      "A": "15/4",
+      "B": "5",
+      "C": "240",
+      "D": "275"
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://www.youtube.com/shorts/-vLvNgn2yDE"
   }
 ]

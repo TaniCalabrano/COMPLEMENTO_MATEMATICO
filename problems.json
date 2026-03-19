@@ -103,5 +103,50 @@
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://www.youtube.com/shorts/P6D851cango"
+  },
+  {
+    "id": "P26-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P26-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P26-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "2.000.100.000 / 2.600.000",
+        "B": "(2.700.000 / 2.600.000) · 2.000.000.000",
+        "C": "(2.000.000.000 / 2.600.000) + 100.000",
+        "D": "2.600.000 · 2.000.000.000 + 100.000"
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://studio.youtube.com/video/A6buDJGm63Y/edit"
+  },
+  {
+    "id": "P49-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P49-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Geometría",
+    "imagen": "images/m1/P49-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "8 kilómetros al oeste y 5 kilómetros al sur",
+        "B": "14 kilómetros al oeste y 13 kilómetros al norte",
+        "C": "8 kilómetros al este y 5 kilómetros al norte",
+        "D": "14 kilómetros al este y 13 kilómetros al sur"
+    },
+    "respuesta_correcta": "A",
+    "video_youtube": "https://studio.youtube.com/video/6Z8f69UCFfM/edit"
+  },
+  {
+    "id": "P65-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P65-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P65-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "1/8",
+        "B": "1/4",
+        "C": "3/8",
+        "D": "1/2"
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://youtu.be/pQkzMStDOKg"
   }
 ]

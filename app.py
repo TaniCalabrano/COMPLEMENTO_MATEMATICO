@@ -407,77 +407,83 @@ def main():
         mostrar_pregunta_card(pregunta, preguntas)
     with col_timer:
         import time as _time
-        mins_init = tiempo_seg // 60
-        secs_init = tiempo_seg % 60
 
-        # Iniciar timer desde Python cuando se presiona el botón Streamlit
+        # Estado del timer
         if "timer_start_ts" not in st.session_state:
-            st.session_state.timer_start_ts   = None
+            st.session_state.timer_start_ts    = None
             st.session_state.timer_duracion_ts = tiempo_seg
-            st.session_state.timer_stopped    = False
+            st.session_state.timer_stopped     = False
 
-        # Detectar si la pregunta ya fue respondida → detener timer
-        nombre_actual = preguntas[st.session_state.pregunta_idx].get("nombre",
-                        preguntas[st.session_state.pregunta_idx].get("id",""))
+        nombre_actual  = preguntas[st.session_state.pregunta_idx].get(
+                            "nombre", preguntas[st.session_state.pregunta_idx].get("id",""))
         sel_key_actual = f"sel_{nombre_actual}"
         ya_respondio   = st.session_state.get(sel_key_actual) is not None
 
         if ya_respondio and not st.session_state.timer_stopped and st.session_state.timer_start_ts:
-            st.session_state.timer_stopped = True  # congela el tiempo mostrado
+            st.session_state.timer_stopped = True
 
-        # Calcular tiempo restante para mostrar en el iframe
-        if st.session_state.timer_start_ts and not st.session_state.timer_stopped:
-            elapsed_now  = int(_time.time() - st.session_state.timer_start_ts)
-            restante_now = max(0, st.session_state.timer_duracion_ts - elapsed_now)
-        elif st.session_state.timer_start_ts and st.session_state.timer_stopped:
-            elapsed_stop = int(_time.time() - st.session_state.timer_start_ts)
-            restante_now = max(0, st.session_state.timer_duracion_ts - elapsed_stop)
-        else:
-            restante_now = tiempo_seg
+        detenido  = st.session_state.timer_stopped
+        start_ts  = st.session_state.timer_start_ts or 0
+        duracion  = st.session_state.timer_duracion_ts if st.session_state.timer_start_ts else tiempo_seg
+        corriendo = (st.session_state.timer_start_ts is not None) and (not detenido)
 
-        m_show = restante_now // 60
-        s_show = restante_now % 60
-        color_show = "#e74c3c" if restante_now <= 10 else "#7ecfff"
-        agotado    = restante_now <= 0
-        detenido   = st.session_state.timer_stopped
+        start_ms  = int(start_ts * 1000)
+        cor_js    = "true" if corriendo else "false"
+        det_js    = "true" if detenido  else "false"
 
-        status_msg = ""
-        if agotado:
-            status_msg = "⏰ ¡Tiempo agotado!"
-        elif detenido:
-            elapsed_used = st.session_state.timer_duracion_ts - restante_now
-            m_u = elapsed_used // 60
-            s_u = elapsed_used % 60
-            if m_u > 0:
-                status_msg = f"✅ Detenido: {m_u}m {s_u}s"
-            else:
-                status_msg = f"✅ Detenido: {s_u}s"
-
-        timer_html = f"""
-        <style>
-            body {{ margin:0; background:transparent; font-family:sans-serif; }}
-            .cm-timer-wrap {{
-                background:#161b27; border-radius:16px; padding:1rem 0.8rem;
-                text-align:center; border:1px solid #2d3748;
-            }}
-            .cm-timer-icon {{ font-size:1.5rem; margin-bottom:2px; }}
-            .cm-timer-display {{
-                font-size:2.6rem; font-weight:900; color:{color_show};
-                font-family:'Courier New',monospace; letter-spacing:4px; display:block;
-            }}
-            .cm-timer-msg {{
-                font-size:0.82rem; font-weight:700; margin-top:6px;
-                color:{"#059669" if detenido and not agotado else "#e74c3c"};
-                {"" if (agotado or detenido) else "display:none;"}
-            }}
-        </style>
-        <div class="cm-timer-wrap">
-            <div class="cm-timer-icon">{"🛑" if detenido else "⏳"}</div>
-            <span class="cm-timer-display">{m_show}:{s_show:02d}</span>
-            <div class="cm-timer-msg">{status_msg}</div>
-        </div>
-        """
-        components.html(timer_html, height=150)
+        timer_html = (
+            "<!DOCTYPE html><html><head><style>"
+            "* {box-sizing:border-box;margin:0;padding:0;}"
+            "body {background:transparent;font-family:sans-serif;}"
+            ".wrap {background:#161b27;border-radius:16px;padding:1rem 0.6rem;"
+            "text-align:center;border:1px solid #2d3748;}"
+            ".icon {font-size:1.5rem;margin-bottom:2px;}"
+            "#disp {font-size:2.6rem;font-weight:900;color:#7ecfff;"
+            "font-family:'Courier New',monospace;letter-spacing:3px;"
+            "display:block;min-height:3.2rem;}"
+            "#smsg {font-size:0.8rem;font-weight:700;margin-top:5px;min-height:1.1rem;}"
+            "</style></head><body>"
+            "<div class='wrap'>"
+            "<div class='icon' id='icon'>⏳</div>"
+            "<span id='disp'>--:--</span>"
+            "<div id='smsg'></div>"
+            "</div>"
+            "<script>"
+            f"var START_MS={start_ms};"
+            f"var DURACION={duracion};"
+            f"var CORRIENDO={cor_js};"
+            f"var DETENIDO={det_js};"
+            "var iv=null;"
+            "var disp=document.getElementById('disp');"
+            "var smsg=document.getElementById('smsg');"
+            "var icon=document.getElementById('icon');"
+            "function fmt(s){var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r;}"
+            "function tick(){"
+            "  var elapsed=Math.floor((Date.now()-START_MS)/1000);"
+            "  var rest=Math.max(0,DURACION-elapsed);"
+            "  disp.textContent=fmt(rest);"
+            "  disp.style.color=rest<=10?'#e74c3c':'#7ecfff';"
+            "  if(rest<=0){clearInterval(iv);smsg.style.color='#e74c3c';"
+            "    smsg.textContent='⏰ Tiempo agotado!';icon.textContent='⏰';}"
+            "}"
+            "if(DETENIDO){"
+            "  var el=Math.floor((Date.now()-START_MS)/1000);"
+            "  var re=Math.max(0,DURACION-el);"
+            "  var us=DURACION-re;"
+            "  var mu=Math.floor(us/60),su=us%60;"
+            "  disp.textContent=fmt(re);"
+            "  disp.style.color=re<=10?'#e74c3c':'#7ecfff';"
+            "  smsg.style.color='#059669';"
+            "  icon.textContent='🛑';"
+            "  smsg.textContent='✅ Tiempo: '+(mu>0?mu+'m ':'')+su+'s';"
+            "}else if(CORRIENDO){"
+            "  tick();iv=setInterval(tick,500);"
+            "}else{"
+            "  disp.textContent=fmt(DURACION);disp.style.color='#7ecfff';"
+            "}"
+            "</script></body></html>"
+        )
+        components.html(timer_html, height=155)
 
         st.markdown("")
         if not detenido:
@@ -491,7 +497,6 @@ def main():
                 st.session_state.timer_start_ts  = None
                 st.session_state.timer_stopped   = False
                 st.rerun()
-
 
 if __name__ == "__main__":
     main()

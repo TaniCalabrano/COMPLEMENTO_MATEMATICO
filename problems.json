@@ -58,5 +58,20 @@
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://www.youtube.com/shorts/-vLvNgn2yDE"
+  },
+  {
+    "id": "P46-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P46-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Geometría",
+    "imagen": "images/m1/P46-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+      "A": "√(200² − 150²)",
+      "B": "200² − 150²",
+      "C": "√(200² + 150²)",
+      "D": "200² + 150²"
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://www.youtube.com/shorts/8_XPy8Ndhjw"
   }
 ]

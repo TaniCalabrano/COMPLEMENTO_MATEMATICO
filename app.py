@@ -263,11 +263,11 @@ def sidebar_timer():
     # Logo + marca en el sidebar
     st.sidebar.markdown(f"""
     <div class="sidebar-brand">
-        <img src="data:image/png;base64,{{LOGO_B64}}" alt="Logo CM">
+        <img src="data:image/png;base64,{LOGO_B64}" alt="Logo CM">
         <div class="sidebar-brand-title">COMPLEMENTO<br>MATEMÁTICO</div>
         <div class="sidebar-brand-prof">Prof. Bastiani Calabrano Inostroza</div>
     </div>
-    """.replace("{LOGO_B64}", LOGO_B64), unsafe_allow_html=True)
+    """, unsafe_allow_html=True)
 
     st.sidebar.markdown('<div class="sidebar-section">⏱ TIEMPO POR PREGUNTA</div>', unsafe_allow_html=True)
     tiempo_seg = st.sidebar.radio(
@@ -276,78 +276,7 @@ def sidebar_timer():
         format_func=lambda x: f"{x} segundos",
         key="tiempo_radio"
     )
-
-    mins_init = tiempo_seg // 60
-    secs_init = tiempo_seg % 60
-
-    timer_html = f"""
-    <style>
-        .timer-box {{
-            background: #161b27; border-radius: 16px; padding: 1rem;
-            text-align: center; border: 1px solid #2d3748; margin: 0.5rem 0;
-        }}
-        .timer-icon {{ font-size: 1.6rem; margin-bottom: 2px; }}
-        #cm-timer-display {{
-            font-size: 2.8rem; font-weight: 900; color: #7ecfff;
-            font-family: 'Courier New', monospace; letter-spacing: 4px;
-        }}
-        .timer-msg {{
-            font-size: 0.85rem; font-weight: 700; margin-top: 6px;
-            color: #e74c3c; display: none;
-        }}
-        #cm-btn-timer {{
-            width: 100%; padding: 0.65rem; border-radius: 10px; border: none;
-            background: linear-gradient(135deg, #c0392b, #e74c3c);
-            color: white; font-size: 1rem; font-weight: 700; cursor: pointer;
-            margin-top: 0.3rem;
-        }}
-        #cm-btn-timer:hover {{ background: linear-gradient(135deg, #e74c3c, #ff6b6b); }}
-    </style>
-    <div class="timer-box">
-        <div class="timer-icon">⏳</div>
-        <div id="cm-timer-display">{mins_init}:{secs_init:02d}</div>
-        <div class="timer-msg" id="cm-timer-msg">⏰ ¡Tiempo agotado!</div>
-    </div>
-    <button id="cm-btn-timer" onclick="cmIniciarTimer()">▶ Iniciar cronómetro</button>
-    <script>
-    (function() {{
-        var _iv = null;
-        window.cmIniciarTimer = function() {{
-            if (_iv) clearInterval(_iv);
-            var total = {tiempo_seg};
-            var restante = total;
-            var disp = document.getElementById('cm-timer-display');
-            var msg  = document.getElementById('cm-timer-msg');
-            var btn  = document.getElementById('cm-btn-timer');
-            if (!disp) return;
-            msg.style.display = 'none';
-            btn.textContent = '⏹ Reiniciar';
-            function upd() {{
-                var m = Math.floor(restante / 60);
-                var s = restante % 60;
-                disp.textContent = m + ':' + (s < 10 ? '0' : '') + s;
-                disp.style.color = restante <= 10 ? '#e74c3c' : '#7ecfff';
-            }}
-            upd();
-            _iv = setInterval(function() {{
-                restante--;
-                upd();
-                if (restante <= 0) {{
-                    clearInterval(_iv); _iv = null;
-                    msg.style.display = 'block';
-                    btn.textContent = '▶ Iniciar cronómetro';
-                    var n = 0;
-                    var blink = setInterval(function() {{
-                        disp.style.visibility = disp.style.visibility === 'hidden' ? 'visible' : 'hidden';
-                        if (++n >= 6) {{ clearInterval(blink); disp.style.visibility = 'visible'; }}
-                    }}, 400);
-                }}
-            }}, 1000);
-        }};
-    }})();
-    </script>
-    """
-    st.sidebar.markdown(timer_html, unsafe_allow_html=True)
+    return tiempo_seg
 
 
 def main():
@@ -367,7 +296,7 @@ def main():
         st.session_state.selectbox_nombre = nombres[0]
 
     # ── Sidebar ─────────────────────────────────────────────────────────────
-    sidebar_timer()
+    tiempo_seg = sidebar_timer()
 
     st.sidebar.markdown('<div class="sidebar-section">🔍 BUSCAR POR NOMBRE</div>', unsafe_allow_html=True)
 
@@ -404,6 +333,75 @@ def main():
     col_pregunta, col_timer = st.columns([3, 1])
     with col_pregunta:
         mostrar_pregunta_card(pregunta, preguntas)
+    with col_timer:
+        mins_init = tiempo_seg // 60
+        secs_init = tiempo_seg % 60
+        timer_html = f"""
+        <style>
+            body {{ margin:0; background:transparent; }}
+            .cm-timer-wrap {{
+                background:#161b27; border-radius:16px; padding:1rem 0.8rem;
+                text-align:center; border:1px solid #2d3748; font-family:sans-serif;
+            }}
+            .cm-timer-icon {{ font-size:1.5rem; margin-bottom:2px; }}
+            #cm-timer-display {{
+                font-size:2.6rem; font-weight:900; color:#7ecfff;
+                font-family:'Courier New',monospace; letter-spacing:4px; display:block;
+            }}
+            #cm-timer-msg {{
+                font-size:0.82rem; font-weight:700; color:#e74c3c;
+                margin-top:6px; display:none;
+            }}
+            #cm-btn {{
+                width:100%; padding:0.6rem 0.5rem; border-radius:10px; border:none;
+                background:linear-gradient(135deg,#c0392b,#e74c3c);
+                color:white; font-size:0.95rem; font-weight:700;
+                cursor:pointer; margin-top:0.5rem;
+            }}
+            #cm-btn:hover {{ background:linear-gradient(135deg,#e74c3c,#ff6b6b); }}
+        </style>
+        <div class="cm-timer-wrap">
+            <div class="cm-timer-icon">⏳</div>
+            <span id="cm-timer-display">{mins_init}:{secs_init:02d}</span>
+            <div id="cm-timer-msg">⏰ ¡Tiempo agotado!</div>
+        </div>
+        <button id="cm-btn" onclick="cmStart()">▶ Iniciar cronómetro</button>
+        <script>
+            var _iv = null;
+            function cmStart() {{
+                if (_iv) {{ clearInterval(_iv); _iv = null; }}
+                var total    = {tiempo_seg};
+                var restante = total;
+                var disp = document.getElementById('cm-timer-display');
+                var msg  = document.getElementById('cm-timer-msg');
+                var btn  = document.getElementById('cm-btn');
+                msg.style.display = 'none';
+                disp.style.visibility = 'visible';
+                btn.textContent = '⏹ Reiniciar';
+                function upd() {{
+                    var m = Math.floor(restante/60);
+                    var s = restante % 60;
+                    disp.textContent = m + ':' + (s<10?'0':'') + s;
+                    disp.style.color = restante <= 10 ? '#e74c3c' : '#7ecfff';
+                }}
+                upd();
+                _iv = setInterval(function() {{
+                    restante--;
+                    upd();
+                    if (restante <= 0) {{
+                        clearInterval(_iv); _iv = null;
+                        msg.style.display = 'block';
+                        btn.textContent = '▶ Iniciar cronómetro';
+                        var n=0, blink=setInterval(function() {{
+                            disp.style.visibility = disp.style.visibility==='hidden'?'visible':'hidden';
+                            if(++n>=6){{ clearInterval(blink); disp.style.visibility='visible'; }}
+                        }},400);
+                    }}
+                }}, 1000);
+            }}
+        </script>
+        """
+        components.html(timer_html, height=200)
 
 
 if __name__ == "__main__":

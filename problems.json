@@ -148,5 +148,65 @@
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://youtu.be/pQkzMStDOKg"
-  }
+  },
+  {
+    "id": "P04-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P04-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Números",
+    "imagen": "images/m1/P04-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "En el Paso 1",
+        "B": "En el Paso 2",
+        "C": "En el Paso 3",
+        "D": "En el Paso 4"
+    },
+    "respuesta_correcta": "A",
+    "video_youtube": "https://youtu.be/pX0jMZbI2LQ"
+  },
+  {
+    "id": "P31-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P31-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P31-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "$12 500",
+        "B": "$15 000",
+        "C": "$23 125",
+        "D": "$26 250"
+    },
+    "respuesta_correcta": "A",
+    "video_youtube": "https://youtu.be/T62W2MVBWns"
+  },
+  {
+    "id": "P47-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P47-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Geometría",
+    "imagen": "images/m1/P47-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "24 800 cm²",
+        "B": "28 000 cm²",
+        "C": "46 400 cm²",
+        "D": "49 600 cm²"
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://youtu.be/XXf9RnneZHc"
+  },
+  {
+    "id": "P55-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P55-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P55-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "500",
+        "B": "340",
+        "C": "300",
+        "D": "200"
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://www.youtube.com/shorts/22NyxfUQGNo?feature=share"
+}
 ]

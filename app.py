@@ -352,25 +352,27 @@ def main():
     if "selectbox_nombre" not in st.session_state:
         st.session_state.selectbox_nombre = nombres[0]
 
-    # ── Sidebar ─────────────────────────────────────────────────────────────
+  # ── Sidebar ─────────────────────────────────────────────────────────────
     tiempo_seg = sidebar_timer()
 
-    # ── Filtro por eje ───────────────────────────────────────────────────────
-    st.sidebar.markdown('<div class="sidebar-section">📚 FILTRAR POR EJE</div>', unsafe_allow_html=True)
+    # ── Filtro por prueba ────────────────────────────────────────────────────
+    st.sidebar.markdown('<div class="sidebar-section">📋 FILTRAR POR PRUEBA</div>', unsafe_allow_html=True)
 
-    ejes_disponibles = ["Todos"] + sorted(list(set(
-        p.get("eje", "Sin eje") for p in preguntas if p.get("eje")
+    pruebas_disponibles = ["Todas"] + sorted(list(set(
+        p.get("prueba", "Sin prueba") for p in preguntas if p.get("prueba")
     )))
 
-    if "filtro_eje" not in st.session_state:
-        st.session_state.filtro_eje = "Todos"
+    if "filtro_prueba" not in st.session_state:
+        st.session_state.filtro_prueba = "Todas"
 
-    def on_eje_change():
-        eje_sel = st.session_state["filtro_eje"]
-        if eje_sel == "Todos":
+    def on_prueba_change():
+        prueba_sel = st.session_state["filtro_prueba"]
+        # Al cambiar prueba, resetear eje a "Todos"
+        st.session_state.filtro_eje = "Todos"
+        if prueba_sel == "Todas":
             filtradas = preguntas
         else:
-            filtradas = [p for p in preguntas if p.get("eje") == eje_sel]
+            filtradas = [p for p in preguntas if p.get("prueba") == prueba_sel]
         if filtradas:
             primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id", ""))
             idx_global = nombres.index(primer_nombre)
@@ -380,20 +382,71 @@ def main():
 
     st.sidebar.selectbox(
         "",
+        options=pruebas_disponibles,
+        key="filtro_prueba",
+        on_change=on_prueba_change,
+    )
+
+    # ── Filtro por eje ───────────────────────────────────────────────────────
+    st.sidebar.markdown('<div class="sidebar-section">📚 FILTRAR POR EJE</div>', unsafe_allow_html=True)
+
+    # Los ejes se calculan según la prueba activa
+    prueba_activa = st.session_state.filtro_prueba
+    if prueba_activa == "Todas":
+        preguntas_por_prueba = preguntas
+    else:
+        preguntas_por_prueba = [p for p in preguntas if p.get("prueba") == prueba_activa]
+
+    ejes_disponibles = ["Todos"] + sorted(list(set(
+        p.get("eje", "Sin eje") for p in preguntas_por_prueba if p.get("eje")
+    )))
+
+    if "filtro_eje" not in st.session_state:
+        st.session_state.filtro_eje = "Todos"
+
+    def on_eje_change():
+        eje_sel    = st.session_state["filtro_eje"]
+        prueba_sel = st.session_state["filtro_prueba"]
+        if prueba_sel == "Todas":
+            base = preguntas
+        else:
+            base = [p for p in preguntas if p.get("prueba") == prueba_sel]
+        if eje_sel == "Todos":
+            filtradas = base
+        else:
+            filtradas = [p for p in base if p.get("eje") == eje_sel]
+        if filtradas:
+            primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id", ""))
+            idx_global = nombres.index(primer_nombre)
+            st.session_state.pregunta_idx   = idx_global
+            st.session_state.timer_start_ts = None
+            st.session_state.timer_stopped  = False
+
+    # Asegurarse que el eje guardado siga siendo válido para la prueba actual
+    if st.session_state.filtro_eje not in ejes_disponibles:
+        st.session_state.filtro_eje = "Todos"
+
+    st.sidebar.selectbox(
+        "",
         options=ejes_disponibles,
         key="filtro_eje",
         on_change=on_eje_change,
     )
 
-    # ── Construir lista filtrada ─────────────────────────────────────────────
-    eje_activo = st.session_state.filtro_eje
-    if eje_activo == "Todos":
+    # ── Construir lista filtrada (prueba + eje) ──────────────────────────────
+    prueba_activa = st.session_state.filtro_prueba
+    eje_activo    = st.session_state.filtro_eje
+
+    if prueba_activa == "Todas":
         preguntas_filtradas = preguntas
     else:
-        preguntas_filtradas = [p for p in preguntas if p.get("eje") == eje_activo]
+        preguntas_filtradas = [p for p in preguntas if p.get("prueba") == prueba_activa]
+
+    if eje_activo != "Todos":
+        preguntas_filtradas = [p for p in preguntas_filtradas if p.get("eje") == eje_activo]
 
     if not preguntas_filtradas:
-        st.sidebar.warning("No hay preguntas para este eje.")
+        st.sidebar.warning("No hay preguntas para este filtro.")
         preguntas_filtradas = preguntas
 
     nombres_filtrados = [p.get("nombre", p.get("id", "")) for p in preguntas_filtradas]

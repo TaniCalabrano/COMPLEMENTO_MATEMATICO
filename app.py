@@ -305,13 +305,34 @@ def mostrar_pregunta_card(pregunta, preguntas):
                 f'<div class="result-msg-incorrect">❌ Incorrecto. La respuesta correcta es <strong>{resp}</strong>.{tiempo_str}</div>',
                 unsafe_allow_html=True
             )
-        # Botón YouTube justo debajo del resultado
+# Video YouTube incrustado justo debajo del resultado
         if video:
-            st.markdown(f'''
-            <div class="youtube-btn" style="margin-top:0.6rem;">
-                <a href="{video}" target="_blank">▶ Ver solución en YouTube</a>
-            </div>
-            ''', unsafe_allow_html=True)
+            import re
+            match = re.search(
+                r"(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]{11})",
+                video
+            )
+            if match:
+                video_id = match.group(1)
+                st.markdown(f"""
+                <div style="margin-top:0.8rem;border-radius:10px;overflow:hidden;">
+                    <iframe
+                        width="100%"
+                        height="220"
+                        src="https://www.youtube.com/embed/{video_id}"
+                        frameborder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowfullscreen
+                        style="border-radius:10px;">
+                    </iframe>
+                </div>
+                """, unsafe_allow_html=True)
+            else:
+                st.markdown(f'''
+                <div class="youtube-btn" style="margin-top:0.6rem;">
+                    <a href="{video}" target="_blank">▶ Ver solución en YouTube</a>
+                </div>
+                ''', unsafe_allow_html=True)
 
     st.markdown('</div>', unsafe_allow_html=True)
 

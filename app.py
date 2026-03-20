@@ -314,8 +314,14 @@ def mostrar_pregunta_card(pregunta, preguntas):
             )
             if match:
                 video_id = match.group(1)
+                st.markdown("""
+                <p style="text-align:center; color:#6b7280; font-size:0.85rem; 
+                margin-top:1rem; margin-bottom:0.4rem; font-style:italic;">
+                    Compara tu desarrollo y respuesta con el siguiente video explicativo.
+                </p>
+                """, unsafe_allow_html=True)
                 st.markdown(f"""
-                <div style="margin-top:0.8rem;border-radius:10px;overflow:hidden;">
+                <div style="margin-top:0rem;border-radius:10px;overflow:hidden;">
                     <iframe
                         width="100%"
                         height="220"

@@ -208,5 +208,20 @@
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://www.youtube.com/shorts/22NyxfUQGNo?feature=share"
+ },
+  {
+    "id": "P11-PAES-M2-AD-2026-I-DEMRE",
+    "nombre": "P11-PAES-M2-AD-2026-I-DEMRE",
+    "prueba": "M2",
+    "eje": "Álgebra",
+    "imagen": "images/m2/P11-PAES-M2-AD-2026-I-DEMRE.jpg",
+    "alternativas": {
+        "A": "400",
+        "B": "800",
+        "C": "2400",
+        "D": "4800"
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://youtube.com/shorts/jRAZYhp7uAM"
 }
 ]

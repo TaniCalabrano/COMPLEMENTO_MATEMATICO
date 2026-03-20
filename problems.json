@@ -223,5 +223,35 @@
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://youtube.com/shorts/jRAZYhp7uAM"
+  },
+  {
+    "id": "P03-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P03-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Números",
+    "imagen": "images/m1/P03-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D"
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://www.youtube.com/shorts/rMUZoEjwI5s?feature=share"
+},
+{
+    "id": "P33-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P33-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P33-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "25 kg",
+        "B": "55 kg",
+        "C": "80 kg",
+        "D": "105 kg"
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://youtu.be/Kw3pWhVRDDo"
 }
 ]

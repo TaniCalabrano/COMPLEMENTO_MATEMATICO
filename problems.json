@@ -111,13 +111,13 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P26-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "2.000.100.000 / 2.600.000",
-        "B": "(2.700.000 / 2.600.000) · 2.000.000.000",
-        "C": "(2.000.000.000 / 2.600.000) + 100.000",
-        "D": "2.600.000 · 2.000.000.000 + 100.000"
+        "A":"" ,
+        "B":"" ,
+        "C":"" ,
+        "D":"" 
     },
     "respuesta_correcta": "B",
-    "video_youtube": "https://studio.youtube.com/video/A6buDJGm63Y/edit"
+    "video_youtube": "https://youtu.be/A6buDJGm63Y"
   },
   {
     "id": "P49-PAES-M1-AD-2026-I-DEMRE",

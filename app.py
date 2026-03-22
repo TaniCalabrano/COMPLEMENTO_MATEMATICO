@@ -256,59 +256,83 @@ def mostrar_bienvenida():
     items = [
         ("1", "Reflexionar sobre su nivel de interés con la rendición de la evaluación."),
         ("2", "Reflexionar e informarse sobre carreras de nivel superior que se ajusten a sus intereses y posibilidades de ingreso y sostenibilidad."),
-        ("3", "Gestionar su tiempo y crear un programa de estudio personalizado para tener éxito en la rendición de la evaluación. <em>La semana es un conjunto de 168 horas — depende de ti si aprovechas o no tu tiempo, el cual es un verdadero regalo que no se puede controlar, pero sí gestionar.</em>"),
+        ("3", "Gestionar su tiempo y crear un programa de estudio personalizado para tener éxito en la rendición de la evaluación. La semana es un conjunto de 168 horas — depende de ti si aprovechas o no tu tiempo, el cual es un verdadero regalo que no se puede controlar, pero sí gestionar."),
         ("4", "Infórmate sobre los contenidos que debes dominar y las habilidades que debes desarrollar para tener éxito en la evaluación."),
-        ("5", "Reflexiona sobre los problemas que abordes, preguntándote: <em>¿Cómo se resuelve? ¿Abordé correctamente el problema? ¿De cuántas formas se podrá resolver? ¿Qué otra pregunta se puede generar a través de este problema? ¿Cómo me podría haber equivocado?</em>"),
+        ("5", "Reflexiona sobre los problemas que abordes, preguntándote: ¿Cómo se resuelve? ¿Abordé correctamente el problema? ¿De cuántas formas se podrá resolver? ¿Qué otra pregunta se puede generar a través de este problema? ¿Cómo me podría haber equivocado?"),
         ("6", "Date mensajes de éxito. Si crees que no lo lograrás, pues el resultado ya está sentenciado. En cambio, si crees en ti y das lo mejor en el periodo de tu preparación, tu entrenamiento te aseguro que te dará frutos."),
         ("7", "Para concluir: Concéntrate en conocer sobre la prueba, entrenarte como resolutor(a) de problemas y desarrollar una autoestima académica que te permita gestionar tus emociones y rendir la evaluación con la convicción de que tendrás éxito al finalizarla."),
     ]
 
-    items_html = ""
+    logo_src = f'data:image/png;base64,{LOGO_B64}' if LOGO_B64 else ""
+    logo_tag = (
+        f'<img src="{logo_src}" '
+        'style="height:52px;width:52px;border-radius:50%;object-fit:cover;'
+        'vertical-align:middle;margin-right:12px;box-shadow:0 0 10px rgba(245,166,35,0.4);" '
+        'alt="Logo CM">'
+    ) if logo_src else ""
+
+    items_parts = []
     for num, texto in items:
-        items_html += f"""
-        <div class="agenda-item">
-            <div class="tick-box">✔</div>
-            <div class="agenda-num">{num}.</div>
-            <div class="agenda-text">{texto}</div>
-        </div>"""
+        items_parts.append(
+            '<div style="display:flex;align-items:flex-start;gap:12px;'
+            'padding:0.7rem 0;border-bottom:1px solid #1a2540;">'
+            '<div style="width:22px;height:22px;min-width:22px;background:#1a2e1a;'
+            'border:2px solid #3a7a3a;border-radius:5px;display:flex;align-items:center;'
+            'justify-content:center;font-size:13px;margin-top:2px;color:#4eff88;">&#10004;</div>'
+            f'<div style="font-size:0.72rem;font-weight:700;color:#f5a623;min-width:20px;margin-top:3px;">{num}.</div>'
+            f'<div style="font-size:0.88rem;color:#b0c4e8;line-height:1.55;">{texto}</div>'
+            '</div>'
+        )
+    items_html = "".join(items_parts)
 
-    logo_html = f'<img src="data:image/png;base64,{LOGO_B64}" style="height:48px;width:48px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:10px;" alt="Logo CM">' if LOGO_B64 else ""
+    html_bienvenida = (
+        '<div style="background:linear-gradient(160deg,#0d1424 0%,#111830 100%);'
+        'border:1px solid #2d3a5a;border-radius:16px;padding:2rem 2.4rem 1.6rem;'
+        'max-width:820px;margin:0 auto 1.2rem auto;">'
 
-    st.markdown(f"""
-    <div class="bienvenida-wrap">
-        <div class="bienvenida-saludo">
-            {logo_html}
-            <strong>Estimado(a) estudiante:</strong><br><br>
-            El repositorio de problemas de <strong>Complemento Matemático</strong> es un proyecto educativo
-            <strong>gratuito</strong> que tiene el propósito de potenciar su preparación para la rendición
-            de las evaluaciones <strong>PAES de Matemática</strong> y las preguntas respectivas de
-            <strong>Física</strong>.<br><br>
-            En función de ello, le recomiendo lo siguiente:
-        </div>
-        <div class="agenda-wrap">
-            <div class="agenda-title">
-                <span>📋</span> Recomendaciones para tu proceso de preparación
-            </div>
-            {items_html}
-        </div>
-        <div class="bienvenida-firma">
-            Mucho éxito en tus procesos de aprendizaje.<br>
-            <strong>Atte. Prof. Bastiani Calabrano Inostroza</strong>
-        </div>
-    </div>
+        '<div style="font-size:1rem;color:#c8d8ff;line-height:1.7;margin-bottom:1.4rem;">'
+        + logo_tag +
+        '<strong style="color:#f5a623;">Estimado(a) estudiante:</strong><br><br>'
+        'El repositorio de problemas de <strong style="color:#f5a623;">Complemento Matemático</strong> '
+        'es un proyecto educativo <strong style="color:#4eff88;">gratuito</strong> que tiene el propósito '
+        'de potenciar su preparación para la rendición de las evaluaciones '
+        '<strong style="color:#7ecfff;">PAES de Matemática</strong> y las preguntas respectivas de '
+        '<strong style="color:#7ecfff;">Física</strong>.<br><br>'
+        'En función de ello, le recomiendo lo siguiente:'
+        '</div>'
 
-    <div class="demre-banner">
-        <div class="demre-text">
-            Para más información sobre la PAES buscar en:
-            <strong>DEMRE — Proceso de Admisión 2027</strong>
-        </div>
-        <a class="demre-btn"
-           href="https://demre.cl"
-           target="_blank">
-            🔗 Ir al sitio del DEMRE
-        </a>
-    </div>
-    """, unsafe_allow_html=True)
+        '<div style="background:#0a0f1e;border:1px solid #243050;border-radius:12px;'
+        'padding:1.2rem 1.4rem;margin-bottom:1.4rem;">'
+        '<div style="font-size:0.78rem;font-weight:700;letter-spacing:2px;color:#f5a623;'
+        'text-transform:uppercase;margin-bottom:1rem;">&#128203; Recomendaciones para tu proceso de preparación</div>'
+        + items_html +
+        '</div>'
+
+        '<div style="font-size:0.85rem;color:#8899bb;text-align:right;'
+        'margin-top:0.8rem;font-style:italic;">'
+        'Mucho éxito en tus procesos de aprendizaje.<br>'
+        '<strong style="color:#f5a623;font-style:normal;">'
+        'Atte. Prof. Bastiani Calabrano Inostroza</strong>'
+        '</div>'
+        '</div>'
+
+        '<div style="background:#0d1624;border:1px solid #2a3a5a;border-radius:10px;'
+        'padding:0.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;'
+        'flex-wrap:wrap;gap:10px;max-width:820px;margin:0 auto 0.8rem;">'
+        '<div style="font-size:0.85rem;color:#99aac8;">'
+        'Para más información sobre la PAES buscar en: '
+        '<strong style="color:#7ecfff;">DEMRE — Proceso de Admisión 2027</strong>'
+        '</div>'
+        '<a href="https://demre.cl" target="_blank" '
+        'style="display:inline-block;background:linear-gradient(135deg,#1a3a7a,#2255aa);'
+        'color:#c8e0ff;border:1px solid #3366bb;border-radius:8px;padding:7px 18px;'
+        'font-size:0.82rem;font-weight:700;text-decoration:none;letter-spacing:0.3px;">'
+        '&#128279; Ir al sitio del DEMRE'
+        '</a>'
+        '</div>'
+    )
+
+    st.markdown(html_bienvenida, unsafe_allow_html=True)
 
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:

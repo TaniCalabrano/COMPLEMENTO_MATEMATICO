@@ -222,44 +222,6 @@ st.markdown("""
     /* Espacio para que el footer no tape contenido */
     .block-container { padding-bottom: 3.5rem !important; }
 
-    /* ── Animaciones de entrada ────────────────────────────────── */
-    @keyframes fadeSlideDown {
-        from { opacity: 0; transform: translateY(-18px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeSlideUp {
-        from { opacity: 0; transform: translateY(18px); }
-        to   { opacity: 1; transform: translateY(0); }
-    }
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to   { opacity: 1; }
-    }
-
-    /* Header entra desde arriba */
-    .header-bar {
-        animation: fadeSlideDown 0.6s ease both;
-    }
-    /* Card de pregunta entra desde abajo */
-    .question-card {
-        animation: fadeSlideUp 0.55s ease both;
-    }
-    /* Badges entran con fade suave */
-    .badge-prueba, .badge-eje, .badge-nombre {
-        animation: fadeIn 0.5s ease both;
-    }
-    /* Mensajes de resultado aparecen con fade */
-    .result-msg-correct, .result-msg-incorrect {
-        animation: fadeIn 0.4s ease both;
-    }
-    /* Footer entra desde abajo */
-    .footer-biblica {
-        animation: fadeSlideUp 0.7s ease both;
-    }
-    /* Sidebar brand entra con fade */
-    .sidebar-brand {
-        animation: fadeIn 0.8s ease both;
-    }
 </style>
 """, unsafe_allow_html=True)
 

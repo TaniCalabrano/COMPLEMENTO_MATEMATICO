@@ -133,7 +133,19 @@ st.markdown("""
         font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; }
     .stButton > button {
         width: 100%; border-radius: 8px; font-weight: 700;
-        transition: all 0.2s; border: none; cursor: pointer;
+        transition: all 0.2s; cursor: pointer;
+        background-color: #1c1a0a !important;
+        color: #e8d5a0 !important;
+        border: 1px solid #5a4010 !important;
+    }
+    .stButton > button:hover {
+        background-color: #2a2000 !important;
+        border-color: #f5a623 !important;
+        color: #f5a623 !important;
+    }
+    .stButton > button:active {
+        background-color: #3a2e00 !important;
+        transform: scale(0.98);
     }
     .btn-aleatorio > button {
         background: linear-gradient(135deg, #7a4a00, #c07a00);
@@ -748,8 +760,11 @@ def main():
     )
 
     # Contador informativo
-    st.sidebar.caption(
-        f"Mostrando **{len(nombres_buscados)}** de **{len(nombres_filtrados)}** preguntas"
+    st.sidebar.markdown(
+        f'<div style="color:#f5a623;font-size:0.75rem;font-weight:700;'
+        f'letter-spacing:1px;padding:3px 0 3px 11px;border-left:3px solid #f5a623;">'
+        f'Mostrando {len(nombres_buscados)} de {len(nombres_filtrados)} preguntas</div>',
+        unsafe_allow_html=True
     )
 
     # ── Botón Aleatorio ──────────────────────────────────────────────────────

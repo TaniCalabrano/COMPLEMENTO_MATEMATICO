@@ -190,6 +190,37 @@ st.markdown("""
         font-family: 'Courier New', monospace; letter-spacing: 4px;
     }
     .block-container { padding-top: 1.5rem !important; }
+    .header-versiculo {
+        font-size: 0.78rem; color: #d4af6e; font-style: italic;
+        margin-top: 6px; letter-spacing: 0.3px;
+        font-family: Georgia, 'Times New Roman', serif;
+    }
+    .footer-biblica {
+        position: fixed; bottom: 0; left: 0; right: 0;
+        background: linear-gradient(90deg, #1a0f00, #2a1800, #1a0f00);
+        border-top: 1px solid #7a5a1a;
+        padding: 0.55rem 2rem;
+        text-align: center;
+        z-index: 9999;
+    }
+    .footer-biblica p {
+        margin: 0;
+        font-family: Georgia, 'Times New Roman', serif;
+        font-size: 0.82rem;
+        font-style: italic;
+        color: #f0d090;
+        letter-spacing: 0.6px;
+    }
+    .footer-biblica span.ref {
+        font-style: normal;
+        font-weight: 700;
+        color: #f5a623;
+        font-size: 0.78rem;
+        margin-left: 6px;
+        letter-spacing: 1px;
+    }
+    /* Espacio para que el footer no tape contenido */
+    .block-container { padding-bottom: 3.5rem !important; }
 </style>
 """, unsafe_allow_html=True)
 
@@ -215,6 +246,18 @@ def mostrar_header():
         <div class="header-subtitle">Prof. Bastiani Calabrano Inostroza</div>
         <div class="header-subtitle2">Entrenamiento PAES · M1 · M2 · Física</div>
         <div class="header-subtitle3">(Los problemas son de autoría del DEMRE)</div>
+        <div class="header-versiculo">“Todo lo puedo en Cristo que me fortalece” &mdash; Filipenses 4:13</div>
+    </div>
+    """, unsafe_allow_html=True)
+
+
+def mostrar_footer():
+    st.markdown("""
+    <div class="footer-biblica">
+        <p>
+            “Porque el Señor da la sabiduría; de su boca vienen el conocimiento y la inteligencia.”
+            <span class="ref">Proverbios 2:6</span>
+        </p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -373,6 +416,7 @@ def sidebar_timer():
 
 def main():
     mostrar_header()
+    mostrar_footer()
     preguntas = cargar_preguntas()
 
     if not preguntas:

@@ -231,10 +231,10 @@
     "eje": "Números",
     "imagen": "images/m1/P03-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "A",
-        "B": "B",
-        "C": "C",
-        "D": "D"
+        "A":"" ,
+        "B":"" ,
+        "C":"" ,
+        "D":"" 
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://www.youtube.com/shorts/rMUZoEjwI5s?feature=share"

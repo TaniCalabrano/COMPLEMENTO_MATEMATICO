@@ -824,6 +824,8 @@ def main():
 
 <h4>💡 Consejo de estudio</h4>
 <p>No te limites a verificar si acertaste. Pregúntate siempre: <i>¿cómo lo resolví?, ¿pude haberlo resuelto de otra forma?, ¿dónde pude equivocarme?</i> Esa reflexión es lo que construye habilidad real.</p>
+<h4>✉ Contacto</h4>
+<p>Si tienes inquietudes con la página o dudas puntuales, puedes enviarlas al siguiente correo:<br><a href="mailto:complemento.matematico.cm@gmail.com" style="color:#f5a623;font-weight:700;text-decoration:none;">complemento.matematico.cm@gmail.com</a></p>
 </div>
             """, unsafe_allow_html=True)
 

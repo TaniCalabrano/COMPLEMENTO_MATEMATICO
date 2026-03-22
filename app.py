@@ -330,6 +330,32 @@ def mostrar_bienvenida():
         '&#128279; Ir al sitio del DEMRE'
         '</a>'
         '</div>'
+
+        '<div style="background:#0d1624;border:1px solid #2a3a5a;border-radius:10px;'
+        'padding:0.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;'
+        'flex-wrap:wrap;gap:10px;max-width:820px;margin:0 auto 0.8rem;">'
+        '<div style="font-size:0.85rem;color:#99aac8;line-height:1.6;">'
+        'Para complementar tu aprendizaje con videos explicativos de teoría y ejercicios,'
+        '<br>te invito a mi canal de YouTube:'
+        '</div>'
+        + (
+            '<a href="https://youtube.com/@tanicalabrano2023?si=TbUDUsGwCmCNtn9J" target="_blank" '
+            'style="display:inline-flex;align-items:center;gap:10px;'
+            'background:linear-gradient(135deg,#8b0000,#cc0000);'
+            'color:#fff;border:1px solid #ff4444;border-radius:8px;padding:8px 18px;'
+            'font-size:0.82rem;font-weight:700;text-decoration:none;letter-spacing:0.3px;">'
+            + (
+                f'<img src="data:image/png;base64,{LOGO_B64}" '
+                'style="height:28px;width:28px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="Logo">'
+                if LOGO_B64 else
+                '<svg width="22" height="22" viewBox="0 0 24 24" fill="white" style="flex-shrink:0;">'
+                '<path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>'
+                '</svg>'
+            )
+            + 'Complemento Matemático — YouTube'
+            '</a>'
+        )
+        + '</div>'
     )
 
     st.markdown(html_bienvenida, unsafe_allow_html=True)

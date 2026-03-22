@@ -190,6 +190,29 @@ st.markdown("""
         font-family: 'Courier New', monospace; letter-spacing: 4px;
     }
     .block-container { padding-top: 1.5rem !important; }
+    .consejos-panel {
+        background: #0d1424;
+        border: 1px solid #2d4a7a;
+        border-radius: 12px;
+        padding: 1.1rem 1.3rem;
+        margin-bottom: 0.8rem;
+        font-size: 0.82rem;
+        color: #b0c4e8;
+        line-height: 1.6;
+    }
+    .consejos-panel h4 {
+        color: #f5a623;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin: 0.7rem 0 0.3rem;
+        border-left: 3px solid #f5a623;
+        padding-left: 7px;
+    }
+    .consejos-panel h4:first-child { margin-top: 0; }
+    .consejos-panel p { margin: 0 0 0.3rem 0; }
+    .consejos-icono { font-size: 14px; margin-right: 5px; }
     .header-versiculo {
         font-size: 0.78rem; color: #d4af6e; font-style: italic;
         margin-top: 6px; letter-spacing: 0.3px;
@@ -737,6 +760,41 @@ def main():
 
     with col_timer:
         import time as _time
+
+        # ── Botón Consejos de uso ────────────────────────────────────────
+        if "mostrar_consejos" not in st.session_state:
+            st.session_state.mostrar_consejos = False
+
+        label_btn = "✕ Cerrar consejos" if st.session_state.mostrar_consejos else "💡 Consejos de uso"
+        if st.button(label_btn, key="btn_consejos", use_container_width=True):
+            st.session_state.mostrar_consejos = not st.session_state.mostrar_consejos
+            st.rerun()
+
+        if st.session_state.mostrar_consejos:
+            st.markdown("""
+<div class="consejos-panel">
+<h4>📋 Filtros de búsqueda</h4>
+<p>Usa los filtros del panel lateral para encontrar problemas por <b>Prueba</b> (PAES M1, M2, Física) y por <b>Eje temático</b>. Ambos filtros se combinan automáticamente.</p>
+
+<h4>🔍 Buscador por nombre</h4>
+<p>Escribe parte del código del problema (por ejemplo <i>2023</i> o <i>P12</i>) en el campo de texto. El selector se reduce mostrando solo las coincidencias. Un contador indica cuántos problemas están visibles.</p>
+
+<h4>🎲 Pregunta aleatoria</h4>
+<p>El botón <b>Pregunta aleatoria</b> elige al azar dentro de los filtros activos. Úsalo para simular condiciones de examen sin elegir el tema conscientemente.</p>
+
+<h4>⏱ Cronómetro</h4>
+<p>Selecciona <b>90 o 120 segundos</b> en el panel lateral antes de iniciar. Presiona <b>▶ Iniciar</b> justo cuando comienzas a leer el problema. El cronómetro se detiene automáticamente al responder y muestra el tiempo usado.</p>
+
+<h4>🔄 Reiniciar pregunta</h4>
+<p>Si quieres volver a intentar un problema, presiona el botón <b>🔄 Reiniciar pregunta</b> que aparece debajo de tu respuesta. Borra tu selección y el cronómetro para empezar de cero.</p>
+
+<h4>▶ Video explicativo</h4>
+<p>Al responder, si el problema tiene solución en video, aparecerá incrustado debajo del resultado. Compara tu desarrollo con el del profesor.</p>
+
+<h4>💡 Consejo de estudio</h4>
+<p>No te limites a verificar si acertaste. Pregúntate siempre: <i>¿cómo lo resolví?, ¿pude haberlo resuelto de otra forma?, ¿dónde pude equivocarme?</i> Esa reflexión es lo que construye habilidad real.</p>
+</div>
+            """, unsafe_allow_html=True)
 
         if "timer_start_ts" not in st.session_state:
             st.session_state.timer_start_ts    = None

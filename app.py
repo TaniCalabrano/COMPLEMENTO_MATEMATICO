@@ -252,6 +252,71 @@ def mostrar_header():
     """, unsafe_allow_html=True)
 
 
+def mostrar_bienvenida():
+    items = [
+        ("1", "Reflexionar sobre su nivel de interés con la rendición de la evaluación."),
+        ("2", "Reflexionar e informarse sobre carreras de nivel superior que se ajusten a sus intereses y posibilidades de ingreso y sostenibilidad."),
+        ("3", "Gestionar su tiempo y crear un programa de estudio personalizado para tener éxito en la rendición de la evaluación. <em>La semana es un conjunto de 168 horas — depende de ti si aprovechas o no tu tiempo, el cual es un verdadero regalo que no se puede controlar, pero sí gestionar.</em>"),
+        ("4", "Infórmate sobre los contenidos que debes dominar y las habilidades que debes desarrollar para tener éxito en la evaluación."),
+        ("5", "Reflexiona sobre los problemas que abordes, preguntándote: <em>¿Cómo se resuelve? ¿Abordé correctamente el problema? ¿De cuántas formas se podrá resolver? ¿Qué otra pregunta se puede generar a través de este problema? ¿Cómo me podría haber equivocado?</em>"),
+        ("6", "Date mensajes de éxito. Si crees que no lo lograrás, pues el resultado ya está sentenciado. En cambio, si crees en ti y das lo mejor en el periodo de tu preparación, tu entrenamiento te aseguro que te dará frutos."),
+        ("7", "Para concluir: Concéntrate en conocer sobre la prueba, entrenarte como resolutor(a) de problemas y desarrollar una autoestima académica que te permita gestionar tus emociones y rendir la evaluación con la convicción de que tendrás éxito al finalizarla."),
+    ]
+
+    items_html = ""
+    for num, texto in items:
+        items_html += f"""
+        <div class="agenda-item">
+            <div class="tick-box">✔</div>
+            <div class="agenda-num">{num}.</div>
+            <div class="agenda-text">{texto}</div>
+        </div>"""
+
+    logo_html = f'<img src="data:image/png;base64,{LOGO_B64}" style="height:48px;width:48px;border-radius:50%;object-fit:cover;vertical-align:middle;margin-right:10px;" alt="Logo CM">' if LOGO_B64 else ""
+
+    st.markdown(f"""
+    <div class="bienvenida-wrap">
+        <div class="bienvenida-saludo">
+            {logo_html}
+            <strong>Estimado(a) estudiante:</strong><br><br>
+            El repositorio de problemas de <strong>Complemento Matemático</strong> es un proyecto educativo
+            <strong>gratuito</strong> que tiene el propósito de potenciar su preparación para la rendición
+            de las evaluaciones <strong>PAES de Matemática</strong> y las preguntas respectivas de
+            <strong>Física</strong>.<br><br>
+            En función de ello, le recomiendo lo siguiente:
+        </div>
+        <div class="agenda-wrap">
+            <div class="agenda-title">
+                <span>📋</span> Recomendaciones para tu proceso de preparación
+            </div>
+            {items_html}
+        </div>
+        <div class="bienvenida-firma">
+            Mucho éxito en tus procesos de aprendizaje.<br>
+            <strong>Atte. Prof. Bastiani Calabrano Inostroza</strong>
+        </div>
+    </div>
+
+    <div class="demre-banner">
+        <div class="demre-text">
+            Para más información sobre la PAES buscar en:
+            <strong>DEMRE — Proceso de Admisión 2027</strong>
+        </div>
+        <a class="demre-btn"
+           href="https://demre.cl"
+           target="_blank">
+            🔗 Ir al sitio del DEMRE
+        </a>
+    </div>
+    """, unsafe_allow_html=True)
+
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        if st.button("✅  Entendido — Ingresar al repositorio", key="btn_entrar", use_container_width=True):
+            st.session_state.bienvenida_vista = True
+            st.rerun()
+
+
 def mostrar_footer():
     st.markdown("""
     <div class="footer-biblica">
@@ -416,8 +481,16 @@ def sidebar_timer():
 
 
 def main():
+    if "bienvenida_vista" not in st.session_state:
+        st.session_state.bienvenida_vista = False
+
     mostrar_header()
     mostrar_footer()
+
+    if not st.session_state.bienvenida_vista:
+        mostrar_bienvenida()
+        return
+
     preguntas = cargar_preguntas()
 
     if not preguntas:

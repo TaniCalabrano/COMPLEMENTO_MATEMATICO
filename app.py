@@ -30,6 +30,22 @@ LOGO_B64 = _cargar_logo_b64()
 st.markdown("""
 <style>
     .stApp { background-color: #0f1117; }
+    /* Eliminar fondo blanco del contenedor principal de Streamlit */
+    .stApp > header { background-color: transparent !important; }
+    [data-testid="stAppViewContainer"] { background-color: #0f1117 !important; }
+    [data-testid="stMainBlockContainer"] {
+        background-color: #0f1117 !important;
+        padding-top: 0 !important;
+    }
+    [data-testid="stHeader"] { background-color: #0f1117 !important; }
+    [data-testid="stToolbar"] { background-color: #0f1117 !important; }
+    [data-testid="stDecoration"] { background-color: #0f1117 !important; }
+    [data-testid="stMain"] { background-color: #0f1117 !important; }
+    section.main { background-color: #0f1117 !important; }
+    .main .block-container {
+        background-color: #0f1117 !important;
+        max-width: 100% !important;
+    }
     .header-bar {
         display: flex; flex-direction: column;
         align-items: center; justify-content: center;

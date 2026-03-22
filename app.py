@@ -255,7 +255,7 @@ def mostrar_footer():
     st.markdown("""
     <div class="footer-biblica">
         <p>
-            “Porque el Señor da la sabiduría; de su boca vienen el conocimiento y la inteligencia.”
+            “Porque Jehová da la sabiduría, y de su boca viene el conocimiento y la inteligencia.”
             <span class="ref">Proverbios 2:6</span>
         </p>
     </div>

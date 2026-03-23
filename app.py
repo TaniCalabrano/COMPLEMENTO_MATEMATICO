@@ -583,9 +583,6 @@ def sidebar_timer():
         key="tiempo_radio"
     )
 
-    # ── Botón actividades interactivas ───────────────────────────────────────
-    mostrar_boton_actividades()
-
     return tiempo_seg
 
 
@@ -804,6 +801,15 @@ def main():
 
         if "mostrar_consejos" not in st.session_state:
             st.session_state.mostrar_consejos = False
+
+        # ── Botón Actividades interactivas ───────────────────────────
+        st.markdown('<div class="btn-actividades">', unsafe_allow_html=True)
+        if st.button("🧩  Actividades interactivas", key="btn_actividades_timer", use_container_width=True):
+            st.session_state["modal_actividades"] = True
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+
+        st.markdown("<div style='margin-bottom:0.3rem;'></div>", unsafe_allow_html=True)
 
         label_btn = "✕ Cerrar consejos" if st.session_state.mostrar_consejos else "💡 Consejos de uso"
         if st.button(label_btn, key="btn_consejos", use_container_width=True):

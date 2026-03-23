@@ -187,14 +187,14 @@ def mostrar_modal_actividades():
             for j, act in enumerate(fila):
                 eje = act.get("eje", "")
                 c = EJES_COLORES.get(eje, EJES_DEFAULT)
+                url = act.get("url", "#")
                 with cols[j]:
                     st.markdown(
-                        f'<a href="{act.get("url","#")}" target="_blank" rel="noopener noreferrer"'
-                        f' style="display:block;background:#141928;border:1px solid #2a3350;'
-                        f'border-radius:14px;padding:1.2rem 1.3rem;text-decoration:none;'
-                        f'transition:border-color 0.2s;">'
+                        f'<div style="background:#141928;border:1px solid #2a3350;'
+                        f'border-radius:14px;padding:1.2rem 1.3rem;margin-bottom:0.5rem;">'
 
-                        f'<div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.6rem;">'
+                        # Icono + nombre
+                        f'<div style="display:flex;align-items:center;gap:0.7rem;margin-bottom:0.7rem;">'
                         f'<div style="font-size:1.7rem;width:42px;height:42px;background:#0d1020;'
                         f'border-radius:10px;display:flex;align-items:center;justify-content:center;'
                         f'flex-shrink:0;">{act.get("icono","🔬")}</div>'
@@ -202,16 +202,23 @@ def mostrar_modal_actividades():
                         f'line-height:1.3;">{act.get("nombre","")}</div>'
                         f'</div>'
 
+                        # Descripción
                         f'<div style="font-size:0.78rem;color:#7a8ab0;line-height:1.55;'
-                        f'margin-bottom:0.8rem;">{act.get("descripcion","")}</div>'
+                        f'margin-bottom:0.9rem;">{act.get("descripcion","")}</div>'
 
+                        # Footer: badge + link
                         f'<div style="display:flex;align-items:center;justify-content:space-between;">'
                         f'<span style="font-size:0.7rem;font-weight:700;padding:2px 10px;'
                         f'border-radius:20px;background:{c["bg"]};border:1px solid {c["border"]};'
                         f'color:{c["text"]};">{eje}</span>'
-                        f'<span style="font-size:0.75rem;color:#f5a623;font-weight:700;">Abrir ↗</span>'
+                        f'<a href="{url}" target="_blank" rel="noopener noreferrer" '
+                        f'style="font-size:0.8rem;color:#f5a623;font-weight:700;'
+                        f'text-decoration:none;background:rgba(245,166,35,0.1);'
+                        f'border:1px solid rgba(245,166,35,0.3);border-radius:8px;'
+                        f'padding:4px 12px;">Abrir ↗</a>'
                         f'</div>'
-                        f'</a>',
+
+                        f'</div>',
                         unsafe_allow_html=True
                     )
 

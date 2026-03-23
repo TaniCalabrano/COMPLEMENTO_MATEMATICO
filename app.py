@@ -6,6 +6,7 @@ import random
 import base64
 from pathlib import Path
 from PIL import Image
+from actividades_modal import mostrar_boton_actividades, mostrar_modal_actividades
 
 logo_favicon = Image.open("LogoCM.png")
 
@@ -30,7 +31,6 @@ LOGO_B64 = _cargar_logo_b64()
 st.markdown("""
 <style>
     .stApp { background-color: #0f1117; }
-    /* Eliminar fondo blanco del contenedor principal de Streamlit */
     .stApp > header { background-color: transparent !important; }
     [data-testid="stAppViewContainer"] { background-color: #0f1117 !important; }
     [data-testid="stMainBlockContainer"] {
@@ -167,6 +167,16 @@ st.markdown("""
     .btn-reiniciar > button:hover {
         background: linear-gradient(135deg, #4b5563, #6b7280) !important;
     }
+    .btn-actividades > button {
+        background: linear-gradient(135deg, #1a3a6a, #2255aa) !important;
+        color: #c8e0ff !important;
+        border: 1px solid #3a6abf !important;
+        margin-top: 0.3rem;
+    }
+    .btn-actividades > button:hover {
+        background: linear-gradient(135deg, #2255aa, #3a7aee) !important;
+        color: #ffffff !important;
+    }
     .stSelectbox > div > div {
         background-color: #2a1f00 !important;
         color: #e8d5a0 !important;
@@ -252,7 +262,7 @@ st.markdown("""
         border-top: 1px solid #7a5a1a;
         padding: 0.55rem 2rem;
         text-align: center;
-        z-index: 9999;
+        z-index: 9997;
     }
     .footer-biblica p {
         margin: 0;
@@ -270,9 +280,7 @@ st.markdown("""
         margin-left: 6px;
         letter-spacing: 1px;
     }
-    /* Espacio para que el footer no tape contenido */
     .block-container { padding-bottom: 3.5rem !important; }
-
 </style>
 """, unsafe_allow_html=True)
 
@@ -298,7 +306,7 @@ def mostrar_header():
         <div class="header-subtitle">Prof. Bastiani Calabrano Inostroza</div>
         <div class="header-subtitle2">Entrenamiento PAES · M1 · M2 · Física</div>
         <div class="header-subtitle3">(Los problemas son de autoría del DEMRE)</div>
-        <div class="header-versiculo">“Todo lo puedo en Cristo que me fortalece” &mdash; Filipenses 4:13</div>
+        <div class="header-versiculo">"Todo lo puedo en Cristo que me fortalece" &mdash; Filipenses 4:13</div>
     </div>
     """, unsafe_allow_html=True)
 
@@ -422,7 +430,7 @@ def mostrar_footer():
     st.markdown("""
     <div class="footer-biblica">
         <p>
-            “Porque Jehová da la sabiduría, y de su boca viene el conocimiento y la inteligencia.”
+            "Porque Jehová da la sabiduría, y de su boca viene el conocimiento y la inteligencia."
             <span class="ref">Proverbios 2:6</span>
         </p>
     </div>
@@ -448,7 +456,6 @@ def mostrar_pregunta_card(pregunta, preguntas):
     </div>
     """, unsafe_allow_html=True)
 
-    # Imagen embebida en base64
     img_path = Path(imagen)
     if img_path.exists():
         with open(img_path, "rb") as _f:
@@ -482,7 +489,6 @@ def mostrar_pregunta_card(pregunta, preguntas):
             st.session_state[sel_key] = letra
             st.rerun()
 
-    # ── Resultado ──────────────────────────────────────────────────────────
     if st.session_state[sel_key] is not None:
         import time as _time
         tiempo_str = ""
@@ -506,7 +512,6 @@ def mostrar_pregunta_card(pregunta, preguntas):
                 unsafe_allow_html=True
             )
 
-        # Video YouTube
         if video:
             import re
             match = re.search(
@@ -546,7 +551,6 @@ def mostrar_pregunta_card(pregunta, preguntas):
                 </div>
                 ''', unsafe_allow_html=True)
 
-        # ── BOTÓN DE REINICIO ──────────────────────────────────────────────
         st.markdown(
             "<hr style='border-color:#e2e8f0;margin:1.2rem 0 0.8rem'>",
             unsafe_allow_html=True
@@ -578,6 +582,10 @@ def sidebar_timer():
         format_func=lambda x: f"{x} segundos",
         key="tiempo_radio"
     )
+
+    # ── Botón actividades interactivas ───────────────────────────────────────
+    mostrar_boton_actividades()
+
     return tiempo_seg
 
 
@@ -587,6 +595,9 @@ def main():
 
     mostrar_header()
     mostrar_footer()
+
+    # ── Modal de actividades (se renderiza sobre todo lo demás) ──────────────
+    mostrar_modal_actividades()
 
     if not st.session_state.bienvenida_vista:
         mostrar_bienvenida()
@@ -600,13 +611,11 @@ def main():
 
     nombres = [p.get("nombre", p.get("id", "")) for p in preguntas]
 
-    # ── Estado inicial ──────────────────────────────────────────────────────
     if "pregunta_idx" not in st.session_state:
         st.session_state.pregunta_idx = 0
     if "selectbox_nombre" not in st.session_state:
         st.session_state.selectbox_nombre = nombres[0]
 
-    # ── Sidebar ─────────────────────────────────────────────────────────────
     tiempo_seg = sidebar_timer()
 
     # ── Filtro por prueba ────────────────────────────────────────────────────
@@ -686,7 +695,7 @@ def main():
         on_change=on_eje_change,
     )
 
-    # ── Construir lista filtrada (prueba + eje) ──────────────────────────────
+    # ── Lista filtrada ───────────────────────────────────────────────────────
     prueba_activa = st.session_state.filtro_prueba
     eje_activo    = st.session_state.filtro_eje
 
@@ -711,7 +720,7 @@ def main():
         idx_en_filtro = 0
         st.session_state.pregunta_idx = nombres.index(nombres_filtrados[0])
 
-    # ── Buscador de texto + selectbox mejorado ───────────────────────────────
+    # ── Buscador ─────────────────────────────────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">🔍 BUSCAR POR NOMBRE</div>', unsafe_allow_html=True)
 
     if "texto_busqueda" not in st.session_state:
@@ -723,7 +732,6 @@ def main():
         key="texto_busqueda",
     )
 
-    # Filtrar nombres según el texto escrito
     if texto_busqueda:
         nombres_buscados = [
             n for n in nombres_filtrados
@@ -736,7 +744,6 @@ def main():
         st.sidebar.caption("⚠️ Sin coincidencias. Mostrando todas.")
         nombres_buscados = nombres_filtrados
 
-    # Determinar índice en la lista buscada
     nombre_actual_global = nombres[st.session_state.pregunta_idx]
     if nombre_actual_global in nombres_buscados:
         idx_buscado = nombres_buscados.index(nombre_actual_global)
@@ -759,7 +766,6 @@ def main():
         on_change=on_select_change,
     )
 
-    # Contador informativo
     st.sidebar.markdown(
         f'<div style="color:#f5a623;font-size:0.75rem;font-weight:700;'
         f'letter-spacing:1px;padding:3px 0 3px 11px;border-left:3px solid #f5a623;">'
@@ -780,7 +786,7 @@ def main():
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── Mostrar pregunta actual ──────────────────────────────────────────────
+    # ── Pregunta actual + timer ──────────────────────────────────────────────
     idx      = st.session_state.pregunta_idx
     pregunta = preguntas[idx]
 
@@ -792,7 +798,6 @@ def main():
     with col_timer:
         import time as _time
 
-        # ── Botón Consejos de uso ────────────────────────────────────────
         if "mostrar_consejos" not in st.session_state:
             st.session_state.mostrar_consejos = False
 
@@ -806,26 +811,20 @@ def main():
 <div class="consejos-panel">
 <h4>📋 Filtros de búsqueda</h4>
 <p>Usa los filtros del panel lateral para encontrar problemas por <b>Prueba</b> (PAES M1, M2, Física) y por <b>Eje temático</b>. Ambos filtros se combinan automáticamente.</p>
-
 <h4>🔍 Buscador por nombre</h4>
-<p>Escribe parte del código del problema (por ejemplo <i>2023</i> o <i>P12</i>) en el campo de texto. El selector se reduce mostrando solo las coincidencias. Un contador indica cuántos problemas están visibles.</p>
-
+<p>Escribe parte del código del problema (por ejemplo <i>2023</i> o <i>P12</i>) en el campo de texto.</p>
 <h4>🎲 Pregunta aleatoria</h4>
-<p>El botón <b>Pregunta aleatoria</b> elige al azar dentro de los filtros activos. Úsalo para simular condiciones de examen sin elegir el tema conscientemente.</p>
-
+<p>El botón <b>Pregunta aleatoria</b> elige al azar dentro de los filtros activos.</p>
 <h4>⏱ Cronómetro</h4>
-<p>Selecciona <b>90 o 120 segundos</b> en el panel lateral antes de iniciar. Presiona <b>▶ Iniciar</b> justo cuando comienzas a leer el problema. El cronómetro se detiene automáticamente al responder y muestra el tiempo usado.</p>
-
+<p>Selecciona <b>90 o 120 segundos</b> en el panel lateral antes de iniciar.</p>
 <h4>🔄 Reiniciar pregunta</h4>
-<p>Si quieres volver a intentar un problema, presiona el botón <b>🔄 Reiniciar pregunta</b> que aparece debajo de tu respuesta. Borra tu selección y el cronómetro para empezar de cero.</p>
-
+<p>Presiona <b>🔄 Reiniciar pregunta</b> para volver a intentar un problema.</p>
+<h4>🧩 Actividades interactivas</h4>
+<p>Accede a actividades HTML dinámicas desde el botón en el sidebar. Se abren en pestaña nueva sin afectar esta página.</p>
 <h4>▶ Video explicativo</h4>
-<p>Al responder, si el problema tiene solución en video, aparecerá incrustado debajo del resultado. Compara tu desarrollo con el del profesor.</p>
-
-<h4>💡 Consejo de estudio</h4>
-<p>No te limites a verificar si acertaste. Pregúntate siempre: <i>¿cómo lo resolví?, ¿pude haberlo resuelto de otra forma?, ¿dónde pude equivocarme?</i> Esa reflexión es lo que construye habilidad real.</p>
+<p>Al responder aparecerá el video de solución del profesor.</p>
 <h4>✉ Contacto</h4>
-<p>Si tienes inquietudes con la página o dudas puntuales, puedes enviarlas al siguiente correo:<br><a href="mailto:complemento.matematico.cm@gmail.com" style="color:#f5a623;font-weight:700;text-decoration:none;">complemento.matematico.cm@gmail.com</a></p>
+<p><a href="mailto:complemento.matematico.cm@gmail.com" style="color:#f5a623;font-weight:700;text-decoration:none;">complemento.matematico.cm@gmail.com</a></p>
 </div>
             """, unsafe_allow_html=True)
 

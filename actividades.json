@@ -1,0 +1,42 @@
+[
+  {
+    "id": "funcion-afin",
+    "nombre": "Función Afín",
+    "descripcion": "Analiza gráficamente, resuelve problemas contextualizados y juega identificando funciones.",
+    "eje": "Álgebra",
+    "icono": "📈",
+    "url": "https://tanicalabrano.github.io/cm-act-funcion-afin/"
+  },
+  {
+    "id": "ecuacion-primer-grado",
+    "nombre": "Ecuación de 1.er Grado",
+    "descripcion": "Comprende la igualdad con la balanza, aplica propiedades y resuelve paso a paso.",
+    "eje": "Álgebra",
+    "icono": "⚖️",
+    "url": "https://tanicalabrano.github.io/cm-act-ecuacion-1grado/"
+  },
+  {
+    "id": "potencias-raices",
+    "nombre": "Potencias y Raíces",
+    "descripcion": "Explora las propiedades de las potencias y raíces con ejercicios interactivos.",
+    "eje": "Números",
+    "icono": "🔢",
+    "url": "https://tanicalabrano.github.io/cm-act-potencias/"
+  },
+  {
+    "id": "pitagoras",
+    "nombre": "Teorema de Pitágoras",
+    "descripcion": "Visualiza el teorema geométricamente y resuelve triángulos rectángulos.",
+    "eje": "Geometría",
+    "icono": "📐",
+    "url": "https://tanicalabrano.github.io/cm-act-pitagoras/"
+  },
+  {
+    "id": "estadistica-descriptiva",
+    "nombre": "Estadística Descriptiva",
+    "descripcion": "Calcula media, mediana, moda y rango con conjuntos de datos dinámicos.",
+    "eje": "Estadística",
+    "icono": "📊",
+    "url": "https://tanicalabrano.github.io/cm-act-estadistica/"
+  }
+]

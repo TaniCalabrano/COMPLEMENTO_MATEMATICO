@@ -111,10 +111,10 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P26-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A":"" ,
-        "B":"" ,
-        "C":"" ,
-        "D":"" 
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://youtu.be/A6buDJGm63Y"
@@ -126,10 +126,10 @@
     "eje": "Geometría",
     "imagen": "images/m1/P49-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "8 kilómetros al oeste y 5 kilómetros al sur",
-        "B": "14 kilómetros al oeste y 13 kilómetros al norte",
-        "C": "8 kilómetros al este y 5 kilómetros al norte",
-        "D": "14 kilómetros al este y 13 kilómetros al sur"
+      "A": "8 kilómetros al oeste y 5 kilómetros al sur",
+      "B": "14 kilómetros al oeste y 13 kilómetros al norte",
+      "C": "8 kilómetros al este y 5 kilómetros al norte",
+      "D": "14 kilómetros al este y 13 kilómetros al sur"
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://www.youtube.com/shorts/6Z8f69UCFfM"
@@ -141,10 +141,10 @@
     "eje": "Estadística",
     "imagen": "images/m1/P65-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "1/8",
-        "B": "1/4",
-        "C": "3/8",
-        "D": "1/2"
+      "A": "1/8",
+      "B": "1/4",
+      "C": "3/8",
+      "D": "1/2"
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://youtu.be/pQkzMStDOKg"
@@ -156,10 +156,10 @@
     "eje": "Números",
     "imagen": "images/m1/P04-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "En el Paso 1",
-        "B": "En el Paso 2",
-        "C": "En el Paso 3",
-        "D": "En el Paso 4"
+      "A": "En el Paso 1",
+      "B": "En el Paso 2",
+      "C": "En el Paso 3",
+      "D": "En el Paso 4"
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://youtu.be/pX0jMZbI2LQ"
@@ -171,10 +171,10 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P31-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "$12 500",
-        "B": "$15 000",
-        "C": "$23 125",
-        "D": "$26 250"
+      "A": "$12 500",
+      "B": "$15 000",
+      "C": "$23 125",
+      "D": "$26 250"
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://youtu.be/T62W2MVBWns"
@@ -186,10 +186,10 @@
     "eje": "Geometría",
     "imagen": "images/m1/P47-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "24 800 cm²",
-        "B": "28 000 cm²",
-        "C": "46 400 cm²",
-        "D": "49 600 cm²"
+      "A": "24 800 cm²",
+      "B": "28 000 cm²",
+      "C": "46 400 cm²",
+      "D": "49 600 cm²"
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://youtu.be/XXf9RnneZHc"
@@ -201,14 +201,14 @@
     "eje": "Estadística",
     "imagen": "images/m1/P55-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "500",
-        "B": "340",
-        "C": "300",
-        "D": "200"
+      "A": "500",
+      "B": "340",
+      "C": "300",
+      "D": "200"
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://www.youtube.com/shorts/22NyxfUQGNo?feature=share"
- },
+  },
   {
     "id": "P11-PAES-M2-AD-2026-I-DEMRE",
     "nombre": "P11-PAES-M2-AD-2026-I-DEMRE",
@@ -216,10 +216,10 @@
     "eje": "Álgebra",
     "imagen": "images/m2/P11-PAES-M2-AD-2026-I-DEMRE.jpg",
     "alternativas": {
-        "A": "400",
-        "B": "800",
-        "C": "2400",
-        "D": "4800"
+      "A": "400",
+      "B": "800",
+      "C": "2400",
+      "D": "4800"
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://youtube.com/shorts/jRAZYhp7uAM"
@@ -231,10 +231,10 @@
     "eje": "Números",
     "imagen": "images/m1/P03-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A":"" ,
-        "B":"" ,
-        "C":"" ,
-        "D":"" 
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://www.youtube.com/shorts/rMUZoEjwI5s?feature=share"
@@ -246,10 +246,10 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P33-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "25 kg",
-        "B": "55 kg",
-        "C": "80 kg",
-        "D": "105 kg"
+      "A": "25 kg",
+      "B": "55 kg",
+      "C": "80 kg",
+      "D": "105 kg"
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://youtu.be/Kw3pWhVRDDo"
@@ -261,10 +261,10 @@
     "eje": "Estadística",
     "imagen": "images/m1/P61-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "A",
-        "B": "B",
-        "C": "C",
-        "D": "D"
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://youtu.be/q_CH-68mJ0w"
@@ -276,10 +276,10 @@
     "eje": "Geometría",
     "imagen": "images/m1/P50-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "A",
-        "B": "B",
-        "C": "C",
-        "D": "D"
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://youtu.be/4juNNFK8tow"
@@ -291,10 +291,10 @@
     "eje": "Números",
     "imagen": "images/m1/P07-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "A",
-        "B": "B",
-        "C": "C",
-        "D": "D"
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://www.youtube.com/shorts/a9JbM_jvxa8?feature=share"
@@ -306,10 +306,10 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P30-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "A",
-        "B": "B",
-        "C": "C",
-        "D": "D"
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://youtu.be/A9oDQriy-AY"
@@ -321,14 +321,14 @@
     "eje": "Geometría",
     "imagen": "images/m1/P51-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "A",
-        "B": "B",
-        "C": "C",
-        "D": "D"
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://www.youtube.com/shorts/LO3GOqg7S6w?feature=share"
-},
+  },
   {
     "id": "P59-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P59-PAES-M1-AD-2026-I-DEMRE",
@@ -336,12 +336,12 @@
     "eje": "Estadística",
     "imagen": "images/m1/P59-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "A",
-        "B": "B",
-        "C": "C",
-        "D": "D"
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://youtu.be/jP270DKHEfA"
-}
+  }
 ]

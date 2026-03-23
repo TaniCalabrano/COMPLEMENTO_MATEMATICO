@@ -786,6 +786,10 @@ def main():
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
+    # ── Si el modal de actividades está abierto, no mostrar preguntas ni timer ──
+    if st.session_state.get("modal_actividades", False):
+        return
+
     # ── Pregunta actual + timer ──────────────────────────────────────────────
     idx      = st.session_state.pregunta_idx
     pregunta = preguntas[idx]

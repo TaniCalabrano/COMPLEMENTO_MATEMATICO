@@ -51,14 +51,26 @@ def mostrar_boton_actividades():
 
 
 def mostrar_modal_actividades():
-    """Modal de actividades renderizado con components.html para evitar
-    que Streamlit escape el HTML."""
+    """Modal de actividades con comunicación iframe→Streamlit via query_params."""
     if not st.session_state.get("modal_actividades", False):
         return
 
+    # ── Leer acción desde query params (comunicación iframe → Streamlit) ──
+    params = st.query_params
+    accion = params.get("act_accion", "")
+    if accion == "cerrar":
+        st.session_state["modal_actividades"] = False
+        st.session_state["act_filtro_eje"] = "Todos"
+        st.query_params.clear()
+        st.rerun()
+    elif accion.startswith("filtro:"):
+        nuevo_eje = accion[len("filtro:"):]
+        st.session_state["act_filtro_eje"] = nuevo_eje
+        st.query_params.clear()
+        st.rerun()
+
     actividades = _cargar_actividades()
 
-    # ── Filtro activo ──────────────────────────────────────────────────
     if "act_filtro_eje" not in st.session_state:
         st.session_state["act_filtro_eje"] = "Todos"
 
@@ -67,28 +79,25 @@ def mostrar_modal_actividades():
         list(set(a.get("eje", "") for a in actividades if a.get("eje")))
     )
 
-    # ── Cards filtradas ────────────────────────────────────────────────
     filtradas = actividades if eje_sel == "Todos" else [
         a for a in actividades if a.get("eje") == eje_sel
     ]
 
-    # ── Construir botones de filtro ────────────────────────────────────
+    # ── Botones de filtro ──────────────────────────────────────────────
     filtros_html = ""
     for eje in ejes_disponibles:
         activo_class = "activo" if eje_sel == eje else ""
         filtros_html += (
             f'<button class="act-filtro-btn {activo_class}" '
-            f'onclick="setFiltro(\'{eje}\')">{eje}</button>'
+            f'onclick="navegarA(\'filtro:{eje}\')">{eje}</button>'
         )
 
-    # ── Construir cards ────────────────────────────────────────────────
+    # ── Cards ──────────────────────────────────────────────────────────
     cards_html = ""
     for act in filtradas:
         eje = act.get("eje", "")
         c = EJES_COLORES.get(eje, EJES_DEFAULT)
-        badge = (
-            f'background:{c["bg"]};border:1px solid {c["border"]};color:{c["text"]};'
-        )
+        badge = f'background:{c["bg"]};border:1px solid {c["border"]};color:{c["text"]};'
         cards_html += f"""
         <a class="act-card" href="{act.get('url','#')}" target="_blank" rel="noopener noreferrer">
             <div class="act-card-top">
@@ -107,19 +116,20 @@ def mostrar_modal_actividades():
 
     conteo = f"{len(filtradas)} de {len(actividades)}"
 
-    # ── HTML completo del modal (CSS + estructura + JS) ────────────────
+    # ── URL base para navegación ───────────────────────────────────────
+    # Usamos window.parent.location para cambiar la URL del padre (Streamlit)
     html = f"""<!DOCTYPE html>
 <html lang="es">
 <head>
 <meta charset="UTF-8">
 <style>
   * {{ box-sizing: border-box; margin: 0; padding: 0; }}
-  body {{
-    background: transparent;
+  html, body {{
+    background: transparent !important;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    height: 100%;
   }}
 
-  /* ── Overlay ── */
   .overlay {{
     position: fixed; inset: 0; z-index: 9998;
     background: rgba(0,0,0,0.82);
@@ -127,7 +137,6 @@ def mostrar_modal_actividades():
     display: flex; align-items: center; justify-content: center;
   }}
 
-  /* ── Panel ── */
   .panel {{
     background: #111827;
     border: 1px solid #2d3a50;
@@ -137,13 +146,11 @@ def mostrar_modal_actividades():
     max-height: 88vh;
     overflow-y: auto;
     box-shadow: 0 24px 80px rgba(0,0,0,0.7);
-    position: relative;
   }}
   .panel::-webkit-scrollbar {{ width: 6px; }}
   .panel::-webkit-scrollbar-track {{ background: #0b0e17; }}
   .panel::-webkit-scrollbar-thumb {{ background: #2d3a50; border-radius: 3px; }}
 
-  /* ── Cabecera ── */
   .panel-header {{
     display: flex; align-items: center; justify-content: space-between;
     margin-bottom: 1rem;
@@ -157,13 +164,12 @@ def mostrar_modal_actividades():
   .btn-cerrar {{
     background: #1e293b; border: 1px solid #3a4a6a;
     color: #7a8ab0; border-radius: 8px;
-    padding: 6px 16px; font-size: 0.85rem;
-    font-weight: 700; cursor: pointer;
-    transition: all 0.2s;
+    padding: 6px 18px; font-size: 0.85rem;
+    font-weight: 700; cursor: pointer; transition: all 0.2s;
+    font-family: inherit;
   }}
   .btn-cerrar:hover {{ background: #dc2626; color: #fff; border-color: #dc2626; }}
 
-  /* ── Intro ── */
   .intro {{
     background: #0d1424; border: 1px solid #2d4a7a;
     border-radius: 12px; padding: 1.2rem 1.5rem;
@@ -171,9 +177,7 @@ def mostrar_modal_actividades():
     color: #b0c4e8; line-height: 1.7;
   }}
   .intro strong {{ color: #f5a623; }}
-  .pasos {{
-    display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.8rem;
-  }}
+  .pasos {{ display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 0.8rem; }}
   .paso {{
     display: flex; align-items: center; gap: 0.5rem;
     background: #141928; border: 1px solid #2d3a50;
@@ -181,14 +185,11 @@ def mostrar_modal_actividades():
     font-size: 0.8rem; color: #c8d8ff;
   }}
   .paso-num {{
-    background: #f5a623; color: #0b0e17;
-    font-weight: 900; font-size: 0.7rem;
-    width: 20px; height: 20px; border-radius: 50%;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
+    background: #f5a623; color: #0b0e17; font-weight: 900;
+    font-size: 0.7rem; width: 20px; height: 20px; border-radius: 50%;
+    display: flex; align-items: center; justify-content: center; flex-shrink: 0;
   }}
 
-  /* ── Sección label ── */
   .sec-label {{
     font-size: 0.72rem; font-weight: 700; letter-spacing: 2px;
     text-transform: uppercase; color: #f5a623;
@@ -196,7 +197,6 @@ def mostrar_modal_actividades():
     margin-bottom: 0.6rem;
   }}
 
-  /* ── Filtros ── */
   .filtros {{ display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.2rem; }}
   .act-filtro-btn {{
     padding: 4px 14px; border-radius: 20px;
@@ -210,7 +210,6 @@ def mostrar_modal_actividades():
     border-color: #f5a623; color: #f5a623;
   }}
 
-  /* ── Grid de cards ── */
   .grid {{
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
@@ -222,36 +221,24 @@ def mostrar_modal_actividades():
     text-decoration: none;
     display: flex; flex-direction: column; gap: 0.6rem;
     transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
-    cursor: pointer;
   }}
   .act-card:hover {{
-    transform: translateY(-3px);
-    border-color: #f5a623;
+    transform: translateY(-3px); border-color: #f5a623;
     box-shadow: 0 8px 24px rgba(245,166,35,0.15);
   }}
   .act-card-top {{ display: flex; align-items: center; gap: 0.7rem; }}
   .act-icono {{
-    font-size: 1.7rem; flex-shrink: 0;
-    width: 42px; height: 42px;
+    font-size: 1.7rem; flex-shrink: 0; width: 42px; height: 42px;
     background: #0d1020; border-radius: 10px;
     display: flex; align-items: center; justify-content: center;
   }}
-  .act-card-nombre {{
-    font-size: 0.95rem; font-weight: 700;
-    color: #e0eaff; line-height: 1.3;
-  }}
-  .act-card-desc {{
-    font-size: 0.78rem; color: #7a8ab0;
-    line-height: 1.55; flex: 1;
-  }}
+  .act-card-nombre {{ font-size: 0.95rem; font-weight: 700; color: #e0eaff; line-height: 1.3; }}
+  .act-card-desc {{ font-size: 0.78rem; color: #7a8ab0; line-height: 1.55; flex: 1; }}
   .act-card-footer {{
     display: flex; align-items: center;
     justify-content: space-between; margin-top: 0.2rem;
   }}
-  .act-eje-badge {{
-    font-size: 0.7rem; font-weight: 700;
-    padding: 2px 10px; border-radius: 20px;
-  }}
+  .act-eje-badge {{ font-size: 0.7rem; font-weight: 700; padding: 2px 10px; border-radius: 20px; }}
   .act-card-cta {{ font-size: 0.75rem; color: #f5a623; font-weight: 700; }}
   .act-empty {{
     grid-column: 1/-1; text-align: center;
@@ -271,10 +258,9 @@ def mostrar_modal_actividades():
 <body>
 <div class="overlay">
   <div class="panel">
-
     <div class="panel-header">
       <div class="panel-title">🧩 Actividades Interactivas</div>
-      <button class="btn-cerrar" onclick="cerrar()">✕ Cerrar</button>
+      <button class="btn-cerrar" onclick="navegarA('cerrar')">✕ Cerrar</button>
     </div>
 
     <div class="intro">
@@ -282,10 +268,10 @@ def mostrar_modal_actividades():
       Cada actividad está diseñada para que practiques de forma dinámica.
       Al ingresar encontrarás secciones de:
       <div class="pasos">
-        <div class="paso"><span class="paso-num">1</span> Teoría visual y ejemplos</div>
-        <div class="paso"><span class="paso-num">2</span> Análisis con gráficos interactivos</div>
-        <div class="paso"><span class="paso-num">3</span> Resolución de problemas guiada</div>
-        <div class="paso"><span class="paso-num">4</span> Juego dinámico para autoevaluarte</div>
+        <div class="paso"><span class="paso-num">1</span>Teoría visual y ejemplos</div>
+        <div class="paso"><span class="paso-num">2</span>Análisis con gráficos interactivos</div>
+        <div class="paso"><span class="paso-num">3</span>Resolución de problemas guiada</div>
+        <div class="paso"><span class="paso-num">4</span>Juego dinámico para autoevaluarte</div>
       </div>
     </div>
 
@@ -302,41 +288,40 @@ def mostrar_modal_actividades():
     <div class="nota-pie">
       Las actividades se abren en una pestaña nueva y no afectan el rendimiento de esta página.
     </div>
-
   </div>
 </div>
 
 <script>
-  function cerrar() {{
-    // Envía mensaje al padre para que Streamlit cierre el modal
-    window.parent.postMessage({{type: 'streamlit:setComponentValue', value: 'cerrar'}}, '*');
-  }}
-  function setFiltro(eje) {{
-    window.parent.postMessage({{type: 'streamlit:setComponentValue', value: 'filtro:' + eje}}, '*');
+  function navegarA(accion) {{
+    // Modifica la URL del padre (Streamlit) con el query param y recarga
+    var url = window.parent.location.href.split('?')[0];
+    window.parent.location.href = url + '?act_accion=' + encodeURIComponent(accion);
   }}
 </script>
 </body>
 </html>"""
 
-    # Renderizar el modal con components.html (altura suficiente para cubrir pantalla)
-    result = components.html(html, height=700, scrolling=False)
+    # ── CSS para ocultar el iframe border y fondo negro ────────────────
+    st.markdown("""
+    <style>
+    /* Eliminar borde y fondo del contenedor del iframe del modal */
+    iframe[title="actividades_modal.mostrar_modal_actividades"] {
+        border: none !important;
+        background: transparent !important;
+    }
+    /* Cubrir toda la pantalla con el iframe */
+    div[data-testid="stCustomComponentV1"]:has(
+        iframe[title="actividades_modal.mostrar_modal_actividades"]
+    ) {
+        position: fixed !important;
+        inset: 0 !important;
+        z-index: 9997 !important;
+        width: 100vw !important;
+        height: 100vh !important;
+        background: transparent !important;
+        border: none !important;
+    }
+    </style>
+    """, unsafe_allow_html=True)
 
-    # ── Botones Streamlit reales para cerrar y filtrar ─────────────────
-    # (invisibles visualmente pero funcionales)
-    st.markdown(
-        '<div style="display:flex;flex-wrap:wrap;gap:0.5rem;margin-top:0.3rem;">',
-        unsafe_allow_html=True
-    )
-    cols = st.columns(len(ejes_disponibles) + 1)
-    for i, eje in enumerate(ejes_disponibles):
-        with cols[i]:
-            label = f"{'✓ ' if eje == eje_sel else ''}{eje}"
-            if st.button(label, key=f"act_filtro_{eje}", use_container_width=True):
-                st.session_state["act_filtro_eje"] = eje
-                st.rerun()
-    with cols[-1]:
-        if st.button("✕ Cerrar actividades", key="btn_cerrar_modal", use_container_width=True):
-            st.session_state["modal_actividades"] = False
-            st.session_state["act_filtro_eje"] = "Todos"
-            st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
+    components.html(html, height=800, scrolling=False)

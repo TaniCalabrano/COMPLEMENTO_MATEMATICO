@@ -527,8 +527,8 @@
   {
     "id": "P04-PAES-FISICA-AD-2024-I-DEMRE",
     "nombre": "P04-PAES-FISICA-AD-2024-I-DEMRE",
-    "prueba": "M1",
-    "eje": "Estadística",
+    "prueba": "Física",
+    "eje": "Ondas",
     "imagen": "images/fisica/P04-PAES-FISICA-AD-2024-I-DEMRE.png",
     "alternativas": {
         "A": "",

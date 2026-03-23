@@ -6,5 +6,13 @@
     "eje": "Álgebra",
     "icono": "📈",
     "url": "https://tanicalabrano.github.io/CM-ACTIVIDAD-FUNCION-AFIN/"
+  },
+  {
+    "id": "funciones",
+    "nombre": "Snake de Funciones",
+    "descripcion": "Lucha con serpientes que representan funciones y aprende sus propiedades.",
+    "eje": "Álgebra",
+    "icono": "🐍",
+    "url": "https://tanicalabrano.github.io/SNAKE_MATEMATICO_FULL/"
   }
 ]

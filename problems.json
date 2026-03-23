@@ -238,8 +238,8 @@
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://www.youtube.com/shorts/rMUZoEjwI5s?feature=share"
-},
-{
+  },
+  {
     "id": "P33-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P33-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
@@ -253,5 +253,95 @@
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://youtu.be/Kw3pWhVRDDo"
+  },
+  {
+    "id": "P61-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P61-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "P61-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D"
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://youtu.be/q_CH-68mJ0w"
+  },
+  {
+    "id": "P50-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P50-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Geometría",
+    "imagen": "P50-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D"
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://youtu.be/4juNNFK8tow"
+  },
+  {
+    "id": "P07-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P07-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Números",
+    "imagen": "P07-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D"
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://www.youtube.com/shorts/a9JbM_jvxa8?feature=share"
+  },
+  {
+    "id": "P30-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P30-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "P30-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D"
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://youtu.be/A9oDQriy-AY"
+  },
+  {
+    "id": "P51-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P51-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Geometría",
+    "imagen": "P51-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D"
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://www.youtube.com/shorts/LO3GOqg7S6w?feature=share"
+},
+  {
+    "id": "P59-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P59-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "P59-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "A",
+        "B": "B",
+        "C": "C",
+        "D": "D"
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://youtu.be/jP270DKHEfA"
 }
 ]

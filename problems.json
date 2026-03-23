@@ -259,7 +259,7 @@
     "nombre": "P61-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Estadística",
-    "imagen": "P61-PAES-M1-AD-2026-I-DEMRE.png",
+    "imagen": "images/m1/P61-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
         "A": "A",
         "B": "B",
@@ -274,7 +274,7 @@
     "nombre": "P50-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Geometría",
-    "imagen": "P50-PAES-M1-AD-2026-I-DEMRE.png",
+    "imagen": "images/m1/P50-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
         "A": "A",
         "B": "B",
@@ -289,7 +289,7 @@
     "nombre": "P07-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Números",
-    "imagen": "P07-PAES-M1-AD-2026-I-DEMRE.png",
+    "imagen": "images/m1/P07-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
         "A": "A",
         "B": "B",
@@ -304,7 +304,7 @@
     "nombre": "P30-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Álgebra",
-    "imagen": "P30-PAES-M1-AD-2026-I-DEMRE.png",
+    "imagen": "images/m1/P30-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
         "A": "A",
         "B": "B",
@@ -319,7 +319,7 @@
     "nombre": "P51-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Geometría",
-    "imagen": "P51-PAES-M1-AD-2026-I-DEMRE.png",
+    "imagen": "images/m1/P51-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
         "A": "A",
         "B": "B",
@@ -334,7 +334,7 @@
     "nombre": "P59-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Estadística",
-    "imagen": "P59-PAES-M1-AD-2026-I-DEMRE.png",
+    "imagen": "images/m1/P59-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
         "A": "A",
         "B": "B",

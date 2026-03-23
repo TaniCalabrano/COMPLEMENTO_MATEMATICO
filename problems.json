@@ -523,5 +523,20 @@
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://youtu.be/ItbPBx6nCbc"
+},
+  {
+    "id": "P04-PAES-FISICA-AD-2024-I-DEMRE",
+    "nombre": "P04-PAES-FISICA-AD-2024-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/fisica/P04-PAES-FISICA-AD-2024-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://www.youtube.com/shorts/a1Li324yfcs?feature=share"
 }
 ]

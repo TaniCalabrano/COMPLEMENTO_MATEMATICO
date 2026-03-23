@@ -403,5 +403,125 @@
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://www.youtube.com/shorts/Tg25h5VJYRc?feature=share"
+},
+  {
+    "id": "P15-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P15-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Números",
+    "imagen": "images/m1/P15-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://www.youtube.com/shorts/MrKD2LAt678?feature=share"
+},
+  {
+    "id": "P42-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P42-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P42-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://youtu.be/atb769vhTKA"
+},
+  {
+    "id": "P57-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P57-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P57-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "A",
+    "video_youtube": "https://www.youtube.com/shorts/VZH7TcqDMHM?feature=share"
+},
+  {
+    "id": "P58-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P58-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P58-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "A",
+    "video_youtube": "https://www.youtube.com/shorts/Uv_uMxdUGBw?feature=share"
+},
+  {
+    "id": "P22-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P22-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P22-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://youtu.be/MPFuA6a9H1I"
+},
+  {
+    "id": "P41-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P41-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P41-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "B",
+    "video_youtube": "https://youtu.be/actgWxHJdTo"
+},
+  {
+    "id": "P53-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P53-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P53-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://www.youtube.com/shorts/1kEUi78kxpc?feature=share"
+},
+  {
+    "id": "P56-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P56-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P56-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "A",
+    "video_youtube": "https://youtu.be/ItbPBx6nCbc"
 }
 ]

@@ -343,5 +343,65 @@
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://youtu.be/jP270DKHEfA"
-  }
+  },
+  {
+    "id": "P17-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P17-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Números",
+    "imagen": "images/m1/P17-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://youtu.be/JFVA6dLOjI4"
+},
+  {
+    "id": "P35-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P35-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Álgebra",
+    "imagen": "images/m1/P35-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "A",
+    "video_youtube": "https://youtu.be/ZBIfXNDilIs"
+},
+  {
+    "id": "P48-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P48-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Geometría",
+    "imagen": "images/m1/P48-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://www.youtube.com/shorts/LRSEkwMiuAQ?feature=share"
+},
+  {
+    "id": "P63-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P63-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P63-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+        "A": "",
+        "B": "",
+        "C": "",
+        "D": ""
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://www.youtube.com/shorts/Tg25h5VJYRc?feature=share"
+}
 ]

@@ -20,6 +20,7 @@ EJES_COLORES = {
     "Números":     {"bg": "rgba(245,166,35,0.12)",  "border": "#f5a623", "text": "#f5a623"},
     "Estadística": {"bg": "rgba(181,122,255,0.12)", "border": "#b57aff", "text": "#b57aff"},
     "Física":      {"bg": "rgba(239,83,80,0.12)",   "border": "#ef5350", "text": "#ef5350"},
+    "Ondas":       {"bg": "rgba(0,210,210,0.12)",   "border": "#00d2d2", "text": "#00d2d2"},  # ← agregar
 }
 EJES_DEFAULT = {"bg": "rgba(200,200,200,0.1)", "border": "#888", "text": "#aaa"}
 

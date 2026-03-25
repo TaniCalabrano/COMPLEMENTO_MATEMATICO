@@ -567,7 +567,7 @@
         "D": ""
     },
     "respuesta_correcta": "C",
-    "https://www.youtube.com/shorts/x-d3j3c8SMs?feature=share"
+    "video_youtube": "https://www.youtube.com/shorts/x-d3j3c8SMs?feature=share"
 },
   {
     "id": "P34-PAES-M1-AD-2024-I-DEMRE",
@@ -582,7 +582,7 @@
         "D": ""
     },
     "respuesta_correcta": "A",
-    "https://www.youtube.com/shorts/IUuL5-SLG7o?feature=share"
+    "video_youtube": "https://www.youtube.com/shorts/IUuL5-SLG7o?feature=share"
 },
   {
     "id": "P43-PAES-M1-AD-2024-I-DEMRE",
@@ -597,6 +597,6 @@
         "D": ""
     },
     "respuesta_correcta": "C",
-    "https://www.youtube.com/shorts/6jiEvt5BvSw?feature=share"
+    "video_youtube": "https://www.youtube.com/shorts/6jiEvt5BvSw?feature=share"
 }
 ]

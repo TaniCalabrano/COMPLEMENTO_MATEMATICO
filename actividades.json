@@ -22,5 +22,13 @@
     "eje": "Ondas",
     "icono": "〰️",
     "url": "https://tanicalabrano.github.io/ONDAS_CM/"
+},
+  {
+    "id": "productos notables",
+    "nombre": "Productos Notables",
+    "descripcion": "App interactiva para aprender sobre productos notables y factorización.",
+    "eje": "Álgebra",
+    "icono": "✦",
+    "url": "https://tanicalabrano.github.io/PRODUCTOS_NOTABLES/"
 }
 ]

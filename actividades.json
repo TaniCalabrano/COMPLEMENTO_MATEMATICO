@@ -30,5 +30,13 @@
     "eje": "Álgebra",
     "icono": "✦",
     "url": "https://tanicalabrano.github.io/PRODUCTOS_NOTABLES/"
+},
+  {
+    "id": "espejos",
+    "nombre": "espejos planos y curvos",
+    "descripcion": "App interactiva para aprender sobre Óptica Geométrica.",
+    "eje": "Ondas",
+    "icono": "🪞",
+    "url": "https://tanicalabrano.github.io/ESPEJOS_CM/"
 }
 ]

@@ -22,15 +22,15 @@
     "eje": "Ondas",
     "icono": "〰️",
     "url": "https://tanicalabrano.github.io/ONDAS_CM/"
-},
+  },
   {
-    "id": "productos notables",
+    "id": "productos-notables",
     "nombre": "Productos Notables",
     "descripcion": "App interactiva para aprender sobre productos notables y factorización.",
     "eje": "Álgebra",
     "icono": "✦",
     "url": "https://tanicalabrano.github.io/PRODUCTOS_NOTABLES/"
-},
+  },
   {
     "id": "espejos",
     "nombre": "espejos planos y curvos",
@@ -38,13 +38,13 @@
     "eje": "Ondas",
     "icono": "🪞",
     "url": "https://tanicalabrano.github.io/ESPEJOS_CM/"
-},
- {
-    "id": "Lentes",
+  },
+  {
+    "id": "lentes",
     "nombre": "Lentes Divergentes y Convergentes",
     "descripcion": "App interactiva para aprender sobre lentes.",
     "eje": "Ondas",
     "icono": "👓",
     "url": "https://tanicalabrano.github.io/LENTES/"
- }
+  }
 ]

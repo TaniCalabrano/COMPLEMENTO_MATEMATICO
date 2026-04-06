@@ -38,5 +38,13 @@
     "eje": "Ondas",
     "icono": "🪞",
     "url": "https://tanicalabrano.github.io/ESPEJOS_CM/"
-}
+},
+ {
+    "id": "Lentes",
+    "nombre": "Lentes Divergentes y Convergentes",
+    "descripcion": "App interactiva para aprender sobre lentes.",
+    "eje": "Ondas",
+    "icono": "👓",
+    "url": "https://tanicalabrano.github.io/LENTES/"
+ }
 ]

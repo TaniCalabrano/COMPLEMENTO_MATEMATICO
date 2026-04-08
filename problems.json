@@ -1,7 +1,6 @@
 [
   {
     "id": "P27-PAES-M1-AD-2026-R-DEMRE",
-    "nombre": "P27-PAES-M1-AD-2026-R-DEMRE",
     "prueba": "M1",
     "eje": "Álgebra",
     "imagen": "images/m1/P27-PAES-M1-AD-2026-R-DEMRE.png",
@@ -12,11 +11,10 @@
       "D": "(15x + 25) metros"
     },
     "respuesta_correcta": "A",
-    "video_youtube": "https://youtu.be/gJr0Ws5UoIo"
+    "video_youtube": "https://www.youtube.com/shorts/-9DnFx0--7g"
   },
   {
     "id": "P08-PAES-M1-AD-2026-I-DEMRE",
-    "nombre": "P08-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Números",
     "imagen": "images/m1/P08-PAES-M1-AD-2026-I-DEMRE.png",
@@ -31,7 +29,6 @@
   },
   {
     "id": "P34-PAES-M1-AD-2023-R-DEMRE",
-    "nombre": "P34-PAES-M1-AD-2023-R-DEMRE",
     "prueba": "M1",
     "eje": "Geometría",
     "imagen": "images/m1/P34-PAES-M1-AD-2023-R-DEMRE.png",
@@ -42,11 +39,10 @@
       "D": "4 cm"
     },
     "respuesta_correcta": "B",
-    "video_youtube": "https://www.youtube.com/watch?v=0B4UbBRw9AA&t=15s"
+    "video_youtube": "https://youtu.be/0B4UbBRw9AA"
   },
   {
     "id": "P37-PAES-M1-AD-2026-I-DEMRE",
-    "nombre": "P37-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Álgebra",
     "imagen": "images/m1/P37-PAES-M1-AD-2026-I-DEMRE.png",
@@ -57,37 +53,14 @@
       "D": "275"
     },
     "respuesta_correcta": "B",
-    "video_youtube": "https://www.youtube.com/shorts/-vLvNgn2yDE"
-  },
-  {
-    "id": "P46-PAES-M1-AD-2026-I-DEMRE",
-    "nombre": "P46-PAES-M1-AD-2026-I-DEMRE",
-    "prueba": "M1",
-    "eje": "Geometría",
-    "imagen": "images/m1/P46-PAES-M1-AD-2026-I-DEMRE.png",
-    "alternativas": {
-      "A": "√(200² − 150²)",
-      "B": "200² − 150²",
-      "C": "√(200² + 150²)",
-      "D": "200² + 150²"
-    },
-    "respuesta_correcta": "C",
-    "video_youtube": "https://www.youtube.com/shorts/8_XPy8Ndhjw"
+    "video_youtube": "https://youtu.be/-vLvNgn2yDE"
   },
   {
     "id": "P60-PAES-M1-AD-2026-I-DEMRE",
-    "nombre": "P60-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Estadística",
-    "imagen": "images/m1/P60-PAES-M1-AD-2026-I-DEMRE.png",
-    "alternativas": {
-      "A": "El promedio de la cantidad de seguidores en el grupo de estudiantes es de 270.",
-      "B": "La mitad de estudiantes del grupo tiene 270 seguidores.",
-      "C": "Hay 60 estudiantes en el grupo que tienen entre 80 y 140 seguidores.",
-      "D": "Al menos un 25% de los estudiantes del grupo tiene desde 140 hasta 270 seguidores."
-    },
-    "respuesta_correcta": "D",
-    "video_youtube": "https://www.youtube.com/shorts/zLJKFEMTa2s?feature=share"
+    "respuesta": "D",
+    "youtube": "https://youtu.be/zLJKFEMTa2s"
   },
   {
     "id": "P05-PAES-M1-AD-2026-I-DEMRE",
@@ -210,21 +183,6 @@
     "video_youtube": "https://www.youtube.com/shorts/22NyxfUQGNo?feature=share"
   },
   {
-    "id": "P11-PAES-M2-AD-2026-I-DEMRE",
-    "nombre": "P11-PAES-M2-AD-2026-I-DEMRE",
-    "prueba": "M2",
-    "eje": "Álgebra",
-    "imagen": "images/m2/P11-PAES-M2-AD-2026-I-DEMRE.jpg",
-    "alternativas": {
-      "A": "400",
-      "B": "800",
-      "C": "2400",
-      "D": "4800"
-    },
-    "respuesta_correcta": "C",
-    "video_youtube": "https://youtube.com/shorts/jRAZYhp7uAM"
-  },
-  {
     "id": "P03-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P03-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
@@ -255,19 +213,19 @@
     "video_youtube": "https://youtu.be/Kw3pWhVRDDo"
   },
   {
-    "id": "P61-PAES-M1-AD-2026-I-DEMRE",
-    "nombre": "P61-PAES-M1-AD-2026-I-DEMRE",
+    "id": "P17-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P17-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
-    "eje": "Estadística",
-    "imagen": "images/m1/P61-PAES-M1-AD-2026-I-DEMRE.png",
+    "eje": "Números",
+    "imagen": "images/m1/P17-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
       "A": "",
       "B": "",
       "C": "",
       "D": ""
     },
-    "respuesta_correcta": "D",
-    "video_youtube": "https://youtu.be/q_CH-68mJ0w"
+    "respuesta_correcta": "C",
+    "video_youtube": "https://youtu.be/JFVA6dLOjI4"
   },
   {
     "id": "P50-PAES-M1-AD-2026-I-DEMRE",
@@ -283,6 +241,21 @@
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://youtu.be/4juNNFK8tow"
+  },
+  {
+    "id": "P61-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P61-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Estadística",
+    "imagen": "images/m1/P61-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
+    },
+    "respuesta_correcta": "D",
+    "video_youtube": "https://youtu.be/q_CH-68mJ0w"
   },
   {
     "id": "P07-PAES-M1-AD-2026-I-DEMRE",
@@ -345,35 +318,20 @@
     "video_youtube": "https://youtu.be/jP270DKHEfA"
   },
   {
-    "id": "P17-PAES-M1-AD-2026-I-DEMRE",
-    "nombre": "P17-PAES-M1-AD-2026-I-DEMRE",
-    "prueba": "M1",
-    "eje": "Números",
-    "imagen": "images/m1/P17-PAES-M1-AD-2026-I-DEMRE.png",
-    "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
-    },
-    "respuesta_correcta": "C",
-    "video_youtube": "https://youtu.be/JFVA6dLOjI4"
-},
-  {
     "id": "P35-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P35-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",
     "eje": "Álgebra",
     "imagen": "images/m1/P35-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://youtu.be/ZBIfXNDilIs"
-},
+  },
   {
     "id": "P48-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P48-PAES-M1-AD-2026-I-DEMRE",
@@ -381,14 +339,14 @@
     "eje": "Geometría",
     "imagen": "images/m1/P48-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://www.youtube.com/shorts/LRSEkwMiuAQ?feature=share"
-},
+  },
   {
     "id": "P63-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P63-PAES-M1-AD-2026-I-DEMRE",
@@ -396,14 +354,14 @@
     "eje": "Estadística",
     "imagen": "images/m1/P63-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://www.youtube.com/shorts/Tg25h5VJYRc?feature=share"
-},
+  },
   {
     "id": "P15-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P15-PAES-M1-AD-2026-I-DEMRE",
@@ -411,14 +369,14 @@
     "eje": "Números",
     "imagen": "images/m1/P15-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "D",
     "video_youtube": "https://www.youtube.com/shorts/MrKD2LAt678?feature=share"
-},
+  },
   {
     "id": "P42-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P42-PAES-M1-AD-2026-I-DEMRE",
@@ -426,14 +384,14 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P42-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://youtu.be/atb769vhTKA"
-},
+  },
   {
     "id": "P57-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P57-PAES-M1-AD-2026-I-DEMRE",
@@ -441,14 +399,14 @@
     "eje": "Estadística",
     "imagen": "images/m1/P57-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://www.youtube.com/shorts/VZH7TcqDMHM?feature=share"
-},
+  },
   {
     "id": "P58-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P58-PAES-M1-AD-2026-I-DEMRE",
@@ -456,14 +414,14 @@
     "eje": "Estadística",
     "imagen": "images/m1/P58-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://www.youtube.com/shorts/Uv_uMxdUGBw?feature=share"
-},
+  },
   {
     "id": "P22-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P22-PAES-M1-AD-2026-I-DEMRE",
@@ -471,14 +429,14 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P22-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://youtu.be/MPFuA6a9H1I"
-},
+  },
   {
     "id": "P41-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P41-PAES-M1-AD-2026-I-DEMRE",
@@ -486,14 +444,14 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P41-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://youtu.be/actgWxHJdTo"
-},
+  },
   {
     "id": "P53-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P53-PAES-M1-AD-2026-I-DEMRE",
@@ -501,14 +459,14 @@
     "eje": "Estadística",
     "imagen": "images/m1/P53-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://www.youtube.com/shorts/1kEUi78kxpc?feature=share"
-},
+  },
   {
     "id": "P56-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P56-PAES-M1-AD-2026-I-DEMRE",
@@ -516,14 +474,14 @@
     "eje": "Estadística",
     "imagen": "images/m1/P56-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://youtu.be/ItbPBx6nCbc"
-},
+  },
   {
     "id": "P04-PAES-FISICA-AD-2024-I-DEMRE",
     "nombre": "P04-PAES-FISICA-AD-2024-I-DEMRE",
@@ -531,14 +489,14 @@
     "eje": "Ondas",
     "imagen": "images/fisica/P04-PAES-FISICA-AD-2024-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "B",
     "video_youtube": "https://www.youtube.com/shorts/a1Li324yfcs?feature=share"
-},
+  },
   {
     "id": "P13-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P13-PAES-M1-AD-2026-I-DEMRE",
@@ -546,14 +504,14 @@
     "eje": "Números",
     "imagen": "images/m1/P13-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://www.youtube.com/shorts/ZSOBwqENbzg?feature=share"
-},
+  },
   {
     "id": "P40-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P40-PAES-M1-AD-2026-I-DEMRE",
@@ -561,14 +519,14 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P40-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://www.youtube.com/shorts/x-d3j3c8SMs?feature=share"
-},
+  },
   {
     "id": "P34-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P34-PAES-M1-AD-2026-I-DEMRE",
@@ -576,14 +534,14 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P34-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "A",
     "video_youtube": "https://www.youtube.com/shorts/IUuL5-SLG7o?feature=share"
-},
+  },
   {
     "id": "P43-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P43-PAES-M1-AD-2026-I-DEMRE",
@@ -591,12 +549,42 @@
     "eje": "Álgebra",
     "imagen": "images/m1/P43-PAES-M1-AD-2026-I-DEMRE.png",
     "alternativas": {
-        "A": "",
-        "B": "",
-        "C": "",
-        "D": ""
+      "A": "",
+      "B": "",
+      "C": "",
+      "D": ""
     },
     "respuesta_correcta": "C",
     "video_youtube": "https://www.youtube.com/shorts/6jiEvt5BvSw?feature=share"
-}
+  },
+  {
+    "id": "P46-PAES-M1-AD-2026-I-DEMRE",
+    "nombre": "P46-PAES-M1-AD-2026-I-DEMRE",
+    "prueba": "M1",
+    "eje": "Geometría",
+    "imagen": "images/m1/P46-PAES-M1-AD-2026-I-DEMRE.png",
+    "alternativas": {
+      "A": "√(200² − 150²)",
+      "B": "200² − 150²",
+      "C": "√(200² + 150²)",
+      "D": "200² + 150²"
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://www.youtube.com/shorts/8_XPy8Ndhjw"
+  },
+  {
+    "id": "P11-PAES-M2-AD-2026-I-DEMRE",
+    "nombre": "P11-PAES-M2-AD-2026-I-DEMRE",
+    "prueba": "M2",
+    "eje": "Álgebra",
+    "imagen": "images/m2/P11-PAES-M2-AD-2026-I-DEMRE.jpg",
+    "alternativas": {
+      "A": "400",
+      "B": "800",
+      "C": "2400",
+      "D": "4800"
+    },
+    "respuesta_correcta": "C",
+    "video_youtube": "https://youtube.com/shorts/jRAZYhp7uAM"
+  }
 ]

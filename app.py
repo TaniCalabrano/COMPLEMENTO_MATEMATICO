@@ -37,9 +37,17 @@ HABILIDADES_POR_PRUEBA = {
 CONTENIDOS_POR_EJE = {
     # M1 / M2
     "Números": [
-        "Números naturales, enteros y racionales",
-        "Porcentajes y proporcionalidad",
-        "Potencias y raíces",
+        "Números naturales",
+        "Números enteros",
+        "Números racionales",
+        "Fracciones",
+        "Decimales",
+        "Porcentajes",
+        "Proporcionalidad",
+        "Proporcionalidad directa",
+        "Proporcionalidad inversa",
+        "Potencias",
+        "Raíces",
         "Números reales",
     ],
     "Álgebra": [

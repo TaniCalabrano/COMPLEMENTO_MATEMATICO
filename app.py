@@ -44,7 +44,8 @@ CONTENIDOS_POR_EJE = {
     ],
     "Álgebra": [
         "Expresiones algebraicas",
-        "Ecuaciones de primer y segundo grado",
+        "Ecuaciones de primer grado",
+        "Ecuaciones cuadráticas",
         "Inecuaciones",
         "Sistemas de ecuaciones",
         "Funciones y sus representaciones",
@@ -53,6 +54,7 @@ CONTENIDOS_POR_EJE = {
     ],
     "Geometría": [
         "Figuras y cuerpos geométricos",
+        "Perímetro",
         "Perímetro, área y volumen",
         "Teorema de Pitágoras",
         "Semejanza y congruencia",

@@ -1,17 +1,20 @@
 [
   {
-    "id": "P27-PAES-M1-AD-2026-R-DEMRE",
-    "prueba": "M1",
-    "eje": "Álgebra",
-    "imagen": "images/m1/P27-PAES-M1-AD-2026-R-DEMRE.png",
-    "alternativas": {
-      "A": "(10x + 30) metros",
-      "B": "(10x + 10) metros",
-      "C": "(15x + 15) metros",
-      "D": "(15x + 25) metros"
-    },
-    "respuesta_correcta": "A",
-    "video_youtube": "https://www.youtube.com/shorts/-9DnFx0--7g"
+  "id": "P27-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P27-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": [Expresiones algebraicas, Perímetro, Ecuaciones de primer grado],
+  "habilidades": [Resolver problemas, Modelar, Representar],
+  "imagen": "images/m1/P27-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/-9DnFx0--7g"
   },
   {
     "id": "P08-PAES-M1-AD-2026-I-DEMRE",

@@ -4,18 +4,18 @@
   "nombre": "P27-PAES-M1-AD-2026-R-DEMRE",
   "prueba": "M1",
   "eje": "Álgebra",
-  "contenidos": [Expresiones algebraicas, Perímetro, Ecuaciones de primer grado],
-  "habilidades": [Resolver problemas, Modelar, Representar],
+  "contenidos": ["Expresiones algebraicas", "Perímetro", "Ecuaciones de primer grado"],
+  "habilidades": ["Resolver problemas", "Modelar", "Representar"],
   "imagen": "images/m1/P27-PAES-M1-AD-2026-R-DEMRE.png",
   "alternativas": {
     "A": "",
     "B": "",
     "C": "",
     "D": ""
-  }
+  },
   "respuesta_correcta": "A",
   "video_youtube": "https://www.youtube.com/shorts/-9DnFx0--7g"
-  },
+},
   {
     "id": "P08-PAES-M1-AD-2026-I-DEMRE",
     "prueba": "M1",

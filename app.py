@@ -362,26 +362,50 @@ st.markdown("""
     }
     .block-container { padding-bottom: 3.5rem !important; }
     /* Estilo para expanders del sidebar */
-    [data-testid="stSidebar"] .streamlit-expanderHeader {
+    [data-testid="stSidebar"] details {
         background-color: #2a1f00 !important;
+        border: 1px solid #5a4010 !important;
+        border-radius: 8px !important;
+        margin-bottom: 0.3rem !important;
+    }
+    [data-testid="stSidebar"] details summary {
         color: #f5a623 !important;
         font-size: 0.75rem !important;
         font-weight: 700 !important;
         letter-spacing: 1.5px !important;
         text-transform: uppercase !important;
-        border: 1px solid #5a4010 !important;
-        border-radius: 6px !important;
+        padding: 0.55rem 0.8rem !important;
+        border-radius: 8px !important;
+        list-style: none !important;
     }
-    [data-testid="stSidebar"] .streamlit-expanderContent {
+    [data-testid="stSidebar"] details summary::-webkit-details-marker {
+        display: none !important;
+    }
+    [data-testid="stSidebar"] details summary::before {
+        content: "▶ ";
+        font-size: 0.6rem;
+        margin-right: 4px;
+        color: #f5a623;
+        transition: transform 0.2s;
+    }
+    [data-testid="stSidebar"] details[open] summary::before {
+        content: "▼ ";
+    }
+    [data-testid="stSidebar"] details[open] {
+        border-color: #f5a623 !important;
+        background-color: #2a1f00 !important;
+    }
+    [data-testid="stSidebar"] details > div {
         background-color: #1a1200 !important;
-        border: 1px solid #3a2a00 !important;
-        border-top: none !important;
-        border-radius: 0 0 6px 6px !important;
-        padding: 0.5rem 0.3rem !important;
+        border-top: 1px solid #5a4010 !important;
+        padding: 0.6rem 0.4rem 0.3rem !important;
     }
-    [data-testid="stSidebar"] .stCheckbox label {
+    [data-testid="stSidebar"] .stCheckbox label p {
         color: #e8d5a0 !important;
         font-size: 0.85rem !important;
+    }
+    [data-testid="stSidebar"] .stCheckbox {
+        margin-bottom: 0.1rem !important;
     }
 </style>
 """, unsafe_allow_html=True)

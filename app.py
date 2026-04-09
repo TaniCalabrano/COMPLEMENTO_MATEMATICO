@@ -67,7 +67,6 @@ CONTENIDOS_POR_PRUEBA = {
 }
 
 def _habilidades_para_filtro(prueba_activa):
-    """Devuelve lista de habilidades según prueba activa."""
     if prueba_activa == "Todas":
         visto = set()
         result = []
@@ -80,7 +79,6 @@ def _habilidades_para_filtro(prueba_activa):
     return HABILIDADES_POR_PRUEBA.get(prueba_activa, [])
 
 def _contenidos_para_filtro(prueba_activa):
-    """Devuelve lista de contenidos según prueba activa."""
     if prueba_activa == "Todas":
         visto = set()
         result = []
@@ -100,7 +98,6 @@ st.set_page_config(
     initial_sidebar_state="expanded"
 )
 
-# ── Cargar logo dinámicamente desde archivo ──────────────────────────────────
 def _cargar_logo_b64() -> str:
     ruta = Path("LogoCM.png")
     if ruta.exists():
@@ -364,6 +361,28 @@ st.markdown("""
         letter-spacing: 1px;
     }
     .block-container { padding-bottom: 3.5rem !important; }
+    /* Estilo para expanders del sidebar */
+    [data-testid="stSidebar"] .streamlit-expanderHeader {
+        background-color: #2a1f00 !important;
+        color: #f5a623 !important;
+        font-size: 0.75rem !important;
+        font-weight: 700 !important;
+        letter-spacing: 1.5px !important;
+        text-transform: uppercase !important;
+        border: 1px solid #5a4010 !important;
+        border-radius: 6px !important;
+    }
+    [data-testid="stSidebar"] .streamlit-expanderContent {
+        background-color: #1a1200 !important;
+        border: 1px solid #3a2a00 !important;
+        border-top: none !important;
+        border-radius: 0 0 6px 6px !important;
+        padding: 0.5rem 0.3rem !important;
+    }
+    [data-testid="stSidebar"] .stCheckbox label {
+        color: #e8d5a0 !important;
+        font-size: 0.85rem !important;
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -710,10 +729,10 @@ def main():
 
     def on_prueba_change():
         prueba_sel = st.session_state["filtro_prueba"]
-        st.session_state.filtro_eje = "Todos"
-        st.session_state.texto_busqueda = ""
-        st.session_state.filtro_habilidades = []   # 👈 agrega esto
-        st.session_state.filtro_contenidos  = []   # 👈 agrega esto
+        st.session_state.filtro_eje         = "Todos"
+        st.session_state.texto_busqueda     = ""
+        st.session_state.filtro_habilidades = []
+        st.session_state.filtro_contenidos  = []
         if prueba_sel == "Todas":
             filtradas = preguntas
         else:
@@ -751,7 +770,9 @@ def main():
     def on_eje_change():
         eje_sel    = st.session_state["filtro_eje"]
         prueba_sel = st.session_state["filtro_prueba"]
-        st.session_state.texto_busqueda = ""
+        st.session_state.texto_busqueda     = ""
+        st.session_state.filtro_habilidades = []
+        st.session_state.filtro_contenidos  = []
         if prueba_sel == "Todas":
             base = preguntas
         else:
@@ -777,13 +798,11 @@ def main():
         on_change=on_eje_change,
     )
 
-    # ── Filtro por habilidades ───────────────────────────────────────────────
-    st.sidebar.markdown('<div class="sidebar-section">🧠 FILTRAR POR HABILIDAD</div>', unsafe_allow_html=True)
-
-    habilidades_disponibles = _habilidades_para_filtro(st.session_state.filtro_prueba)
-
+    # ── Filtro por habilidades (expander) ────────────────────────────────────
     if "filtro_habilidades" not in st.session_state:
         st.session_state.filtro_habilidades = []
+
+    habilidades_disponibles = _habilidades_para_filtro(st.session_state.filtro_prueba)
 
     # Limpiar selecciones que ya no aplican al cambiar de prueba
     st.session_state.filtro_habilidades = [
@@ -791,39 +810,47 @@ def main():
         if h in habilidades_disponibles
     ]
 
-    nuevas_habilidades = []
-    for hab in habilidades_disponibles:
-        marcado = hab in st.session_state.filtro_habilidades
-        if st.sidebar.checkbox(hab, value=marcado, key=f"chk_hab_{hab}"):
-            nuevas_habilidades.append(hab)
-    if nuevas_habilidades != st.session_state.filtro_habilidades:
-        st.session_state.filtro_habilidades = nuevas_habilidades
-        st.session_state.timer_start_ts = None
-        st.session_state.timer_stopped  = False
+    n_hab = len(st.session_state.filtro_habilidades)
+    label_hab = f"🧠 HABILIDADES ({n_hab} activa{'s' if n_hab != 1 else ''})" if n_hab > 0 else "🧠 FILTRAR POR HABILIDAD"
 
-    # ── Filtro por contenidos ────────────────────────────────────────────────
-    st.sidebar.markdown('<div class="sidebar-section">📖 FILTRAR POR CONTENIDO</div>', unsafe_allow_html=True)
+    with st.sidebar.expander(label_hab, expanded=False):
+        nuevas_habilidades = []
+        for hab in habilidades_disponibles:
+            marcado = hab in st.session_state.filtro_habilidades
+            if st.checkbox(hab, value=marcado, key=f"chk_hab_{hab}"):
+                nuevas_habilidades.append(hab)
+        if nuevas_habilidades != st.session_state.filtro_habilidades:
+            st.session_state.filtro_habilidades = nuevas_habilidades
+            st.session_state.timer_start_ts = None
+            st.session_state.timer_stopped  = False
+            st.rerun()
 
-    contenidos_disponibles = _contenidos_para_filtro(st.session_state.filtro_prueba)
-
+    # ── Filtro por contenidos (expander) ─────────────────────────────────────
     if "filtro_contenidos" not in st.session_state:
         st.session_state.filtro_contenidos = []
 
+    contenidos_disponibles = _contenidos_para_filtro(st.session_state.filtro_prueba)
+
+    # Limpiar selecciones que ya no aplican al cambiar de prueba
     st.session_state.filtro_contenidos = [
         c for c in st.session_state.filtro_contenidos
         if c in contenidos_disponibles
     ]
 
-    nuevos_contenidos = []
-    for cont in contenidos_disponibles:
-        marcado = cont in st.session_state.filtro_contenidos
-        if st.sidebar.checkbox(cont, value=marcado, key=f"chk_cont_{cont}"):
-            nuevos_contenidos.append(cont)
-    if nuevos_contenidos != st.session_state.filtro_contenidos:
-        st.session_state.filtro_contenidos = nuevos_contenidos
-        st.session_state.timer_start_ts = None
-        st.session_state.timer_stopped  = False
+    n_cont = len(st.session_state.filtro_contenidos)
+    label_cont = f"📖 CONTENIDOS ({n_cont} activo{'s' if n_cont != 1 else ''})" if n_cont > 0 else "📖 FILTRAR POR CONTENIDO"
 
+    with st.sidebar.expander(label_cont, expanded=False):
+        nuevos_contenidos = []
+        for cont in contenidos_disponibles:
+            marcado = cont in st.session_state.filtro_contenidos
+            if st.checkbox(cont, value=marcado, key=f"chk_cont_{cont}"):
+                nuevos_contenidos.append(cont)
+        if nuevos_contenidos != st.session_state.filtro_contenidos:
+            st.session_state.filtro_contenidos = nuevos_contenidos
+            st.session_state.timer_start_ts = None
+            st.session_state.timer_stopped  = False
+            st.rerun()
 
     # ── Lista filtrada ───────────────────────────────────────────────────────
     prueba_activa = st.session_state.filtro_prueba
@@ -837,52 +864,25 @@ def main():
     if eje_activo != "Todos":
         preguntas_filtradas = [p for p in preguntas_filtradas if p.get("eje") == eje_activo]
 
-    # ── Filtro por habilidades ───────────────────────────────────────────────
-    st.sidebar.markdown('<div class="sidebar-section">🧠 FILTRAR POR HABILIDAD</div>', unsafe_allow_html=True)
+    # Aplicar filtro por habilidades
+    habs_sel = st.session_state.get("filtro_habilidades", [])
+    if habs_sel:
+        preguntas_filtradas = [
+            p for p in preguntas_filtradas
+            if any(h in p.get("habilidades", []) for h in habs_sel)
+        ]
 
-    habilidades_disponibles = _habilidades_para_filtro(st.session_state.filtro_prueba)
+    # Aplicar filtro por contenidos
+    conts_sel = st.session_state.get("filtro_contenidos", [])
+    if conts_sel:
+        preguntas_filtradas = [
+            p for p in preguntas_filtradas
+            if any(c in p.get("contenidos", []) for c in conts_sel)
+        ]
 
-    if "filtro_habilidades" not in st.session_state:
-        st.session_state.filtro_habilidades = []
-
-    # Limpiar selecciones que ya no aplican al cambiar de prueba
-    st.session_state.filtro_habilidades = [
-        h for h in st.session_state.filtro_habilidades
-        if h in habilidades_disponibles
-    ]
-
-    nuevas_habilidades = []
-    for hab in habilidades_disponibles:
-        marcado = hab in st.session_state.filtro_habilidades
-        if st.sidebar.checkbox(hab, value=marcado, key=f"chk_hab_{hab}"):
-            nuevas_habilidades.append(hab)
-    if nuevas_habilidades != st.session_state.filtro_habilidades:
-        st.session_state.filtro_habilidades = nuevas_habilidades
-        st.session_state.timer_start_ts = None
-        st.session_state.timer_stopped  = False
-
-    # ── Filtro por contenidos ────────────────────────────────────────────────
-    st.sidebar.markdown('<div class="sidebar-section">📖 FILTRAR POR CONTENIDO</div>', unsafe_allow_html=True)
-
-    contenidos_disponibles = _contenidos_para_filtro(st.session_state.filtro_prueba)
-
-    if "filtro_contenidos" not in st.session_state:
-        st.session_state.filtro_contenidos = []
-
-    st.session_state.filtro_contenidos = [
-        c for c in st.session_state.filtro_contenidos
-        if c in contenidos_disponibles
-    ]
-
-    nuevos_contenidos = []
-    for cont in contenidos_disponibles:
-        marcado = cont in st.session_state.filtro_contenidos
-        if st.sidebar.checkbox(cont, value=marcado, key=f"chk_cont_{cont}"):
-            nuevos_contenidos.append(cont)
-    if nuevos_contenidos != st.session_state.filtro_contenidos:
-        st.session_state.filtro_contenidos = nuevos_contenidos
-        st.session_state.timer_start_ts = None
-        st.session_state.timer_stopped  = False
+    if not preguntas_filtradas:
+        st.sidebar.warning("No hay preguntas para este filtro.")
+        preguntas_filtradas = preguntas
 
     nombres_filtrados = [p.get("nombre", p.get("id", "")) for p in preguntas_filtradas]
 
@@ -996,7 +996,7 @@ def main():
             st.markdown("""
 <div class="consejos-panel">
 <h4>📋 Filtros de búsqueda</h4>
-<p>Usa los filtros del panel lateral para encontrar problemas por <b>Prueba</b> (PAES M1, M2, Física) y por <b>Eje temático</b>. Ambos filtros se combinan automáticamente.</p>
+<p>Usa los filtros del panel lateral para encontrar problemas por <b>Prueba</b> (PAES M1, M2, Física), <b>Eje temático</b>, <b>Habilidad</b> y <b>Contenido</b>. Todos los filtros se combinan automáticamente.</p>
 <h4>🔍 Buscador por nombre</h4>
 <p>Escribe parte del código del problema (por ejemplo <i>2023</i> o <i>P12</i>) en el campo de texto.</p>
 <h4>🎲 Pregunta aleatoria</h4>

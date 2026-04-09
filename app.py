@@ -837,24 +837,49 @@ def main():
     if eje_activo != "Todos":
         preguntas_filtradas = [p for p in preguntas_filtradas if p.get("eje") == eje_activo]
 
-    # Filtro por habilidades (si hay alguna seleccionada)
-    habs_sel = st.session_state.get("filtro_habilidades", [])
-    if habs_sel:
-        preguntas_filtradas = [
-            p for p in preguntas_filtradas
-            if any(h in p.get("habilidades", []) for h in habs_sel)
+    # ── Filtro por habilidades ───────────────────────────────────────────────
+    with st.sidebar.expander("🧠 FILTRAR POR HABILIDAD"):
+        habilidades_disponibles = _habilidades_para_filtro(st.session_state.filtro_prueba)
+
+        if "filtro_habilidades" not in st.session_state:
+            st.session_state.filtro_habilidades = []
+
+        st.session_state.filtro_habilidades = [
+            h for h in st.session_state.filtro_habilidades
+            if h in habilidades_disponibles
         ]
 
-    # Filtro por contenidos (si hay alguno seleccionado)
-    conts_sel = st.session_state.get("filtro_contenidos", [])
-    if conts_sel:
-        preguntas_filtradas = [
-            p for p in preguntas_filtradas
-            if any(c in p.get("contenidos", []) for c in conts_sel)
+        nuevas_habilidades = []
+        for hab in habilidades_disponibles:
+            marcado = hab in st.session_state.filtro_habilidades
+            if st.checkbox(hab, value=marcado, key=f"chk_hab_{hab}"):
+                nuevas_habilidades.append(hab)
+        if nuevas_habilidades != st.session_state.filtro_habilidades:
+            st.session_state.filtro_habilidades = nuevas_habilidades
+            st.session_state.timer_start_ts = None
+            st.session_state.timer_stopped  = False
+
+    # ── Filtro por contenidos ────────────────────────────────────────────────
+    with st.sidebar.expander("📖 FILTRAR POR CONTENIDO"):
+        contenidos_disponibles = _contenidos_para_filtro(st.session_state.filtro_prueba)
+
+        if "filtro_contenidos" not in st.session_state:
+            st.session_state.filtro_contenidos = []
+
+        st.session_state.filtro_contenidos = [
+            c for c in st.session_state.filtro_contenidos
+            if c in contenidos_disponibles
         ]
-    if not preguntas_filtradas:
-        st.sidebar.warning("No hay preguntas para este filtro.")
-        preguntas_filtradas = preguntas
+
+        nuevos_contenidos = []
+        for cont in contenidos_disponibles:
+            marcado = cont in st.session_state.filtro_contenidos
+            if st.checkbox(cont, value=marcado, key=f"chk_cont_{cont}"):
+                nuevos_contenidos.append(cont)
+        if nuevos_contenidos != st.session_state.filtro_contenidos:
+            st.session_state.filtro_contenidos = nuevos_contenidos
+            st.session_state.timer_start_ts = None
+            st.session_state.timer_stopped  = False
 
     nombres_filtrados = [p.get("nombre", p.get("id", "")) for p in preguntas_filtradas]
 

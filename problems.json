@@ -534,20 +534,22 @@
     "video_youtube": "https://www.youtube.com/shorts/x-d3j3c8SMs?feature=share"
   },
   {
-    "id": "P34-PAES-M1-AD-2026-I-DEMRE",
-    "nombre": "P34-PAES-M1-AD-2026-I-DEMRE",
-    "prueba": "M1",
-    "eje": "Álgebra",
-    "imagen": "images/m1/P34-PAES-M1-AD-2026-I-DEMRE.png",
-    "alternativas": {
-      "A": "",
-      "B": "",
-      "C": "",
-      "D": ""
-    },
-    "respuesta_correcta": "A",
-    "video_youtube": "https://www.youtube.com/shorts/IUuL5-SLG7o?feature=share"
+  "id": "P34-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P34-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Inecuaciones de primer grado", "Decimales"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
+  "imagen": "images/m1/P34-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
   },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/IUuL5-SLG7o?feature=share"
+},
   {
     "id": "P43-PAES-M1-AD-2026-I-DEMRE",
     "nombre": "P43-PAES-M1-AD-2026-I-DEMRE",

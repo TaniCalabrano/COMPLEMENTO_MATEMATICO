@@ -10,6 +10,7 @@ from actividades_modal import mostrar_boton_actividades, mostrar_modal_actividad
 
 logo_favicon = Image.open("LogoCM.png")
 
+# ── Habilidades por PRUEBA ───────────────────────────────────────────────────
 HABILIDADES_POR_PRUEBA = {
     "M1": [
         "Resolver problemas",
@@ -32,41 +33,69 @@ HABILIDADES_POR_PRUEBA = {
     ],
 }
 
-CONTENIDOS_POR_PRUEBA = {
-    "M1": [
-        "Números enteros",
-        "Fracciones y decimales",
-        "Porcentajes",
-        "Proporcionalidad",
+# ── Contenidos por EJE ───────────────────────────────────────────────────────
+CONTENIDOS_POR_EJE = {
+    # M1 / M2
+    "Números": [
+        "Números naturales, enteros y racionales",
+        "Porcentajes y proporcionalidad",
+        "Potencias y raíces",
+        "Números reales",
+    ],
+    "Álgebra": [
         "Expresiones algebraicas",
-        "Ecuaciones e inecuaciones",
-        "Funciones",
-        "Geometría plana",
-        "Medición",
+        "Ecuaciones de primer y segundo grado",
+        "Inecuaciones",
+        "Sistemas de ecuaciones",
+        "Funciones y sus representaciones",
+        "Función lineal y cuadrática",
+        "Función exponencial y logarítmica",
     ],
-    "M2": [
-        "Funciones cuadráticas",
-        "Funciones exponenciales y logarítmicas",
-        "Trigonometría",
+    "Geometría": [
+        "Figuras y cuerpos geométricos",
+        "Perímetro, área y volumen",
+        "Teorema de Pitágoras",
+        "Semejanza y congruencia",
+        "Transformaciones isométricas",
         "Geometría analítica",
-        "Probabilidad",
-        "Estadística descriptiva",
-        "Números complejos",
-        "Sucesiones y series",
+        "Trigonometría",
     ],
-    "Física": [
-        "Mecánica clásica",
+    "Estadística": [
+        "Tablas y gráficos estadísticos",
+        "Medidas de tendencia central",
+        "Medidas de dispersión",
+        "Probabilidad",
+        "Distribuciones",
+    ],
+    # Física
+    "Ondas": [
+        "Características de las ondas",
+        "Sonido",
+        "Luz y óptica geométrica",
+        "Espectro electromagnético",
+    ],
+    "Mecánica": [
         "Cinemática",
-        "Dinámica",
+        "Dinámica y Leyes de Newton",
         "Trabajo y energía",
-        "Termodinámica",
-        "Ondas y sonido",
-        "Óptica",
-        "Electricidad y magnetismo",
+        "Cantidad de movimiento",
+    ],
+    "Electricidad y magnetismo": [
+        "Carga eléctrica y campo eléctrico",
+        "Circuitos eléctricos",
+        "Magnetismo",
+        "Inducción electromagnética",
+    ],
+    "Termodinámica": [
+        "Temperatura y calor",
+        "Leyes de la termodinámica",
+        "Transferencia de energía",
     ],
 }
 
+
 def _habilidades_para_filtro(prueba_activa):
+    """Devuelve lista de habilidades según prueba activa."""
     if prueba_activa == "Todas":
         visto = set()
         result = []
@@ -78,17 +107,19 @@ def _habilidades_para_filtro(prueba_activa):
         return sorted(result)
     return HABILIDADES_POR_PRUEBA.get(prueba_activa, [])
 
-def _contenidos_para_filtro(prueba_activa):
-    if prueba_activa == "Todas":
+
+def _contenidos_para_eje(eje_activo):
+    """Devuelve lista de contenidos según eje activo."""
+    if eje_activo == "Todos":
         visto = set()
         result = []
-        for lst in CONTENIDOS_POR_PRUEBA.values():
+        for lst in CONTENIDOS_POR_EJE.values():
             for c in lst:
                 if c not in visto:
                     visto.add(c)
                     result.append(c)
         return sorted(result)
-    return CONTENIDOS_POR_PRUEBA.get(prueba_activa, [])
+    return CONTENIDOS_POR_EJE.get(eje_activo, [])
 
 
 st.set_page_config(
@@ -361,7 +392,7 @@ st.markdown("""
         letter-spacing: 1px;
     }
     .block-container { padding-bottom: 3.5rem !important; }
-    /* Estilo para expanders del sidebar */
+    /* ── Expanders del sidebar ── */
     [data-testid="stSidebar"] details {
         background-color: #2a1f00 !important;
         border: 1px solid #5a4010 !important;
@@ -382,18 +413,16 @@ st.markdown("""
         display: none !important;
     }
     [data-testid="stSidebar"] details summary::before {
-        content: "▶ ";
+        content: "▶  ";
         font-size: 0.6rem;
         margin-right: 4px;
         color: #f5a623;
-        transition: transform 0.2s;
     }
     [data-testid="stSidebar"] details[open] summary::before {
-        content: "▼ ";
+        content: "▼  ";
     }
     [data-testid="stSidebar"] details[open] {
         border-color: #f5a623 !important;
-        background-color: #2a1f00 !important;
     }
     [data-testid="stSidebar"] details > div {
         background-color: #1a1200 !important;
@@ -708,7 +737,6 @@ def sidebar_timer():
         format_func=lambda x: f"{x} segundos",
         key="tiempo_radio"
     )
-
     return tiempo_seg
 
 
@@ -718,8 +746,6 @@ def main():
 
     mostrar_header()
     mostrar_footer()
-
-    # ── Modal de actividades (se renderiza sobre todo lo demás) ──────────────
     mostrar_modal_actividades()
 
     if not st.session_state.bienvenida_vista:
@@ -741,7 +767,7 @@ def main():
 
     tiempo_seg = sidebar_timer()
 
-    # ── Filtro por prueba ────────────────────────────────────────────────────
+    # ── Filtro por PRUEBA ────────────────────────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">📋 FILTRAR POR PRUEBA</div>', unsafe_allow_html=True)
 
     pruebas_disponibles = ["Todas"] + sorted(list(set(
@@ -757,14 +783,12 @@ def main():
         st.session_state.texto_busqueda     = ""
         st.session_state.filtro_habilidades = []
         st.session_state.filtro_contenidos  = []
-        if prueba_sel == "Todas":
-            filtradas = preguntas
-        else:
-            filtradas = [p for p in preguntas if p.get("prueba") == prueba_sel]
+        filtradas = preguntas if prueba_sel == "Todas" else [
+            p for p in preguntas if p.get("prueba") == prueba_sel
+        ]
         if filtradas:
             primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id", ""))
-            idx_global = nombres.index(primer_nombre)
-            st.session_state.pregunta_idx   = idx_global
+            st.session_state.pregunta_idx   = nombres.index(primer_nombre)
             st.session_state.timer_start_ts = None
             st.session_state.timer_stopped  = False
 
@@ -775,14 +799,13 @@ def main():
         on_change=on_prueba_change,
     )
 
-    # ── Filtro por eje ───────────────────────────────────────────────────────
+    # ── Filtro por EJE ───────────────────────────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">📚 FILTRAR POR EJE</div>', unsafe_allow_html=True)
 
     prueba_activa = st.session_state.filtro_prueba
-    if prueba_activa == "Todas":
-        preguntas_por_prueba = preguntas
-    else:
-        preguntas_por_prueba = [p for p in preguntas if p.get("prueba") == prueba_activa]
+    preguntas_por_prueba = preguntas if prueba_activa == "Todas" else [
+        p for p in preguntas if p.get("prueba") == prueba_activa
+    ]
 
     ejes_disponibles = ["Todos"] + sorted(list(set(
         p.get("eje", "Sin eje") for p in preguntas_por_prueba if p.get("eje")
@@ -794,21 +817,17 @@ def main():
     def on_eje_change():
         eje_sel    = st.session_state["filtro_eje"]
         prueba_sel = st.session_state["filtro_prueba"]
-        st.session_state.texto_busqueda     = ""
-        st.session_state.filtro_habilidades = []
-        st.session_state.filtro_contenidos  = []
-        if prueba_sel == "Todas":
-            base = preguntas
-        else:
-            base = [p for p in preguntas if p.get("prueba") == prueba_sel]
-        if eje_sel == "Todos":
-            filtradas = base
-        else:
-            filtradas = [p for p in base if p.get("eje") == eje_sel]
+        st.session_state.texto_busqueda    = ""
+        st.session_state.filtro_contenidos = []   # limpiar contenidos al cambiar eje
+        base = preguntas if prueba_sel == "Todas" else [
+            p for p in preguntas if p.get("prueba") == prueba_sel
+        ]
+        filtradas = base if eje_sel == "Todos" else [
+            p for p in base if p.get("eje") == eje_sel
+        ]
         if filtradas:
             primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id", ""))
-            idx_global = nombres.index(primer_nombre)
-            st.session_state.pregunta_idx   = idx_global
+            st.session_state.pregunta_idx   = nombres.index(primer_nombre)
             st.session_state.timer_start_ts = None
             st.session_state.timer_stopped  = False
 
@@ -822,20 +841,20 @@ def main():
         on_change=on_eje_change,
     )
 
-    # ── Filtro por habilidades (expander) ────────────────────────────────────
+    # ── Filtro por HABILIDADES — expander, depende de PRUEBA ─────────────────
     if "filtro_habilidades" not in st.session_state:
         st.session_state.filtro_habilidades = []
 
     habilidades_disponibles = _habilidades_para_filtro(st.session_state.filtro_prueba)
-
-    # Limpiar selecciones que ya no aplican al cambiar de prueba
     st.session_state.filtro_habilidades = [
-        h for h in st.session_state.filtro_habilidades
-        if h in habilidades_disponibles
+        h for h in st.session_state.filtro_habilidades if h in habilidades_disponibles
     ]
 
-    n_hab = len(st.session_state.filtro_habilidades)
-    label_hab = f"🧠 HABILIDADES ({n_hab} activa{'s' if n_hab != 1 else ''})" if n_hab > 0 else "🧠 FILTRAR POR HABILIDAD"
+    n_hab     = len(st.session_state.filtro_habilidades)
+    label_hab = (
+        f"🧠 HABILIDADES ({n_hab} activa{'s' if n_hab != 1 else ''})"
+        if n_hab > 0 else "🧠 FILTRAR POR HABILIDAD"
+    )
 
     with st.sidebar.expander(label_hab, expanded=False):
         nuevas_habilidades = []
@@ -849,20 +868,20 @@ def main():
             st.session_state.timer_stopped  = False
             st.rerun()
 
-    # ── Filtro por contenidos (expander) ─────────────────────────────────────
+    # ── Filtro por CONTENIDOS — expander, depende de EJE ─────────────────────
     if "filtro_contenidos" not in st.session_state:
         st.session_state.filtro_contenidos = []
 
-    contenidos_disponibles = _contenidos_para_filtro(st.session_state.filtro_prueba)
-
-    # Limpiar selecciones que ya no aplican al cambiar de prueba
+    contenidos_disponibles = _contenidos_para_eje(st.session_state.filtro_eje)
     st.session_state.filtro_contenidos = [
-        c for c in st.session_state.filtro_contenidos
-        if c in contenidos_disponibles
+        c for c in st.session_state.filtro_contenidos if c in contenidos_disponibles
     ]
 
-    n_cont = len(st.session_state.filtro_contenidos)
-    label_cont = f"📖 CONTENIDOS ({n_cont} activo{'s' if n_cont != 1 else ''})" if n_cont > 0 else "📖 FILTRAR POR CONTENIDO"
+    n_cont     = len(st.session_state.filtro_contenidos)
+    label_cont = (
+        f"📖 CONTENIDOS ({n_cont} activo{'s' if n_cont != 1 else ''})"
+        if n_cont > 0 else "📖 FILTRAR POR CONTENIDO"
+    )
 
     with st.sidebar.expander(label_cont, expanded=False):
         nuevos_contenidos = []
@@ -876,19 +895,16 @@ def main():
             st.session_state.timer_stopped  = False
             st.rerun()
 
-    # ── Lista filtrada ───────────────────────────────────────────────────────
+    # ── Lista filtrada (todos los filtros combinados) ────────────────────────
     prueba_activa = st.session_state.filtro_prueba
     eje_activo    = st.session_state.filtro_eje
 
-    if prueba_activa == "Todas":
-        preguntas_filtradas = preguntas
-    else:
-        preguntas_filtradas = [p for p in preguntas if p.get("prueba") == prueba_activa]
-
+    preguntas_filtradas = preguntas if prueba_activa == "Todas" else [
+        p for p in preguntas if p.get("prueba") == prueba_activa
+    ]
     if eje_activo != "Todos":
         preguntas_filtradas = [p for p in preguntas_filtradas if p.get("eje") == eje_activo]
 
-    # Aplicar filtro por habilidades
     habs_sel = st.session_state.get("filtro_habilidades", [])
     if habs_sel:
         preguntas_filtradas = [
@@ -896,7 +912,6 @@ def main():
             if any(h in p.get("habilidades", []) for h in habs_sel)
         ]
 
-    # Aplicar filtro por contenidos
     conts_sel = st.session_state.get("filtro_contenidos", [])
     if conts_sel:
         preguntas_filtradas = [
@@ -908,13 +923,10 @@ def main():
         st.sidebar.warning("No hay preguntas para este filtro.")
         preguntas_filtradas = preguntas
 
-    nombres_filtrados = [p.get("nombre", p.get("id", "")) for p in preguntas_filtradas]
-
+    nombres_filtrados    = [p.get("nombre", p.get("id", "")) for p in preguntas_filtradas]
     nombre_actual_global = nombres[st.session_state.pregunta_idx]
-    if nombre_actual_global in nombres_filtrados:
-        idx_en_filtro = nombres_filtrados.index(nombre_actual_global)
-    else:
-        idx_en_filtro = 0
+
+    if nombre_actual_global not in nombres_filtrados:
         st.session_state.pregunta_idx = nombres.index(nombres_filtrados[0])
 
     # ── Buscador ─────────────────────────────────────────────────────────────
@@ -929,14 +941,10 @@ def main():
         key="texto_busqueda",
     )
 
-    if texto_busqueda:
-        nombres_buscados = [
-            n for n in nombres_filtrados
-            if texto_busqueda.lower() in n.lower()
-        ]
-    else:
-        nombres_buscados = nombres_filtrados
-
+    nombres_buscados = (
+        [n for n in nombres_filtrados if texto_busqueda.lower() in n.lower()]
+        if texto_busqueda else nombres_filtrados
+    )
     if not nombres_buscados:
         st.sidebar.caption("⚠️ Sin coincidencias. Mostrando todas.")
         nombres_buscados = nombres_filtrados
@@ -983,7 +991,7 @@ def main():
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── Si el modal de actividades está abierto, no mostrar preguntas ni timer ──
+    # ── Si el modal está abierto, no mostrar pregunta ni timer ───────────────
     if st.session_state.get("modal_actividades", False):
         return
 
@@ -1002,7 +1010,6 @@ def main():
         if "mostrar_consejos" not in st.session_state:
             st.session_state.mostrar_consejos = False
 
-        # ── Botón Actividades interactivas ───────────────────────────
         st.markdown('<div class="btn-actividades">', unsafe_allow_html=True)
         if st.button("🧩  Actividades interactivas", key="btn_actividades_timer", use_container_width=True):
             st.session_state["modal_actividades"] = True
@@ -1020,7 +1027,11 @@ def main():
             st.markdown("""
 <div class="consejos-panel">
 <h4>📋 Filtros de búsqueda</h4>
-<p>Usa los filtros del panel lateral para encontrar problemas por <b>Prueba</b> (PAES M1, M2, Física), <b>Eje temático</b>, <b>Habilidad</b> y <b>Contenido</b>. Todos los filtros se combinan automáticamente.</p>
+<p>Usa los filtros del panel lateral para encontrar problemas por <b>Prueba</b>, <b>Eje</b>, <b>Habilidad</b> y <b>Contenido</b>. Todos los filtros se combinan automáticamente.</p>
+<h4>🧠 Habilidades</h4>
+<p>Se filtran según la <b>Prueba</b> seleccionada (M1/M2 comparten habilidades; Física tiene las suyas).</p>
+<h4>📖 Contenidos</h4>
+<p>Se filtran según el <b>Eje</b> seleccionado.</p>
 <h4>🔍 Buscador por nombre</h4>
 <p>Escribe parte del código del problema (por ejemplo <i>2023</i> o <i>P12</i>) en el campo de texto.</p>
 <h4>🎲 Pregunta aleatoria</h4>
@@ -1029,8 +1040,6 @@ def main():
 <p>Selecciona <b>90 o 120 segundos</b> en el panel lateral antes de iniciar.</p>
 <h4>🔄 Reiniciar pregunta</h4>
 <p>Presiona <b>🔄 Reiniciar pregunta</b> para volver a intentar un problema.</p>
-<h4>🧩 Actividades interactivas</h4>
-<p>Accede a actividades HTML dinámicas desde el botón en el sidebar. Se abren en pestaña nueva sin afectar esta página.</p>
 <h4>▶ Video explicativo</h4>
 <p>Al responder aparecerá el video de solución del profesor.</p>
 <h4>✉ Contacto</h4>
@@ -1056,9 +1065,9 @@ def main():
         duracion  = st.session_state.timer_duracion_ts if st.session_state.timer_start_ts else tiempo_seg
         corriendo = (st.session_state.timer_start_ts is not None) and (not detenido)
 
-        start_ms  = int(start_ts * 1000)
-        cor_js    = "true" if corriendo else "false"
-        det_js    = "true" if detenido  else "false"
+        start_ms = int(start_ts * 1000)
+        cor_js   = "true" if corriendo else "false"
+        det_js   = "true" if detenido  else "false"
 
         timer_html = (
             "<!DOCTYPE html><html><head><style>"
@@ -1130,7 +1139,7 @@ def main():
         st.markdown("")
         st.markdown('<div class="btn-random-timer">', unsafe_allow_html=True)
         if st.button("🎲 Pregunta aleatoria", key="btn_random_timer", use_container_width=True):
-            p_random = random.choice(preguntas_filtradas)
+            p_random      = random.choice(preguntas_filtradas)
             nombre_random = p_random.get("nombre", p_random.get("id", ""))
             st.session_state.pregunta_idx     = nombres.index(nombre_random)
             st.session_state.selectbox_nombre = nombre_random

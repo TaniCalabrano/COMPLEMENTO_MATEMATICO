@@ -10,6 +10,89 @@ from actividades_modal import mostrar_boton_actividades, mostrar_modal_actividad
 
 logo_favicon = Image.open("LogoCM.png")
 
+HABILIDADES_POR_PRUEBA = {
+    "M1": [
+        "Resolver problemas",
+        "Modelar",
+        "Representar",
+        "Argumentar y comunicar",
+    ],
+    "M2": [
+        "Resolver problemas",
+        "Modelar",
+        "Representar",
+        "Argumentar y comunicar",
+    ],
+    "Física": [
+        "Observar y preguntar",
+        "Planificar y conducir investigaciones",
+        "Analizar e interpretar datos",
+        "Construir explicaciones",
+        "Argumentar",
+    ],
+}
+
+CONTENIDOS_POR_PRUEBA = {
+    "M1": [
+        "Números enteros",
+        "Fracciones y decimales",
+        "Porcentajes",
+        "Proporcionalidad",
+        "Expresiones algebraicas",
+        "Ecuaciones e inecuaciones",
+        "Funciones",
+        "Geometría plana",
+        "Medición",
+    ],
+    "M2": [
+        "Funciones cuadráticas",
+        "Funciones exponenciales y logarítmicas",
+        "Trigonometría",
+        "Geometría analítica",
+        "Probabilidad",
+        "Estadística descriptiva",
+        "Números complejos",
+        "Sucesiones y series",
+    ],
+    "Física": [
+        "Mecánica clásica",
+        "Cinemática",
+        "Dinámica",
+        "Trabajo y energía",
+        "Termodinámica",
+        "Ondas y sonido",
+        "Óptica",
+        "Electricidad y magnetismo",
+    ],
+}
+
+def _habilidades_para_filtro(prueba_activa):
+    """Devuelve lista de habilidades según prueba activa."""
+    if prueba_activa == "Todas":
+        visto = set()
+        result = []
+        for lst in HABILIDADES_POR_PRUEBA.values():
+            for h in lst:
+                if h not in visto:
+                    visto.add(h)
+                    result.append(h)
+        return sorted(result)
+    return HABILIDADES_POR_PRUEBA.get(prueba_activa, [])
+
+def _contenidos_para_filtro(prueba_activa):
+    """Devuelve lista de contenidos según prueba activa."""
+    if prueba_activa == "Todas":
+        visto = set()
+        result = []
+        for lst in CONTENIDOS_POR_PRUEBA.values():
+            for c in lst:
+                if c not in visto:
+                    visto.add(c)
+                    result.append(c)
+        return sorted(result)
+    return CONTENIDOS_POR_PRUEBA.get(prueba_activa, [])
+
+
 st.set_page_config(
     page_title="Complemento Matemático - PAES",
     page_icon=logo_favicon,
@@ -629,6 +712,8 @@ def main():
         prueba_sel = st.session_state["filtro_prueba"]
         st.session_state.filtro_eje = "Todos"
         st.session_state.texto_busqueda = ""
+        st.session_state.filtro_habilidades = []   # 👈 agrega esto
+        st.session_state.filtro_contenidos  = []   # 👈 agrega esto
         if prueba_sel == "Todas":
             filtradas = preguntas
         else:
@@ -692,6 +777,54 @@ def main():
         on_change=on_eje_change,
     )
 
+    # ── Filtro por habilidades ───────────────────────────────────────────────
+    st.sidebar.markdown('<div class="sidebar-section">🧠 FILTRAR POR HABILIDAD</div>', unsafe_allow_html=True)
+
+    habilidades_disponibles = _habilidades_para_filtro(st.session_state.filtro_prueba)
+
+    if "filtro_habilidades" not in st.session_state:
+        st.session_state.filtro_habilidades = []
+
+    # Limpiar selecciones que ya no aplican al cambiar de prueba
+    st.session_state.filtro_habilidades = [
+        h for h in st.session_state.filtro_habilidades
+        if h in habilidades_disponibles
+    ]
+
+    nuevas_habilidades = []
+    for hab in habilidades_disponibles:
+        marcado = hab in st.session_state.filtro_habilidades
+        if st.sidebar.checkbox(hab, value=marcado, key=f"chk_hab_{hab}"):
+            nuevas_habilidades.append(hab)
+    if nuevas_habilidades != st.session_state.filtro_habilidades:
+        st.session_state.filtro_habilidades = nuevas_habilidades
+        st.session_state.timer_start_ts = None
+        st.session_state.timer_stopped  = False
+
+    # ── Filtro por contenidos ────────────────────────────────────────────────
+    st.sidebar.markdown('<div class="sidebar-section">📖 FILTRAR POR CONTENIDO</div>', unsafe_allow_html=True)
+
+    contenidos_disponibles = _contenidos_para_filtro(st.session_state.filtro_prueba)
+
+    if "filtro_contenidos" not in st.session_state:
+        st.session_state.filtro_contenidos = []
+
+    st.session_state.filtro_contenidos = [
+        c for c in st.session_state.filtro_contenidos
+        if c in contenidos_disponibles
+    ]
+
+    nuevos_contenidos = []
+    for cont in contenidos_disponibles:
+        marcado = cont in st.session_state.filtro_contenidos
+        if st.sidebar.checkbox(cont, value=marcado, key=f"chk_cont_{cont}"):
+            nuevos_contenidos.append(cont)
+    if nuevos_contenidos != st.session_state.filtro_contenidos:
+        st.session_state.filtro_contenidos = nuevos_contenidos
+        st.session_state.timer_start_ts = None
+        st.session_state.timer_stopped  = False
+
+
     # ── Lista filtrada ───────────────────────────────────────────────────────
     prueba_activa = st.session_state.filtro_prueba
     eje_activo    = st.session_state.filtro_eje
@@ -704,6 +837,21 @@ def main():
     if eje_activo != "Todos":
         preguntas_filtradas = [p for p in preguntas_filtradas if p.get("eje") == eje_activo]
 
+    # Filtro por habilidades (si hay alguna seleccionada)
+    habs_sel = st.session_state.get("filtro_habilidades", [])
+    if habs_sel:
+        preguntas_filtradas = [
+            p for p in preguntas_filtradas
+            if any(h in p.get("habilidades", []) for h in habs_sel)
+        ]
+
+    # Filtro por contenidos (si hay alguno seleccionado)
+    conts_sel = st.session_state.get("filtro_contenidos", [])
+    if conts_sel:
+        preguntas_filtradas = [
+            p for p in preguntas_filtradas
+            if any(c in p.get("contenidos", []) for c in conts_sel)
+        ]
     if not preguntas_filtradas:
         st.sidebar.warning("No hay preguntas para este filtro.")
         preguntas_filtradas = preguntas

@@ -46,5 +46,13 @@
     "eje": "Ondas",
     "icono": "👓",
     "url": "https://tanicalabrano.github.io/LENTES/"
+  },
+  {
+    "id": "cinemática",
+    "nombre": "Cinemática",
+    "descripcion": "App interactiva para aprender sobre Cinemática.",
+    "eje": "Mecánica",
+    "icono": "🚗💨",
+    "url": "https://tanicalabrano.github.io/ACT_CINEMATICA/"
   }
 ]

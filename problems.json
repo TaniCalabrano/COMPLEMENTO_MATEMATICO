@@ -710,5 +710,22 @@
   },
   "respuesta_correcta": "B",
   "video_youtube": "https://www.youtube.com/shorts/Mq1oHPdj5hQ?feature=share"
+},
+  {
+  "id": "P11-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P11-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Porcentajes", "Números enteros", "Fracciones"],
+  "habilidades": ["Modelar", "Argumentar y comunicar"],
+  "imagen": "images/m1/P11-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/2lXCZlc9-1E?feature=share"
 }
 ]

@@ -676,5 +676,39 @@
   },
   "respuesta_correcta": "C",
   "video_youtube": "https://youtube.com/shorts/jRAZYhp7uAM"
+},
+  {
+  "id": "P36-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P36-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["SEL 2x2", "Ecuaciones de primer grado", "Números enteros"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Argumentar y comunicar"],
+  "imagen": "images/m1/P36-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/KtuF60-ccmI?fe"
+},
+  {
+  "id": "P39-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P39-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Funciones", "Función afín", "Números enteros"],
+  "habilidades": ["Resolución de problemas", "Modelar"],
+  "imagen": "images/m1/P39-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/Mq1oHPdj5hQ?feature=share"
 }
 ]

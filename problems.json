@@ -727,5 +727,56 @@
   },
   "respuesta_correcta": "D",
   "video_youtube": "https://www.youtube.com/shorts/2lXCZlc9-1E?feature=share"
+},
+  {
+  "id": "P25-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P25-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Expresiones algebraicas", "Ecuaciones de primer grado"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P25-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/Kf5_v4r5wec?feature=share"
+},
+  {
+  "id": "P27-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P27-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Expresiones algebraicas", "Productos notables", "Números enteros", "Potencias"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P27-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/tC-DzYALcRM?feature=share"
+},
+  {
+  "id": "P28-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P28-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Proporción", "Ecuaciones de primer grado", "Fracciones", "Números enteros"],
+  "habilidades": ["Representar", "Resolución de problemas", "Modelar"],
+  "imagen": "images/m1/P28-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://youtu.be/TKbTelSPips"
 }
 ]

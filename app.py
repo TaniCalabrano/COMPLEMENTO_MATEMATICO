@@ -33,6 +33,13 @@ HABILIDADES_POR_PRUEBA = {
     ],
 }
 
+# ── Ejes por PRUEBA ──────────────────────────────────────────────────────────
+EJES_POR_PRUEBA = {
+    "M1":    ["Números", "Álgebra", "Geometría", "Estadística"],
+    "M2":    ["Números", "Álgebra", "Geometría", "Estadística"],
+    "Física": ["Ondas", "Mecánica", "Electricidad y magnetismo", "Termodinámica"],
+}
+
 # ── Contenidos por EJE ───────────────────────────────────────────────────────
 CONTENIDOS_POR_EJE = {
     # M1 / M2
@@ -119,7 +126,7 @@ def _habilidades_para_filtro(prueba_activa):
     return HABILIDADES_POR_PRUEBA.get(prueba_activa, [])
 
 
-def _contenidos_para_eje(prueba_activa):
+def _contenidos_para_eje(eje_activo):
     """Devuelve lista de contenidos según eje activo."""
     if eje_activo == "Todos":
         visto = set()
@@ -130,7 +137,7 @@ def _contenidos_para_eje(prueba_activa):
                     visto.add(c)
                     result.append(c)
         return sorted(result)
-    return CONTENIDOS_POR_EJE.get(prueba_activa, [])
+    return CONTENIDOS_POR_EJE.get(eje_activo, [])
 
 
 st.set_page_config(
@@ -810,7 +817,7 @@ def main():
         on_change=on_prueba_change,
     )
 
-    # ── Filtro por EJE ───────────────────────────────────────────────────────
+    # ── Filtro por EJE — depende de PRUEBA ───────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">📚 FILTRAR POR EJE</div>', unsafe_allow_html=True)
 
     prueba_activa = st.session_state.filtro_prueba
@@ -818,9 +825,15 @@ def main():
         p for p in preguntas if p.get("prueba") == prueba_activa
     ]
 
-    ejes_disponibles = ["Todos"] + sorted(list(set(
-        p.get("eje", "Sin eje") for p in preguntas_por_prueba if p.get("eje")
-    )))
+    # CAMBIO: ejes filtrados según la prueba activa
+    if prueba_activa == "Todas":
+        ejes_disponibles = ["Todos"] + sorted(list(set(
+            p.get("eje", "Sin eje") for p in preguntas_por_prueba if p.get("eje")
+        )))
+    else:
+        ejes_validos = EJES_POR_PRUEBA.get(prueba_activa, [])
+        ejes_en_datos = set(p.get("eje", "") for p in preguntas_por_prueba)
+        ejes_disponibles = ["Todos"] + [e for e in ejes_validos if e in ejes_en_datos]
 
     if "filtro_eje" not in st.session_state:
         st.session_state.filtro_eje = "Todos"
@@ -829,7 +842,7 @@ def main():
         eje_sel    = st.session_state["filtro_eje"]
         prueba_sel = st.session_state["filtro_prueba"]
         st.session_state.texto_busqueda    = ""
-        st.session_state.filtro_contenidos = []   # limpiar contenidos al cambiar eje
+        st.session_state.filtro_contenidos = []
         base = preguntas if prueba_sel == "Todas" else [
             p for p in preguntas if p.get("prueba") == prueba_sel
         ]
@@ -852,7 +865,7 @@ def main():
         on_change=on_eje_change,
     )
 
-    # ── Filtro por HABILIDADES — expander, depende de PRUEBA ─────────────────
+    # ── Filtro por HABILIDADES — depende de PRUEBA ───────────────────────────
     if "filtro_habilidades" not in st.session_state:
         st.session_state.filtro_habilidades = []
 
@@ -879,10 +892,11 @@ def main():
             st.session_state.timer_stopped  = False
             st.rerun()
 
-    # ── Filtro por CONTENIDOS — expander, depende de EJE ─────────────────────
+    # ── Filtro por CONTENIDOS — depende de EJE ───────────────────────────────
     if "filtro_contenidos" not in st.session_state:
         st.session_state.filtro_contenidos = []
 
+    # CAMBIO: se pasa el eje activo, no la prueba
     contenidos_disponibles = _contenidos_para_eje(st.session_state.filtro_eje)
     st.session_state.filtro_contenidos = [
         c for c in st.session_state.filtro_contenidos if c in contenidos_disponibles

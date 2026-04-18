@@ -102,16 +102,16 @@ CONTENIDOS_POR_EJE = {
         "Trabajo y energía",
         "Cantidad de movimiento",
     ],
-    "Electricidad y magnetismo": [
+    "Energía y Tierra": [
+        "Ondas sísmicas",
+        "Capas de la tierra",
+        "Núcleo de la tierra,
+    ],
+    "Electricidad": [
         "Carga eléctrica y campo eléctrico",
         "Circuitos eléctricos",
         "Magnetismo",
         "Inducción electromagnética",
-    ],
-    "Termodinámica": [
-        "Temperatura y calor",
-        "Leyes de la termodinámica",
-        "Transferencia de energía",
     ],
 }
 

@@ -64,7 +64,7 @@ CONTENIDOS_POR_EJE = {
         "Ecuaciones cuadráticas",
         "Inecuaciones de primer grado",
         "Inecuaciones cuadráticas",
-        "Sistemas de ecuaciones",
+        "SEL 2x2",
         "Funciones",
         "Función lineal",
         "Función cuadrática",

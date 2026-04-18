@@ -67,7 +67,7 @@ CONTENIDOS_POR_EJE = {
         "Sistemas de ecuaciones",
         "Funciones",
         "Función lineal",
-        "Función cuadrática"
+        "Función cuadrática",
         "Función exponencial",
     ],
     "Geometría": [

@@ -105,7 +105,7 @@ CONTENIDOS_POR_EJE = {
     "Energía y Tierra": [
         "Ondas sísmicas",
         "Capas de la tierra",
-        "Núcleo de la tierra,
+        "Núcleo de la tierra",
     ],
     "Electricidad": [
         "Carga eléctrica y campo eléctrico",

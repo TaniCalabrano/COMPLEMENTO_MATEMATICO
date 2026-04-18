@@ -119,7 +119,7 @@ def _habilidades_para_filtro(prueba_activa):
     return HABILIDADES_POR_PRUEBA.get(prueba_activa, [])
 
 
-def _contenidos_para_eje(eje_activo):
+def _contenidos_para_eje(prueba_activa):
     """Devuelve lista de contenidos según eje activo."""
     if eje_activo == "Todos":
         visto = set()
@@ -130,7 +130,7 @@ def _contenidos_para_eje(eje_activo):
                     visto.add(c)
                     result.append(c)
         return sorted(result)
-    return CONTENIDOS_POR_EJE.get(eje_activo, [])
+    return CONTENIDOS_POR_EJE.get(prueba_activa, [])
 
 
 st.set_page_config(

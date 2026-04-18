@@ -38,7 +38,7 @@ HABILIDADES_POR_PRUEBA = {
 EJES_POR_PRUEBA = {
     "M1":    ["Números", "Álgebra", "Geometría", "Estadística"],
     "M2":    ["Números", "Álgebra", "Geometría", "Estadística"],
-    "FISICA": ["Ondas", "Mecánica", "Electricidad y magnetismo", "Termodinámica"],
+    "FISICA": ["Ondas", "Mecánica", "Energía y Tierra", "Electricidad"],
 }
 
 # ── Contenidos por EJE ───────────────────────────────────────────────────────
@@ -65,14 +65,16 @@ CONTENIDOS_POR_EJE = {
         "Inecuaciones de primer grado",
         "Inecuaciones cuadráticas",
         "Sistemas de ecuaciones",
-        "Funciones y sus representaciones",
-        "Función lineal y cuadrática",
-        "Función exponencial y logarítmica",
+        "Funciones",
+        "Función lineal",
+        "Función cuadrática"
+        "Función exponencial",
     ],
     "Geometría": [
         "Figuras y cuerpos geométricos",
         "Perímetro",
-        "Perímetro, área y volumen",
+        "Área",
+        "Volumen",
         "Teorema de Pitágoras",
         "Semejanza y congruencia",
         "Transformaciones isométricas",

@@ -11,6 +11,7 @@ from actividades_modal import mostrar_boton_actividades, mostrar_modal_actividad
 logo_favicon = Image.open("LogoCM.png")
 
 # ── Habilidades por PRUEBA ───────────────────────────────────────────────────
+# IMPORTANTE: las keys deben coincidir EXACTAMENTE con el campo "prueba" del JSON
 HABILIDADES_POR_PRUEBA = {
     "M1": [
         "Resolver problemas",
@@ -24,12 +25,13 @@ HABILIDADES_POR_PRUEBA = {
         "Representar",
         "Argumentar y comunicar",
     ],
-    "Física": [
+    "FISICA": [                          # ← mayúsculas, igual que en el JSON
         "Observar y preguntar",
         "Planificar y conducir investigaciones",
         "Analizar e interpretar datos",
         "Construir explicaciones",
         "Argumentar",
+        "Procesar y analizar la evidencia",
     ],
 }
 
@@ -37,7 +39,7 @@ HABILIDADES_POR_PRUEBA = {
 EJES_POR_PRUEBA = {
     "M1":    ["Números", "Álgebra", "Geometría", "Estadística"],
     "M2":    ["Números", "Álgebra", "Geometría", "Estadística"],
-    "Física": ["Ondas", "Mecánica", "Electricidad y magnetismo", "Termodinámica"],
+    "FISICA": ["Ondas", "Mecánica", "Electricidad y magnetismo", "Termodinámica"],
 }
 
 # ── Contenidos por EJE ───────────────────────────────────────────────────────
@@ -85,12 +87,13 @@ CONTENIDOS_POR_EJE = {
         "Probabilidad",
         "Distribuciones",
     ],
-    # Física
+    # FISICA
     "Ondas": [
         "Características de las ondas",
         "Sonido",
         "Luz y óptica geométrica",
         "Espectro electromagnético",
+        "Ondas electromagnéticas",
     ],
     "Mecánica": [
         "Cinemática",
@@ -825,14 +828,13 @@ def main():
         p for p in preguntas if p.get("prueba") == prueba_activa
     ]
 
-    # CAMBIO: ejes filtrados según la prueba activa
     if prueba_activa == "Todas":
         ejes_disponibles = ["Todos"] + sorted(list(set(
             p.get("eje", "Sin eje") for p in preguntas_por_prueba if p.get("eje")
         )))
     else:
-        ejes_validos = EJES_POR_PRUEBA.get(prueba_activa, [])
-        ejes_en_datos = set(p.get("eje", "") for p in preguntas_por_prueba)
+        ejes_validos     = EJES_POR_PRUEBA.get(prueba_activa, [])
+        ejes_en_datos    = set(p.get("eje", "") for p in preguntas_por_prueba)
         ejes_disponibles = ["Todos"] + [e for e in ejes_validos if e in ejes_en_datos]
 
     if "filtro_eje" not in st.session_state:
@@ -896,7 +898,6 @@ def main():
     if "filtro_contenidos" not in st.session_state:
         st.session_state.filtro_contenidos = []
 
-    # CAMBIO: se pasa el eje activo, no la prueba
     contenidos_disponibles = _contenidos_para_eje(st.session_state.filtro_eje)
     st.session_state.filtro_contenidos = [
         c for c in st.session_state.filtro_contenidos if c in contenidos_disponibles

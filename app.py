@@ -11,7 +11,6 @@ from actividades_modal import mostrar_boton_actividades, mostrar_modal_actividad
 logo_favicon = Image.open("LogoCM.png")
 
 # ── Habilidades por PRUEBA ───────────────────────────────────────────────────
-# IMPORTANTE: las keys deben coincidir EXACTAMENTE con el campo "prueba" del JSON
 HABILIDADES_POR_PRUEBA = {
     "M1": [
         "Resolver problemas",
@@ -25,7 +24,7 @@ HABILIDADES_POR_PRUEBA = {
         "Representar",
         "Argumentar y comunicar",
     ],
-    "FISICA": [                          # ← mayúsculas, igual que en el JSON
+    "FISICA": [
         "Observar y preguntar",
         "Planificar y conducir investigaciones",
         "Analizar e interpretar datos",
@@ -129,17 +128,24 @@ def _habilidades_para_filtro(prueba_activa):
     return HABILIDADES_POR_PRUEBA.get(prueba_activa, [])
 
 
-def _contenidos_para_eje(eje_activo):
-    """Devuelve lista de contenidos según eje activo."""
+def _contenidos_para_eje(eje_activo, prueba_activa="Todas"):
+    """Devuelve lista de contenidos según eje activo y prueba activa."""
+    # Determinar qué ejes son válidos para esta prueba
+    if prueba_activa == "Todas":
+        ejes_validos = list(CONTENIDOS_POR_EJE.keys())
+    else:
+        ejes_validos = EJES_POR_PRUEBA.get(prueba_activa, list(CONTENIDOS_POR_EJE.keys()))
+
     if eje_activo == "Todos":
         visto = set()
         result = []
-        for lst in CONTENIDOS_POR_EJE.values():
-            for c in lst:
+        for eje in ejes_validos:          # solo itera ejes válidos para la prueba activa
+            for c in CONTENIDOS_POR_EJE.get(eje, []):
                 if c not in visto:
                     visto.add(c)
                     result.append(c)
         return sorted(result)
+
     return CONTENIDOS_POR_EJE.get(eje_activo, [])
 
 
@@ -413,7 +419,6 @@ st.markdown("""
         letter-spacing: 1px;
     }
     .block-container { padding-bottom: 3.5rem !important; }
-    /* ── Expanders del sidebar ── */
     [data-testid="stSidebar"] details {
         background-color: #2a1f00 !important;
         border: 1px solid #5a4010 !important;
@@ -524,7 +529,6 @@ def mostrar_bienvenida():
         '<div style="background:linear-gradient(160deg,#0d1424 0%,#111830 100%);'
         'border:1px solid #2d3a5a;border-radius:16px;padding:2rem 2.4rem 1.6rem;'
         'max-width:820px;margin:0 auto 1.2rem auto;">'
-
         '<div style="font-size:1rem;color:#c8d8ff;line-height:1.7;margin-bottom:1.4rem;">'
         + logo_tag +
         '<strong style="color:#f5a623;">Estimado(a) estudiante:</strong><br><br>'
@@ -535,14 +539,12 @@ def mostrar_bienvenida():
         '<strong style="color:#7ecfff;">Física</strong>.<br><br>'
         'En función de ello, le recomiendo lo siguiente:'
         '</div>'
-
         '<div style="background:#0a0f1e;border:1px solid #243050;border-radius:12px;'
         'padding:1.2rem 1.4rem;margin-bottom:1.4rem;">'
         '<div style="font-size:0.78rem;font-weight:700;letter-spacing:2px;color:#f5a623;'
         'text-transform:uppercase;margin-bottom:1rem;">&#128203; Recomendaciones para tu proceso de preparación</div>'
         + items_html +
         '</div>'
-
         '<div style="font-size:0.85rem;color:#8899bb;text-align:right;'
         'margin-top:0.8rem;font-style:italic;">'
         'Mucho éxito en tus procesos de aprendizaje.<br>'
@@ -550,7 +552,6 @@ def mostrar_bienvenida():
         'Atte. Prof. Bastiani Calabrano Inostroza</strong>'
         '</div>'
         '</div>'
-
         '<div style="background:#0d1624;border:1px solid #2a3a5a;border-radius:10px;'
         'padding:0.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;'
         'flex-wrap:wrap;gap:10px;max-width:820px;margin:0 auto 0.8rem;">'
@@ -565,7 +566,6 @@ def mostrar_bienvenida():
         '&#128279; Ir al sitio del DEMRE'
         '</a>'
         '</div>'
-
         '<div style="background:#0d1624;border:1px solid #2a3a5a;border-radius:10px;'
         'padding:0.9rem 1.4rem;display:flex;align-items:center;justify-content:space-between;'
         'flex-wrap:wrap;gap:10px;max-width:820px;margin:0 auto 0.8rem;">'
@@ -894,11 +894,15 @@ def main():
             st.session_state.timer_stopped  = False
             st.rerun()
 
-    # ── Filtro por CONTENIDOS — depende de EJE ───────────────────────────────
+    # ── Filtro por CONTENIDOS — depende de EJE y PRUEBA ──────────────────────
     if "filtro_contenidos" not in st.session_state:
         st.session_state.filtro_contenidos = []
 
-    contenidos_disponibles = _contenidos_para_eje(st.session_state.filtro_eje)
+    # CAMBIO CLAVE: se pasa también la prueba activa para acotar los contenidos
+    contenidos_disponibles = _contenidos_para_eje(
+        st.session_state.filtro_eje,
+        st.session_state.filtro_prueba
+    )
     st.session_state.filtro_contenidos = [
         c for c in st.session_state.filtro_contenidos if c in contenidos_disponibles
     ]

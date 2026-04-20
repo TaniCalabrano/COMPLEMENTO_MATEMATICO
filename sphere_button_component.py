@@ -157,7 +157,7 @@ def mostrar_boton_esfera() -> bool:
     _, col2, _ = st.columns([1, 2, 1])
     with col2:
         st.markdown('<div class="btn-ingresar">', unsafe_allow_html=True)
-        clicked = st.button("⚡  Ingresar al repositorio", key="btn_esfera_ingreso", use_container_width=True)
+        clicked = st.button("⚡  Ingresar con el boton de abajo", key="btn_esfera_ingreso", use_container_width=True)
         st.markdown('</div>', unsafe_allow_html=True)
 
     return clicked

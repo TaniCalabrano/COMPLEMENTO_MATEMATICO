@@ -66,7 +66,7 @@ SPHERE_HTML = """<!DOCTYPE html>
   <canvas id="c" width="190" height="190"></canvas>
   <div class="sphere">
     <span class="bolt">⚡</span>
-    <span class="label">Ingresar<br>al repositorio</span>
+    <span class="label">Ingresar<br> con el boton</span>
   </div>
 </div>
 <script>

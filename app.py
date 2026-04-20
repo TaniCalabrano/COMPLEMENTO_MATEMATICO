@@ -7,79 +7,59 @@ import base64
 from pathlib import Path
 from PIL import Image
 from actividades_modal import mostrar_boton_actividades, mostrar_modal_actividades
-from math_bg_component import inject_math_background
+from math_bg_component import inject_math_background, remove_math_background
 from sphere_button_component import mostrar_boton_esfera
 
 logo_favicon = Image.open("LogoCM.png")
 
 # ── Habilidades por PRUEBA ───────────────────────────────────────────────────
 HABILIDADES_POR_PRUEBA = {
-    "M1": [
-        "Resolver problemas",
-        "Modelar",
-        "Representar",
-        "Argumentar y comunicar",
-    ],
-    "M2": [
-        "Resolver problemas",
-        "Modelar",
-        "Representar",
-        "Argumentar y comunicar",
-    ],
+    "M1": ["Resolver problemas", "Modelar", "Representar", "Argumentar y comunicar"],
+    "M2": ["Resolver problemas", "Modelar", "Representar", "Argumentar y comunicar"],
     "FISICA": [
-        "Observar y preguntar",
-        "Planificar y conducir investigaciones",
-        "Analizar e interpretar datos",
-        "Construir explicaciones",
-        "Argumentar",
-        "Procesar y analizar la evidencia",
+        "Observar y preguntar", "Planificar y conducir investigaciones",
+        "Analizar e interpretar datos", "Construir explicaciones",
+        "Argumentar", "Procesar y analizar la evidencia",
     ],
 }
 
-# ── Ejes por PRUEBA ──────────────────────────────────────────────────────────
 EJES_POR_PRUEBA = {
     "M1":    ["Números", "Álgebra", "Geometría", "Estadística"],
     "M2":    ["Números", "Álgebra", "Geometría", "Estadística"],
     "FISICA": ["Ondas", "Mecánica", "Energía y Tierra", "Electricidad"],
 }
 
-# ── Contenidos por EJE ───────────────────────────────────────────────────────
 CONTENIDOS_POR_EJE = {
     "Números": [
-        "Números naturales", "Números enteros", "Números racionales",
-        "Fracciones", "Decimales", "Porcentajes", "Proporcionalidad",
-        "Proporcionalidad directa", "Proporcionalidad inversa",
-        "Potencias", "Raíces", "Números reales",
+        "Números naturales","Números enteros","Números racionales","Fracciones",
+        "Decimales","Porcentajes","Proporcionalidad","Proporcionalidad directa",
+        "Proporcionalidad inversa","Potencias","Raíces","Números reales",
     ],
     "Álgebra": [
-        "Expresiones algebraicas", "Ecuaciones de primer grado",
-        "Ecuaciones cuadráticas", "Inecuaciones de primer grado",
-        "Inecuaciones cuadráticas", "SEL 2x2", "Funciones",
-        "Función lineal", "Función cuadrática", "Función exponencial",
+        "Expresiones algebraicas","Ecuaciones de primer grado","Ecuaciones cuadráticas",
+        "Inecuaciones de primer grado","Inecuaciones cuadráticas","SEL 2x2","Funciones",
+        "Función lineal","Función cuadrática","Función exponencial",
     ],
     "Geometría": [
-        "Figuras y cuerpos geométricos", "Perímetro", "Área", "Volumen",
-        "Teorema de Pitágoras", "Semejanza y congruencia",
-        "Transformaciones isométricas", "Geometría analítica", "Trigonometría",
+        "Figuras y cuerpos geométricos","Perímetro","Área","Volumen",
+        "Teorema de Pitágoras","Semejanza y congruencia","Transformaciones isométricas",
+        "Geometría analítica","Trigonometría",
     ],
     "Estadística": [
-        "Tablas y gráficos estadísticos", "Medidas de tendencia central",
-        "Medidas de dispersión", "Probabilidad", "Distribuciones",
+        "Tablas y gráficos estadísticos","Medidas de tendencia central",
+        "Medidas de dispersión","Probabilidad","Distribuciones",
     ],
     "Ondas": [
-        "Características de las ondas", "Sonido", "Luz y óptica geométrica",
-        "Espectro electromagnético", "Ondas electromagnéticas",
+        "Características de las ondas","Sonido","Luz y óptica geométrica",
+        "Espectro electromagnético","Ondas electromagnéticas",
     ],
     "Mecánica": [
-        "Cinemática", "Dinámica y Leyes de Newton",
-        "Trabajo y energía", "Cantidad de movimiento",
+        "Cinemática","Dinámica y Leyes de Newton","Trabajo y energía","Cantidad de movimiento",
     ],
-    "Energía y Tierra": [
-        "Ondas sísmicas", "Capas de la tierra", "Núcleo de la tierra",
-    ],
+    "Energía y Tierra": ["Ondas sísmicas","Capas de la tierra","Núcleo de la tierra"],
     "Electricidad": [
-        "Carga eléctrica y campo eléctrico", "Circuitos eléctricos",
-        "Magnetismo", "Inducción electromagnética",
+        "Carga eléctrica y campo eléctrico","Circuitos eléctricos",
+        "Magnetismo","Inducción electromagnética",
     ],
 }
 
@@ -132,10 +112,7 @@ st.markdown("""
     .stApp { background-color: #0f1117; }
     .stApp > header { background-color: transparent !important; }
     [data-testid="stAppViewContainer"] { background-color: #0f1117 !important; }
-    [data-testid="stMainBlockContainer"] {
-        background-color: #0f1117 !important;
-        padding-top: 0 !important;
-    }
+    [data-testid="stMainBlockContainer"] { background-color: #0f1117 !important; padding-top: 0 !important; }
     [data-testid="stHeader"]     { background-color: #0f1117 !important; }
     [data-testid="stToolbar"]    { background-color: #0f1117 !important; }
     [data-testid="stDecoration"] { background-color: #0f1117 !important; }
@@ -143,12 +120,9 @@ st.markdown("""
     section.main { background-color: #0f1117 !important; }
     .main .block-container { background-color: #0f1117 !important; max-width: 100% !important; }
     .header-bar {
-        display:flex; flex-direction:column;
-        align-items:center; justify-content:center;
-        padding:1.8rem 2rem 1rem 2rem;
-        text-align:center;
-        border-bottom:1px solid #2d3748;
-        margin-bottom:0.8rem;
+        display:flex; flex-direction:column; align-items:center; justify-content:center;
+        padding:1.8rem 2rem 1rem 2rem; text-align:center;
+        border-bottom:1px solid #2d3748; margin-bottom:0.8rem;
     }
     .header-top { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:0.5rem; }
     .header-logo img {
@@ -157,11 +131,10 @@ st.markdown("""
         clip-path:circle(47% at 50% 50%); flex-shrink:0;
     }
     .header-title {
-        font-size:2.2rem; font-weight:900;
-        letter-spacing:3px; line-height:1; white-space:nowrap;
+        font-size:2.2rem; font-weight:900; letter-spacing:3px; line-height:1; white-space:nowrap;
         background:linear-gradient(135deg,#f5a623 0%,#f0c040 50%,#e8890a 100%);
-        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
-        background-clip:text; filter:drop-shadow(0px 1px 2px rgba(0,0,0,0.5));
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+        filter:drop-shadow(0px 1px 2px rgba(0,0,0,0.5));
     }
     .header-title span {
         background:linear-gradient(135deg,#ffffff 0%,#f5e6c8 100%);
@@ -171,9 +144,8 @@ st.markdown("""
     .header-subtitle2 { font-size:0.78rem; color:#c8a96e; font-weight:400; margin-top:3px; }
     .header-subtitle3 { font-size:0.72rem; color:#8a7355; font-weight:400; margin-top:2px; font-style:italic; }
     .header-versiculo {
-        font-size:0.78rem; color:#d4af6e; font-style:italic;
-        margin-top:6px; letter-spacing:0.3px;
-        font-family:Georgia,'Times New Roman',serif;
+        font-size:0.78rem; color:#d4af6e; font-style:italic; margin-top:6px;
+        letter-spacing:0.3px; font-family:Georgia,'Times New Roman',serif;
     }
     .sidebar-brand {
         display:flex; flex-direction:column; align-items:center;
@@ -181,10 +153,8 @@ st.markdown("""
         border-bottom:1px solid #7a5a1a; margin-bottom:0.5rem;
     }
     .sidebar-brand img {
-        height:90px; width:90px; border-radius:50%;
-        object-fit:cover; object-position:center;
-        clip-path:circle(47% at 50% 50%);
-        margin-bottom:0.6rem;
+        height:90px; width:90px; border-radius:50%; object-fit:cover; object-position:center;
+        clip-path:circle(47% at 50% 50%); margin-bottom:0.6rem;
         box-shadow:0 0 14px rgba(245,166,35,0.4);
     }
     .sidebar-brand-title {
@@ -199,51 +169,38 @@ st.markdown("""
     section[data-testid="stSidebar"] { background-color:#1a1200 !important; background:#1a1200 !important; }
     div[data-testid="stSidebarContent"] { padding:1.5rem 1rem; }
     .sidebar-section {
-        color:#f5a623; font-size:0.75rem; font-weight:700;
-        letter-spacing:2px; text-transform:uppercase; margin:1.2rem 0 0.4rem;
+        color:#f5a623; font-size:0.75rem; font-weight:700; letter-spacing:2px;
+        text-transform:uppercase; margin:1.2rem 0 0.4rem;
         border-left:3px solid #f5a623; padding-left:8px;
     }
     .stRadio label { color:#e8d5a0 !important; font-size:0.9rem; }
     .stSelectbox label { color:#f5a623 !important; font-weight:700; font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; }
     .stButton > button {
-        width:100%; border-radius:8px; font-weight:700;
-        transition:all 0.2s; cursor:pointer;
+        width:100%; border-radius:8px; font-weight:700; transition:all 0.2s; cursor:pointer;
         background-color:#1c1a0a !important; color:#e8d5a0 !important; border:1px solid #5a4010 !important;
     }
     .stButton > button:hover { background-color:#2a2000 !important; border-color:#f5a623 !important; color:#f5a623 !important; }
     .stButton > button:active { background-color:#3a2e00 !important; transform:scale(0.98); }
-    .btn-aleatorio > button { background:linear-gradient(135deg,#7a4a00,#c07a00); color:#fff8e0; border:1px solid #f5a623; }
-    .btn-aleatorio > button:hover { background:linear-gradient(135deg,#c07a00,#f5a623); color:#1a1200; }
-    .btn-random-timer > button {
-        background:linear-gradient(135deg,#7a4a00,#c07a00) !important;
-        color:#fff8e0 !important; border:1px solid #f5a623 !important; margin-top:0.3rem;
-    }
+    .btn-aleatorio > button { background:linear-gradient(135deg,#7a4a00,#c07a00) !important; color:#fff8e0 !important; border:1px solid #f5a623 !important; }
+    .btn-aleatorio > button:hover { background:linear-gradient(135deg,#c07a00,#f5a623) !important; color:#1a1200 !important; }
+    .btn-random-timer > button { background:linear-gradient(135deg,#7a4a00,#c07a00) !important; color:#fff8e0 !important; border:1px solid #f5a623 !important; margin-top:0.3rem; }
     .btn-random-timer > button:hover { background:linear-gradient(135deg,#c07a00,#f5a623) !important; color:#1a1200 !important; }
-    .btn-reiniciar > button {
-        background:linear-gradient(135deg,#374151,#4b5563) !important;
-        color:#f9fafb !important; border:1px solid #6b7280 !important; margin-top:0.2rem;
-    }
+    .btn-reiniciar > button { background:linear-gradient(135deg,#374151,#4b5563) !important; color:#f9fafb !important; border:1px solid #6b7280 !important; margin-top:0.2rem; }
     .btn-reiniciar > button:hover { background:linear-gradient(135deg,#4b5563,#6b7280) !important; }
-    .btn-actividades > button {
-        background:linear-gradient(135deg,#1a3a6a,#2255aa) !important;
-        color:#c8e0ff !important; border:1px solid #3a6abf !important; margin-top:0.3rem;
-    }
+    .btn-actividades > button { background:linear-gradient(135deg,#1a3a6a,#2255aa) !important; color:#c8e0ff !important; border:1px solid #3a6abf !important; margin-top:0.3rem; }
     .btn-actividades > button:hover { background:linear-gradient(135deg,#2255aa,#3a7aee) !important; color:#ffffff !important; }
     .stSelectbox > div > div { background-color:#2a1f00 !important; color:#e8d5a0 !important; border-color:#7a5a1a !important; }
     .stTextInput > div > div > input { background-color:#2a1f00 !important; color:#e8d5a0 !important; border-color:#7a5a1a !important; }
     .stTextInput > div > div > input::placeholder { color:#7a5a1a !important; }
     .question-card {
         background:#ffffff; border-radius:16px; padding:2rem 2.5rem;
-        box-shadow:0 4px 32px rgba(0,0,0,0.4); color:#1a1a2e;
-        margin:0 auto; max-width:820px;
+        box-shadow:0 4px 32px rgba(0,0,0,0.4); color:#1a1a2e; margin:0 auto; max-width:820px;
     }
     .badge-prueba { display:inline-block; background:#1e3a5f; color:#7ecfff; border-radius:20px; padding:3px 14px; font-size:0.8rem; font-weight:700; margin-right:6px; }
     .badge-eje    { display:inline-block; background:#1a4a2e; color:#5debb0; border-radius:20px; padding:3px 14px; font-size:0.8rem; font-weight:700; margin-right:6px; }
     .badge-nombre { display:inline-block; background:#2d1f4e; color:#c084fc; border-radius:20px; padding:3px 14px; font-size:0.8rem; font-weight:700; }
     .result-msg-correct   { background:#d1fae5; border-left:5px solid #059669; padding:0.9rem 1.2rem; border-radius:8px; color:#065f46; font-weight:700; margin-top:1rem; }
     .result-msg-incorrect { background:#fee2e2; border-left:5px solid #dc2626; padding:0.9rem 1.2rem; border-radius:8px; color:#7f1d1d; font-weight:700; margin-top:1rem; }
-    .timer-box { background:#161b27; border-radius:16px; padding:1.2rem; text-align:center; border:1px solid #2d3748; margin-bottom:1rem; }
-    .timer-display { font-size:3rem; font-weight:900; color:#7ecfff; font-family:'Courier New',monospace; letter-spacing:4px; }
     .block-container { padding-top:1.5rem !important; }
     .consejos-panel { background:#0d1424; border:1px solid #2d4a7a; border-radius:12px; padding:1.1rem 1.3rem; margin-bottom:0.8rem; font-size:0.82rem; color:#b0c4e8; line-height:1.6; }
     .consejos-panel h4 { color:#f5a623; font-size:0.78rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin:0.7rem 0 0.3rem; border-left:3px solid #f5a623; padding-left:7px; }
@@ -252,8 +209,7 @@ st.markdown("""
     .footer-biblica {
         position:fixed; bottom:0; left:0; right:0;
         background:linear-gradient(90deg,#1a0f00,#2a1800,#1a0f00);
-        border-top:1px solid #7a5a1a; padding:0.55rem 2rem;
-        text-align:center; z-index:9997;
+        border-top:1px solid #7a5a1a; padding:0.55rem 2rem; text-align:center; z-index:9997;
     }
     .footer-biblica p { margin:0; font-family:Georgia,'Times New Roman',serif; font-size:0.82rem; font-style:italic; color:#f0d090; letter-spacing:0.6px; }
     .footer-biblica span.ref { font-style:normal; font-weight:700; color:#f5a623; font-size:0.78rem; margin-left:6px; letter-spacing:1px; }
@@ -298,16 +254,16 @@ def mostrar_header():
 
 
 def mostrar_bienvenida():
-    # ── Animación de fondo (ecuaciones flotantes) ────────────────────────────
+    # ── Animación de fondo SOLO en bienvenida ────────────────────────────────
     inject_math_background()
 
-    # ── Botón esfera (acceso rápido) ─────────────────────────────────────────
+    # ── Esfera + botón de acceso rápido ──────────────────────────────────────
     st.markdown(
-        '<div style="max-width:820px;margin:0.5rem auto 1rem auto;'
+        '<div style="max-width:820px;margin:0.5rem auto 0 auto;'
         'display:flex;flex-direction:column;align-items:center;">'
-        '<div style="font-size:0.78rem;color:#c8a96e;letter-spacing:1.5px;'
-        'text-transform:uppercase;font-weight:700;margin-bottom:0.4rem;">'
-        '⚡ Acceso rápido</div>',
+        '<div style="font-size:0.72rem;color:#c8a96e;letter-spacing:1.5px;'
+        'text-transform:uppercase;font-weight:700;margin-bottom:0.2rem;">'
+        '— Acceso rápido —</div>',
         unsafe_allow_html=True
     )
 
@@ -331,20 +287,17 @@ def mostrar_bienvenida():
 
     logo_src = f'data:image/png;base64,{LOGO_B64}' if LOGO_B64 else ""
     logo_tag = (
-        f'<img src="{logo_src}" '
-        'style="height:52px;width:52px;border-radius:50%;object-fit:cover;'
-        'vertical-align:middle;margin-right:12px;box-shadow:0 0 10px rgba(245,166,35,0.4);" '
-        'alt="Logo CM">'
+        f'<img src="{logo_src}" style="height:52px;width:52px;border-radius:50%;object-fit:cover;'
+        'vertical-align:middle;margin-right:12px;box-shadow:0 0 10px rgba(245,166,35,0.4);" alt="Logo CM">'
     ) if logo_src else ""
 
     items_parts = []
     for num, texto in items:
         items_parts.append(
-            '<div style="display:flex;align-items:flex-start;gap:12px;'
-            'padding:0.7rem 0;border-bottom:1px solid #1a2540;">'
-            '<div style="width:22px;height:22px;min-width:22px;background:#1a2e1a;'
-            'border:2px solid #3a7a3a;border-radius:5px;display:flex;align-items:center;'
-            'justify-content:center;font-size:13px;margin-top:2px;color:#4eff88;">&#10004;</div>'
+            '<div style="display:flex;align-items:flex-start;gap:12px;padding:0.7rem 0;border-bottom:1px solid #1a2540;">'
+            '<div style="width:22px;height:22px;min-width:22px;background:#1a2e1a;border:2px solid #3a7a3a;'
+            'border-radius:5px;display:flex;align-items:center;justify-content:center;font-size:13px;'
+            'margin-top:2px;color:#4eff88;">&#10004;</div>'
             f'<div style="font-size:0.72rem;font-weight:700;color:#f5a623;min-width:20px;margin-top:3px;">{num}.</div>'
             f'<div style="font-size:0.88rem;color:#b0c4e8;line-height:1.55;">{texto}</div>'
             '</div>'
@@ -403,13 +356,8 @@ def mostrar_bienvenida():
             'background:linear-gradient(135deg,#8b0000,#cc0000);'
             'color:#fff;border:1px solid #ff4444;border-radius:8px;padding:8px 18px;'
             'font-size:0.82rem;font-weight:700;text-decoration:none;letter-spacing:0.3px;">'
-            + (
-                f'<img src="data:image/png;base64,{LOGO_B64}" '
-                'style="height:28px;width:28px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="Logo">'
-                if LOGO_B64 else ''
-            )
-            + 'Complemento Matemático — YouTube'
-            '</a>'
+            + (f'<img src="data:image/png;base64,{LOGO_B64}" style="height:28px;width:28px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="Logo">' if LOGO_B64 else '')
+            + 'Complemento Matemático — YouTube</a>'
         )
         + '</div>'
     )
@@ -458,13 +406,11 @@ def mostrar_pregunta_card(pregunta, preguntas):
         with open(img_path, "rb") as _f:
             _img_b64 = _b64.b64encode(_f.read()).decode()
         _img_ext = img_path.suffix.lower().replace(".", "")
-        if _img_ext == "jpg":
-            _img_ext = "jpeg"
+        if _img_ext == "jpg": _img_ext = "jpeg"
         img_html = (
             f'<div style="margin-bottom:1rem;">'
             f'<img src="data:image/{_img_ext};base64,{_img_b64}" '
-            f'style="width:100%;border-radius:8px;" alt="pregunta"/>'
-            f'</div>'
+            f'style="width:100%;border-radius:8px;" alt="pregunta"/></div>'
         )
     else:
         img_html = f'<div style="color:#e74c3c;padding:1rem;">⚠ Imagen no encontrada: {imagen}</div>'
@@ -477,12 +423,7 @@ def mostrar_pregunta_card(pregunta, preguntas):
         st.session_state[sel_key] = None
 
     for letra, texto in alts.items():
-        if st.button(
-            f"{letra})  {texto}",
-            key=f"alt_{nombre}_{letra}",
-            use_container_width=True,
-            disabled=(st.session_state[sel_key] is not None)
-        ):
+        if st.button(f"{letra})  {texto}", key=f"alt_{nombre}_{letra}", use_container_width=True, disabled=(st.session_state[sel_key] is not None)):
             st.session_state[sel_key] = letra
             st.rerun()
 
@@ -491,9 +432,9 @@ def mostrar_pregunta_card(pregunta, preguntas):
         tiempo_str = ""
         t_start = st.session_state.get("timer_start_ts")
         if t_start is not None:
-            elapsed  = int(_time.time() - t_start)
+            elapsed = int(_time.time() - t_start)
             duracion = st.session_state.get("timer_duracion_ts", 90)
-            usados   = min(elapsed, duracion)
+            usados = min(elapsed, duracion)
             m_u = usados // 60; s_u = usados % 60
             tiempo_str = f" · ⏱ {m_u}m {s_u}s" if m_u > 0 else f" · ⏱ {s_u} segundos"
 
@@ -508,7 +449,7 @@ def mostrar_pregunta_card(pregunta, preguntas):
             if match:
                 video_id = match.group(1)
                 st.markdown('<p style="text-align:center;color:#6b7280;font-size:0.85rem;margin-top:1rem;margin-bottom:0.4rem;font-style:italic;">Compara tu desarrollo y respuesta con el siguiente video explicativo.</p>', unsafe_allow_html=True)
-                st.markdown(f'<div style="margin-top:0rem;border-radius:10px;overflow:hidden;"><iframe width="100%" height="220" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px;"></iframe></div>', unsafe_allow_html=True)
+                st.markdown(f'<div style="border-radius:10px;overflow:hidden;"><iframe width="100%" height="220" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px;"></iframe></div>', unsafe_allow_html=True)
             else:
                 st.markdown(f'<div style="margin-top:0.6rem;"><a href="{video}" target="_blank" style="display:block;background:linear-gradient(135deg,#c0392b,#e74c3c);color:white;text-align:center;padding:0.7rem;border-radius:10px;text-decoration:none;font-weight:700;">▶ Ver solución en YouTube</a></div>', unsafe_allow_html=True)
 
@@ -532,10 +473,8 @@ def sidebar_timer():
         <div class="sidebar-brand-prof">Prof. Bastiani Calabrano Inostroza</div>
     </div>
     """, unsafe_allow_html=True)
-
     st.sidebar.markdown('<div class="sidebar-section">⏱ TIEMPO POR PREGUNTA</div>', unsafe_allow_html=True)
-    tiempo_seg = st.sidebar.radio("", options=[90, 120], format_func=lambda x: f"{x} segundos", key="tiempo_radio")
-    return tiempo_seg
+    return st.sidebar.radio("", options=[90, 120], format_func=lambda x: f"{x} segundos", key="tiempo_radio")
 
 
 def main():
@@ -547,8 +486,12 @@ def main():
     mostrar_modal_actividades()
 
     if not st.session_state.bienvenida_vista:
+        # ── Pantalla bienvenida: animación activa ────────────────────────────
         mostrar_bienvenida()
         return
+
+    # ── Repositorio: eliminar canvas si quedó de la bienvenida ──────────────
+    remove_math_background()
 
     preguntas = cargar_preguntas()
     if not preguntas:
@@ -557,29 +500,23 @@ def main():
 
     nombres = [p.get("nombre", p.get("id", "")) for p in preguntas]
 
-    if "pregunta_idx" not in st.session_state:
-        st.session_state.pregunta_idx = 0
-    if "selectbox_nombre" not in st.session_state:
-        st.session_state.selectbox_nombre = nombres[0]
+    if "pregunta_idx"      not in st.session_state: st.session_state.pregunta_idx      = 0
+    if "selectbox_nombre"  not in st.session_state: st.session_state.selectbox_nombre  = nombres[0]
 
     tiempo_seg = sidebar_timer()
 
     # ── Filtro PRUEBA ────────────────────────────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">📋 FILTRAR POR PRUEBA</div>', unsafe_allow_html=True)
     pruebas_disponibles = ["Todas"] + sorted(list(set(p.get("prueba","Sin prueba") for p in preguntas if p.get("prueba"))))
-    if "filtro_prueba" not in st.session_state:
-        st.session_state.filtro_prueba = "Todas"
+    if "filtro_prueba" not in st.session_state: st.session_state.filtro_prueba = "Todas"
 
     def on_prueba_change():
         prueba_sel = st.session_state["filtro_prueba"]
-        st.session_state.filtro_eje = "Todos"
-        st.session_state.texto_busqueda = ""
-        st.session_state.filtro_habilidades = []
-        st.session_state.filtro_contenidos  = []
+        st.session_state.filtro_eje = "Todos"; st.session_state.texto_busqueda = ""
+        st.session_state.filtro_habilidades = []; st.session_state.filtro_contenidos = []
         filtradas = preguntas if prueba_sel == "Todas" else [p for p in preguntas if p.get("prueba") == prueba_sel]
         if filtradas:
-            primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id",""))
-            st.session_state.pregunta_idx = nombres.index(primer_nombre)
+            st.session_state.pregunta_idx = nombres.index(filtradas[0].get("nombre", filtradas[0].get("id","")))
             st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
 
     st.sidebar.selectbox("", options=pruebas_disponibles, key="filtro_prueba", on_change=on_prueba_change)
@@ -594,9 +531,7 @@ def main():
         ejes_validos  = EJES_POR_PRUEBA.get(prueba_activa, [])
         ejes_en_datos = set(p.get("eje","") for p in preguntas_por_prueba)
         ejes_disponibles = ["Todos"] + [e for e in ejes_validos if e in ejes_en_datos]
-
-    if "filtro_eje" not in st.session_state:
-        st.session_state.filtro_eje = "Todos"
+    if "filtro_eje" not in st.session_state: st.session_state.filtro_eje = "Todos"
 
     def on_eje_change():
         eje_sel = st.session_state["filtro_eje"]; prueba_sel = st.session_state["filtro_prueba"]
@@ -604,115 +539,85 @@ def main():
         base = preguntas if prueba_sel == "Todas" else [p for p in preguntas if p.get("prueba") == prueba_sel]
         filtradas = base if eje_sel == "Todos" else [p for p in base if p.get("eje") == eje_sel]
         if filtradas:
-            primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id",""))
-            st.session_state.pregunta_idx = nombres.index(primer_nombre)
+            st.session_state.pregunta_idx = nombres.index(filtradas[0].get("nombre", filtradas[0].get("id","")))
             st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
 
-    if st.session_state.filtro_eje not in ejes_disponibles:
-        st.session_state.filtro_eje = "Todos"
+    if st.session_state.filtro_eje not in ejes_disponibles: st.session_state.filtro_eje = "Todos"
     st.sidebar.selectbox("", options=ejes_disponibles, key="filtro_eje", on_change=on_eje_change)
 
     # ── Filtro HABILIDADES ───────────────────────────────────────────────────
-    if "filtro_habilidades" not in st.session_state:
-        st.session_state.filtro_habilidades = []
+    if "filtro_habilidades" not in st.session_state: st.session_state.filtro_habilidades = []
     habilidades_disponibles = _habilidades_para_filtro(st.session_state.filtro_prueba)
     st.session_state.filtro_habilidades = [h for h in st.session_state.filtro_habilidades if h in habilidades_disponibles]
     n_hab = len(st.session_state.filtro_habilidades)
-    label_hab = f"🧠 HABILIDADES ({n_hab} activa{'s' if n_hab!=1 else ''})" if n_hab > 0 else "🧠 FILTRAR POR HABILIDAD"
-    with st.sidebar.expander(label_hab, expanded=False):
-        nuevas_habilidades = []
+    with st.sidebar.expander(f"🧠 HABILIDADES ({n_hab} activa{'s' if n_hab!=1 else ''})" if n_hab > 0 else "🧠 FILTRAR POR HABILIDAD", expanded=False):
+        nuevas = []
         for hab in habilidades_disponibles:
-            if st.checkbox(hab, value=hab in st.session_state.filtro_habilidades, key=f"chk_hab_{hab}"):
-                nuevas_habilidades.append(hab)
-        if nuevas_habilidades != st.session_state.filtro_habilidades:
-            st.session_state.filtro_habilidades = nuevas_habilidades
-            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
-            st.rerun()
+            if st.checkbox(hab, value=hab in st.session_state.filtro_habilidades, key=f"chk_hab_{hab}"): nuevas.append(hab)
+        if nuevas != st.session_state.filtro_habilidades:
+            st.session_state.filtro_habilidades = nuevas
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False; st.rerun()
 
     # ── Filtro CONTENIDOS ────────────────────────────────────────────────────
-    if "filtro_contenidos" not in st.session_state:
-        st.session_state.filtro_contenidos = []
+    if "filtro_contenidos" not in st.session_state: st.session_state.filtro_contenidos = []
     contenidos_disponibles = _contenidos_para_eje(st.session_state.filtro_eje, st.session_state.filtro_prueba)
     st.session_state.filtro_contenidos = [c for c in st.session_state.filtro_contenidos if c in contenidos_disponibles]
     n_cont = len(st.session_state.filtro_contenidos)
-    label_cont = f"📖 CONTENIDOS ({n_cont} activo{'s' if n_cont!=1 else ''})" if n_cont > 0 else "📖 FILTRAR POR CONTENIDO"
-    with st.sidebar.expander(label_cont, expanded=False):
-        nuevos_contenidos = []
+    with st.sidebar.expander(f"📖 CONTENIDOS ({n_cont} activo{'s' if n_cont!=1 else ''})" if n_cont > 0 else "📖 FILTRAR POR CONTENIDO", expanded=False):
+        nuevos = []
         for cont in contenidos_disponibles:
-            if st.checkbox(cont, value=cont in st.session_state.filtro_contenidos, key=f"chk_cont_{cont}"):
-                nuevos_contenidos.append(cont)
-        if nuevos_contenidos != st.session_state.filtro_contenidos:
-            st.session_state.filtro_contenidos = nuevos_contenidos
-            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
-            st.rerun()
+            if st.checkbox(cont, value=cont in st.session_state.filtro_contenidos, key=f"chk_cont_{cont}"): nuevos.append(cont)
+        if nuevos != st.session_state.filtro_contenidos:
+            st.session_state.filtro_contenidos = nuevos
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False; st.rerun()
 
     # ── Lista filtrada ───────────────────────────────────────────────────────
-    prueba_activa = st.session_state.filtro_prueba
-    eje_activo    = st.session_state.filtro_eje
-    preguntas_filtradas = preguntas if prueba_activa == "Todas" else [p for p in preguntas if p.get("prueba") == prueba_activa]
-    if eje_activo != "Todos":
-        preguntas_filtradas = [p for p in preguntas_filtradas if p.get("eje") == eje_activo]
+    prueba_activa = st.session_state.filtro_prueba; eje_activo = st.session_state.filtro_eje
+    pf = preguntas if prueba_activa == "Todas" else [p for p in preguntas if p.get("prueba") == prueba_activa]
+    if eje_activo != "Todos": pf = [p for p in pf if p.get("eje") == eje_activo]
     habs_sel = st.session_state.get("filtro_habilidades", [])
-    if habs_sel:
-        preguntas_filtradas = [p for p in preguntas_filtradas if any(h in p.get("habilidades",[]) for h in habs_sel)]
+    if habs_sel: pf = [p for p in pf if any(h in p.get("habilidades",[]) for h in habs_sel)]
     conts_sel = st.session_state.get("filtro_contenidos", [])
-    if conts_sel:
-        preguntas_filtradas = [p for p in preguntas_filtradas if any(c in p.get("contenidos",[]) for c in conts_sel)]
-    if not preguntas_filtradas:
-        st.sidebar.warning("No hay preguntas para este filtro.")
-        preguntas_filtradas = preguntas
+    if conts_sel: pf = [p for p in pf if any(c in p.get("contenidos",[]) for c in conts_sel)]
+    if not pf: st.sidebar.warning("No hay preguntas para este filtro."); pf = preguntas
+    preguntas_filtradas = pf
 
-    nombres_filtrados    = [p.get("nombre", p.get("id","")) for p in preguntas_filtradas]
+    nombres_filtrados = [p.get("nombre", p.get("id","")) for p in preguntas_filtradas]
     nombre_actual_global = nombres[st.session_state.pregunta_idx]
     if nombre_actual_global not in nombres_filtrados:
         st.session_state.pregunta_idx = nombres.index(nombres_filtrados[0])
 
     # ── Buscador ─────────────────────────────────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">🔍 BUSCAR POR NOMBRE</div>', unsafe_allow_html=True)
-    if "texto_busqueda" not in st.session_state:
-        st.session_state.texto_busqueda = ""
+    if "texto_busqueda" not in st.session_state: st.session_state.texto_busqueda = ""
     texto_busqueda = st.sidebar.text_input("", placeholder="Escribe parte del nombre...", key="texto_busqueda")
     nombres_buscados = ([n for n in nombres_filtrados if texto_busqueda.lower() in n.lower()] if texto_busqueda else nombres_filtrados)
-    if not nombres_buscados:
-        st.sidebar.caption("⚠️ Sin coincidencias. Mostrando todas."); nombres_buscados = nombres_filtrados
+    if not nombres_buscados: st.sidebar.caption("⚠️ Sin coincidencias. Mostrando todas."); nombres_buscados = nombres_filtrados
 
     nombre_actual_global = nombres[st.session_state.pregunta_idx]
     idx_buscado = nombres_buscados.index(nombre_actual_global) if nombre_actual_global in nombres_buscados else 0
-    if nombre_actual_global not in nombres_buscados:
-        st.session_state.pregunta_idx = nombres.index(nombres_buscados[0])
+    if nombre_actual_global not in nombres_buscados: st.session_state.pregunta_idx = nombres.index(nombres_buscados[0])
 
     def on_select_change():
-        nombre_sel = st.session_state["buscar_select"]
-        if nombre_sel in nombres:
-            st.session_state.pregunta_idx = nombres.index(nombre_sel)
+        n = st.session_state["buscar_select"]
+        if n in nombres:
+            st.session_state.pregunta_idx = nombres.index(n)
             st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
 
     st.sidebar.selectbox("", options=nombres_buscados, index=idx_buscado, key="buscar_select", on_change=on_select_change)
-    st.sidebar.markdown(
-        f'<div style="color:#f5a623;font-size:0.75rem;font-weight:700;letter-spacing:1px;'
-        f'padding:3px 0 3px 11px;border-left:3px solid #f5a623;">'
-        f'Mostrando {len(nombres_buscados)} de {len(nombres_filtrados)} preguntas</div>',
-        unsafe_allow_html=True
-    )
+    st.sidebar.markdown(f'<div style="color:#f5a623;font-size:0.75rem;font-weight:700;letter-spacing:1px;padding:3px 0 3px 11px;border-left:3px solid #f5a623;">Mostrando {len(nombres_buscados)} de {len(nombres_filtrados)} preguntas</div>', unsafe_allow_html=True)
 
-    # ── Botón Aleatorio sidebar ──────────────────────────────────────────────
     st.sidebar.markdown("")
     st.markdown('<div class="btn-aleatorio">', unsafe_allow_html=True)
     if st.sidebar.button("🎲 Pregunta aleatoria", key="btn_aleatorio", use_container_width=True):
-        p_random = random.choice(preguntas_filtradas)
-        nombre_random = p_random.get("nombre", p_random.get("id",""))
-        st.session_state.pregunta_idx = nombres.index(nombre_random)
-        st.session_state.selectbox_nombre = nombre_random
-        st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
-        st.rerun()
+        p_r = random.choice(preguntas_filtradas); n_r = p_r.get("nombre", p_r.get("id",""))
+        st.session_state.pregunta_idx = nombres.index(n_r); st.session_state.selectbox_nombre = n_r
+        st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False; st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-    if st.session_state.get("modal_actividades", False):
-        return
+    if st.session_state.get("modal_actividades", False): return
 
-    # ── Pregunta + Timer ─────────────────────────────────────────────────────
-    idx      = st.session_state.pregunta_idx
-    pregunta = preguntas[idx]
+    idx = st.session_state.pregunta_idx; pregunta = preguntas[idx]
     col_pregunta, col_timer = st.columns([3, 1])
 
     with col_pregunta:
@@ -720,54 +625,37 @@ def main():
 
     with col_timer:
         import time as _time
-
-        if "mostrar_consejos" not in st.session_state:
-            st.session_state.mostrar_consejos = False
+        if "mostrar_consejos" not in st.session_state: st.session_state.mostrar_consejos = False
 
         st.markdown('<div class="btn-actividades">', unsafe_allow_html=True)
         if st.button("🧩  Actividades interactivas", key="btn_actividades_timer", use_container_width=True):
-            st.session_state["modal_actividades"] = True
-            st.rerun()
+            st.session_state["modal_actividades"] = True; st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown("<div style='margin-bottom:0.3rem;'></div>", unsafe_allow_html=True)
         label_btn = "✕ Cerrar consejos" if st.session_state.mostrar_consejos else "💡 Consejos de uso"
         if st.button(label_btn, key="btn_consejos", use_container_width=True):
-            st.session_state.mostrar_consejos = not st.session_state.mostrar_consejos
-            st.rerun()
+            st.session_state.mostrar_consejos = not st.session_state.mostrar_consejos; st.rerun()
 
         if st.session_state.mostrar_consejos:
-            st.markdown("""
-<div class="consejos-panel">
+            st.markdown("""<div class="consejos-panel">
 <h4>📋 Filtros de búsqueda</h4>
 <p>Usa los filtros del panel lateral para encontrar problemas por <b>Prueba</b>, <b>Eje</b>, <b>Habilidad</b> y <b>Contenido</b>. Todos los filtros se combinan automáticamente.</p>
-<h4>🧠 Habilidades</h4>
-<p>Se filtran según la <b>Prueba</b> seleccionada (M1/M2 comparten habilidades; Física tiene las suyas).</p>
-<h4>📖 Contenidos</h4>
-<p>Se filtran según el <b>Eje</b> seleccionado.</p>
-<h4>🔍 Buscador por nombre</h4>
-<p>Escribe parte del código del problema (por ejemplo <i>2023</i> o <i>P12</i>) en el campo de texto.</p>
-<h4>🎲 Pregunta aleatoria</h4>
-<p>El botón <b>Pregunta aleatoria</b> elige al azar dentro de los filtros activos.</p>
-<h4>⏱ Cronómetro</h4>
-<p>Selecciona <b>90 o 120 segundos</b> en el panel lateral antes de iniciar.</p>
-<h4>🔄 Reiniciar pregunta</h4>
-<p>Presiona <b>🔄 Reiniciar pregunta</b> para volver a intentar un problema.</p>
-<h4>▶ Video explicativo</h4>
-<p>Al responder aparecerá el video de solución del profesor.</p>
-<h4>✉ Contacto</h4>
-<p><a href="mailto:complemento.matematico.cm@gmail.com" style="color:#f5a623;font-weight:700;text-decoration:none;">complemento.matematico.cm@gmail.com</a></p>
-</div>
-            """, unsafe_allow_html=True)
+<h4>🧠 Habilidades</h4><p>Se filtran según la <b>Prueba</b> seleccionada.</p>
+<h4>📖 Contenidos</h4><p>Se filtran según el <b>Eje</b> seleccionado.</p>
+<h4>🔍 Buscador por nombre</h4><p>Escribe parte del código del problema (ej. <i>2023</i> o <i>P12</i>).</p>
+<h4>🎲 Pregunta aleatoria</h4><p>Elige al azar dentro de los filtros activos.</p>
+<h4>⏱ Cronómetro</h4><p>Selecciona <b>90 o 120 segundos</b> en el panel lateral.</p>
+<h4>🔄 Reiniciar pregunta</h4><p>Presiona para volver a intentar un problema.</p>
+<h4>▶ Video explicativo</h4><p>Aparece al responder con la solución del profesor.</p>
+<h4>✉ Contacto</h4><p><a href="mailto:complemento.matematico.cm@gmail.com" style="color:#f5a623;font-weight:700;text-decoration:none;">complemento.matematico.cm@gmail.com</a></p>
+</div>""", unsafe_allow_html=True)
 
         if "timer_start_ts" not in st.session_state:
-            st.session_state.timer_start_ts    = None
-            st.session_state.timer_duracion_ts = tiempo_seg
-            st.session_state.timer_stopped     = False
+            st.session_state.timer_start_ts = None; st.session_state.timer_duracion_ts = tiempo_seg; st.session_state.timer_stopped = False
 
-        nombre_actual  = preguntas[st.session_state.pregunta_idx].get("nombre", preguntas[st.session_state.pregunta_idx].get("id",""))
-        sel_key_actual = f"sel_{nombre_actual}"
-        ya_respondio   = st.session_state.get(sel_key_actual) is not None
+        nombre_actual = preguntas[st.session_state.pregunta_idx].get("nombre", preguntas[st.session_state.pregunta_idx].get("id",""))
+        ya_respondio = st.session_state.get(f"sel_{nombre_actual}") is not None
         if ya_respondio and not st.session_state.timer_stopped and st.session_state.timer_start_ts:
             st.session_state.timer_stopped = True
 
@@ -776,38 +664,22 @@ def main():
         duracion  = st.session_state.timer_duracion_ts if st.session_state.timer_start_ts else tiempo_seg
         corriendo = (st.session_state.timer_start_ts is not None) and (not detenido)
         start_ms  = int(start_ts * 1000)
-        cor_js    = "true" if corriendo else "false"
-        det_js    = "true" if detenido  else "false"
 
         timer_html = (
-            "<!DOCTYPE html><html><head><style>"
-            "* {box-sizing:border-box;margin:0;padding:0;}"
-            "body {background:transparent;font-family:sans-serif;}"
-            ".wrap {background:#161b27;border-radius:16px;padding:1rem 0.6rem;"
-            "text-align:center;border:1px solid #2d3748;}"
-            ".icon {font-size:1.5rem;margin-bottom:2px;}"
-            "#disp {font-size:2.6rem;font-weight:900;color:#7ecfff;"
-            "font-family:'Courier New',monospace;letter-spacing:3px;"
-            "display:block;min-height:3.2rem;}"
-            "#smsg {font-size:0.8rem;font-weight:700;margin-top:5px;min-height:1.1rem;}"
-            "</style></head><body>"
-            "<div class='wrap'>"
-            "<div class='icon' id='icon'>⏳</div>"
-            "<span id='disp'>--:--</span>"
-            "<div id='smsg'></div>"
-            "</div>"
-            "<script>"
-            f"var START_MS={start_ms};"
-            f"var DURACION={duracion};"
-            f"var CORRIENDO={cor_js};"
-            f"var DETENIDO={det_js};"
-            "var iv=null;"
-            "var disp=document.getElementById('disp');"
-            "var smsg=document.getElementById('smsg');"
-            "var icon=document.getElementById('icon');"
+            "<!DOCTYPE html><html><head><style>*{box-sizing:border-box;margin:0;padding:0;}"
+            "body{background:transparent;font-family:sans-serif;}"
+            ".wrap{background:#161b27;border-radius:16px;padding:1rem 0.6rem;text-align:center;border:1px solid #2d3748;}"
+            ".icon{font-size:1.5rem;margin-bottom:2px;}"
+            "#disp{font-size:2.6rem;font-weight:900;color:#7ecfff;font-family:'Courier New',monospace;letter-spacing:3px;display:block;min-height:3.2rem;}"
+            "#smsg{font-size:0.8rem;font-weight:700;margin-top:5px;min-height:1.1rem;}"
+            "</style></head><body><div class='wrap'><div class='icon' id='icon'>⏳</div>"
+            "<span id='disp'>--:--</span><div id='smsg'></div></div><script>"
+            f"var S={int(start_ts*1000)},D={duracion},C={'true' if corriendo else 'false'},T={'true' if detenido else 'false'};"
+            "var iv=null,disp=document.getElementById('disp'),smsg=document.getElementById('smsg'),icon=document.getElementById('icon');"
             "function fmt(s){var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r;}"
-            "function tick(){var elapsed=Math.floor((Date.now()-START_MS)/1000);var rest=Math.max(0,DURACION-elapsed);disp.textContent=fmt(rest);disp.style.color=rest<=10?'#e74c3c':'#7ecfff';if(rest<=0){clearInterval(iv);smsg.style.color='#e74c3c';smsg.textContent='⏰ Tiempo agotado!';icon.textContent='⏰';}}"
-            "if(DETENIDO){var el=Math.floor((Date.now()-START_MS)/1000);var re=Math.max(0,DURACION-el);var us=DURACION-re;var mu=Math.floor(us/60),su=us%60;disp.textContent=fmt(re);disp.style.color=re<=10?'#e74c3c':'#7ecfff';smsg.style.color='#059669';icon.textContent='🛑';smsg.textContent='✅ Tiempo: '+(mu>0?mu+'m ':'')+su+'s';}else if(CORRIENDO){tick();iv=setInterval(tick,500);}else{disp.textContent=fmt(DURACION);disp.style.color='#7ecfff';}"
+            "function tick(){var e=Math.floor((Date.now()-S)/1000),r=Math.max(0,D-e);disp.textContent=fmt(r);disp.style.color=r<=10?'#e74c3c':'#7ecfff';if(r<=0){clearInterval(iv);smsg.style.color='#e74c3c';smsg.textContent='⏰ Tiempo agotado!';icon.textContent='⏰';}}"
+            "if(T){var e=Math.floor((Date.now()-S)/1000),r=Math.max(0,D-e),u=D-r,mu=Math.floor(u/60),su=u%60;disp.textContent=fmt(r);disp.style.color=r<=10?'#e74c3c':'#7ecfff';smsg.style.color='#059669';icon.textContent='🛑';smsg.textContent='✅ Tiempo: '+(mu>0?mu+'m ':'')+su+'s';}"
+            "else if(C){tick();iv=setInterval(tick,500);}else{disp.textContent=fmt(D);disp.style.color='#7ecfff';}"
             "</script></body></html>"
         )
         components.html(timer_html, height=155)
@@ -815,25 +687,17 @@ def main():
         st.markdown("")
         if not detenido:
             if st.button("▶ Iniciar cronómetro", key="btn_timer_main", use_container_width=True):
-                st.session_state.timer_start_ts    = _time.time()
-                st.session_state.timer_duracion_ts = tiempo_seg
-                st.session_state.timer_stopped     = False
-                st.rerun()
+                st.session_state.timer_start_ts = _time.time(); st.session_state.timer_duracion_ts = tiempo_seg; st.session_state.timer_stopped = False; st.rerun()
         else:
             if st.button("🔄 Nuevo cronómetro", key="btn_timer_reset", use_container_width=True):
-                st.session_state.timer_start_ts  = None
-                st.session_state.timer_stopped   = False
-                st.rerun()
+                st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False; st.rerun()
 
         st.markdown("")
         st.markdown('<div class="btn-random-timer">', unsafe_allow_html=True)
         if st.button("🎲 Pregunta aleatoria", key="btn_random_timer", use_container_width=True):
-            p_random = random.choice(preguntas_filtradas)
-            nombre_random = p_random.get("nombre", p_random.get("id",""))
-            st.session_state.pregunta_idx = nombres.index(nombre_random)
-            st.session_state.selectbox_nombre = nombre_random
-            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
-            st.rerun()
+            p_r = random.choice(preguntas_filtradas); n_r = p_r.get("nombre", p_r.get("id",""))
+            st.session_state.pregunta_idx = nombres.index(n_r); st.session_state.selectbox_nombre = n_r
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False; st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 
 

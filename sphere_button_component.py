@@ -154,7 +154,7 @@ def mostrar_boton_esfera() -> bool:
         components.html(SPHERE_HTML, height=192, scrolling=False)
 
     # Botón real de Streamlit, centrado bajo la esfera
-    _, col2, _ = st.columns([1, 2, 1])
+    _, col2, _ = st.columns([1, 1, 1])
     with col2:
         st.markdown('<div class="btn-ingresar">', unsafe_allow_html=True)
         clicked = st.button("⚡  Ingresar con el boton de abajo", key="btn_esfera_ingreso", use_container_width=True)

@@ -7,6 +7,8 @@ import base64
 from pathlib import Path
 from PIL import Image
 from actividades_modal import mostrar_boton_actividades, mostrar_modal_actividades
+from math_bg_component import inject_math_background
+from sphere_button_component import mostrar_boton_esfera
 
 logo_favicon = Image.open("LogoCM.png")
 
@@ -43,110 +45,68 @@ EJES_POR_PRUEBA = {
 
 # ── Contenidos por EJE ───────────────────────────────────────────────────────
 CONTENIDOS_POR_EJE = {
-    # M1 / M2
     "Números": [
-        "Números naturales",
-        "Números enteros",
-        "Números racionales",
-        "Fracciones",
-        "Decimales",
-        "Porcentajes",
-        "Proporcionalidad",
-        "Proporcionalidad directa",
-        "Proporcionalidad inversa",
-        "Potencias",
-        "Raíces",
-        "Números reales",
+        "Números naturales", "Números enteros", "Números racionales",
+        "Fracciones", "Decimales", "Porcentajes", "Proporcionalidad",
+        "Proporcionalidad directa", "Proporcionalidad inversa",
+        "Potencias", "Raíces", "Números reales",
     ],
     "Álgebra": [
-        "Expresiones algebraicas",
-        "Ecuaciones de primer grado",
-        "Ecuaciones cuadráticas",
-        "Inecuaciones de primer grado",
-        "Inecuaciones cuadráticas",
-        "SEL 2x2",
-        "Funciones",
-        "Función lineal",
-        "Función cuadrática",
-        "Función exponencial",
+        "Expresiones algebraicas", "Ecuaciones de primer grado",
+        "Ecuaciones cuadráticas", "Inecuaciones de primer grado",
+        "Inecuaciones cuadráticas", "SEL 2x2", "Funciones",
+        "Función lineal", "Función cuadrática", "Función exponencial",
     ],
     "Geometría": [
-        "Figuras y cuerpos geométricos",
-        "Perímetro",
-        "Área",
-        "Volumen",
-        "Teorema de Pitágoras",
-        "Semejanza y congruencia",
-        "Transformaciones isométricas",
-        "Geometría analítica",
-        "Trigonometría",
+        "Figuras y cuerpos geométricos", "Perímetro", "Área", "Volumen",
+        "Teorema de Pitágoras", "Semejanza y congruencia",
+        "Transformaciones isométricas", "Geometría analítica", "Trigonometría",
     ],
     "Estadística": [
-        "Tablas y gráficos estadísticos",
-        "Medidas de tendencia central",
-        "Medidas de dispersión",
-        "Probabilidad",
-        "Distribuciones",
+        "Tablas y gráficos estadísticos", "Medidas de tendencia central",
+        "Medidas de dispersión", "Probabilidad", "Distribuciones",
     ],
-    # FISICA
     "Ondas": [
-        "Características de las ondas",
-        "Sonido",
-        "Luz y óptica geométrica",
-        "Espectro electromagnético",
-        "Ondas electromagnéticas",
+        "Características de las ondas", "Sonido", "Luz y óptica geométrica",
+        "Espectro electromagnético", "Ondas electromagnéticas",
     ],
     "Mecánica": [
-        "Cinemática",
-        "Dinámica y Leyes de Newton",
-        "Trabajo y energía",
-        "Cantidad de movimiento",
+        "Cinemática", "Dinámica y Leyes de Newton",
+        "Trabajo y energía", "Cantidad de movimiento",
     ],
     "Energía y Tierra": [
-        "Ondas sísmicas",
-        "Capas de la tierra",
-        "Núcleo de la tierra",
+        "Ondas sísmicas", "Capas de la tierra", "Núcleo de la tierra",
     ],
     "Electricidad": [
-        "Carga eléctrica y campo eléctrico",
-        "Circuitos eléctricos",
-        "Magnetismo",
-        "Inducción electromagnética",
+        "Carga eléctrica y campo eléctrico", "Circuitos eléctricos",
+        "Magnetismo", "Inducción electromagnética",
     ],
 }
 
 
 def _habilidades_para_filtro(prueba_activa):
-    """Devuelve lista de habilidades según prueba activa."""
     if prueba_activa == "Todas":
-        visto = set()
-        result = []
+        visto, result = set(), []
         for lst in HABILIDADES_POR_PRUEBA.values():
             for h in lst:
                 if h not in visto:
-                    visto.add(h)
-                    result.append(h)
+                    visto.add(h); result.append(h)
         return sorted(result)
     return HABILIDADES_POR_PRUEBA.get(prueba_activa, [])
 
 
 def _contenidos_para_eje(eje_activo, prueba_activa="Todas"):
-    """Devuelve lista de contenidos según eje activo y prueba activa."""
-    if prueba_activa == "Todas":
-        ejes_validos = list(CONTENIDOS_POR_EJE.keys())
-    else:
-        ejes_validos = EJES_POR_PRUEBA.get(prueba_activa, list(CONTENIDOS_POR_EJE.keys()))
-
+    ejes_validos = (
+        list(CONTENIDOS_POR_EJE.keys()) if prueba_activa == "Todas"
+        else EJES_POR_PRUEBA.get(prueba_activa, list(CONTENIDOS_POR_EJE.keys()))
+    )
     if eje_activo == "Todos":
-        visto = set()
-        result = []
+        visto, result = set(), []
         for eje in ejes_validos:
             for c in CONTENIDOS_POR_EJE.get(eje, []):
                 if c not in visto:
-                    visto.add(c)
-                    result.append(c)
+                    visto.add(c); result.append(c)
         return sorted(result)
-
     return CONTENIDOS_POR_EJE.get(eje_activo, [])
 
 
@@ -169,39 +129,6 @@ LOGO_B64 = _cargar_logo_b64()
 
 st.markdown("""
 <style>
-    /* ── Animación de ecuaciones flotantes ── */
-    @keyframes floatUp {
-        0%   { transform: translateY(0)   rotate(0deg);   opacity: 0;    }
-        5%   { opacity: 0.18; }
-        90%  { opacity: 0.12; }
-        100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
-    }
-
-    #math-bg {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        pointer-events: none;
-        z-index: 0;
-        overflow: hidden;
-    }
-
-    .math-particle {
-        position: absolute;
-        bottom: -60px;
-        color: #f5a623;
-        font-family: 'Georgia', serif;
-        font-style: italic;
-        white-space: nowrap;
-        user-select: none;
-        animation: floatUp linear infinite;
-    }
-
-    /* Make sure main content sits above the animation */
-    [data-testid="stAppViewContainer"] > * { position: relative; z-index: 1; }
-    [data-testid="stSidebar"]            { position: relative; z-index: 2; }
-
-    /* ── Existing styles ── */
     .stApp { background-color: #0f1117; }
     .stApp > header { background-color: transparent !important; }
     [data-testid="stAppViewContainer"] { background-color: #0f1117 !important; }
@@ -209,381 +136,138 @@ st.markdown("""
         background-color: #0f1117 !important;
         padding-top: 0 !important;
     }
-    [data-testid="stHeader"] { background-color: #0f1117 !important; }
-    [data-testid="stToolbar"] { background-color: #0f1117 !important; }
+    [data-testid="stHeader"]     { background-color: #0f1117 !important; }
+    [data-testid="stToolbar"]    { background-color: #0f1117 !important; }
     [data-testid="stDecoration"] { background-color: #0f1117 !important; }
-    [data-testid="stMain"] { background-color: #0f1117 !important; }
+    [data-testid="stMain"]       { background-color: #0f1117 !important; }
     section.main { background-color: #0f1117 !important; }
-    .main .block-container {
-        background-color: #0f1117 !important;
-        max-width: 100% !important;
-    }
+    .main .block-container { background-color: #0f1117 !important; max-width: 100% !important; }
     .header-bar {
-        display: flex; flex-direction: column;
-        align-items: center; justify-content: center;
-        padding: 1.8rem 2rem 1rem 2rem;
-        text-align: center;
-        border-bottom: 1px solid #2d3748;
-        margin-bottom: 0.8rem;
+        display:flex; flex-direction:column;
+        align-items:center; justify-content:center;
+        padding:1.8rem 2rem 1rem 2rem;
+        text-align:center;
+        border-bottom:1px solid #2d3748;
+        margin-bottom:0.8rem;
     }
-    .header-top {
-        display: flex; align-items: center; justify-content: center; gap: 1rem;
-        margin-bottom: 0.5rem;
-    }
+    .header-top { display:flex; align-items:center; justify-content:center; gap:1rem; margin-bottom:0.5rem; }
     .header-logo img {
-        height: 80px; width: 80px;
-        border-radius: 50%;
-        object-fit: cover; object-position: center;
-        clip-path: circle(47% at 50% 50%);
-        flex-shrink: 0;
+        height:80px; width:80px; border-radius:50%;
+        object-fit:cover; object-position:center;
+        clip-path:circle(47% at 50% 50%); flex-shrink:0;
     }
     .header-title {
-        font-size: 2.2rem; font-weight: 900;
-        letter-spacing: 3px; line-height: 1; white-space: nowrap;
-        background: linear-gradient(135deg, #f5a623 0%, #f0c040 50%, #e8890a 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
-        text-shadow: none;
-        filter: drop-shadow(0px 1px 2px rgba(0,0,0,0.5));
+        font-size:2.2rem; font-weight:900;
+        letter-spacing:3px; line-height:1; white-space:nowrap;
+        background:linear-gradient(135deg,#f5a623 0%,#f0c040 50%,#e8890a 100%);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+        background-clip:text; filter:drop-shadow(0px 1px 2px rgba(0,0,0,0.5));
     }
     .header-title span {
-        background: linear-gradient(135deg, #ffffff 0%, #f5e6c8 100%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-        background-clip: text;
+        background:linear-gradient(135deg,#ffffff 0%,#f5e6c8 100%);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     }
-    .header-subtitle {
-        font-size: 0.88rem; color: #f5a623; font-weight: 600;
-        margin-top: 4px; letter-spacing: 0.5px;
-    }
-    .header-subtitle2 {
-        font-size: 0.78rem; color: #c8a96e; font-weight: 400; margin-top: 3px;
-    }
-    .header-subtitle3 {
-        font-size: 0.72rem; color: #8a7355; font-weight: 400; margin-top: 2px; font-style: italic;
+    .header-subtitle  { font-size:0.88rem; color:#f5a623; font-weight:600; margin-top:4px; letter-spacing:0.5px; }
+    .header-subtitle2 { font-size:0.78rem; color:#c8a96e; font-weight:400; margin-top:3px; }
+    .header-subtitle3 { font-size:0.72rem; color:#8a7355; font-weight:400; margin-top:2px; font-style:italic; }
+    .header-versiculo {
+        font-size:0.78rem; color:#d4af6e; font-style:italic;
+        margin-top:6px; letter-spacing:0.3px;
+        font-family:Georgia,'Times New Roman',serif;
     }
     .sidebar-brand {
-        display: flex; flex-direction: column; align-items: center;
-        padding: 1.2rem 0.5rem 0.8rem 0.5rem; text-align: center;
-        border-bottom: 1px solid #7a5a1a; margin-bottom: 0.5rem;
+        display:flex; flex-direction:column; align-items:center;
+        padding:1.2rem 0.5rem 0.8rem 0.5rem; text-align:center;
+        border-bottom:1px solid #7a5a1a; margin-bottom:0.5rem;
     }
     .sidebar-brand img {
-        height: 90px; width: 90px;
-        border-radius: 50%;
-        object-fit: cover;
-        object-position: center;
-        clip-path: circle(47% at 50% 50%);
-        margin-bottom: 0.6rem;
-        box-shadow: 0 0 14px rgba(245,166,35,0.4);
+        height:90px; width:90px; border-radius:50%;
+        object-fit:cover; object-position:center;
+        clip-path:circle(47% at 50% 50%);
+        margin-bottom:0.6rem;
+        box-shadow:0 0 14px rgba(245,166,35,0.4);
     }
     .sidebar-brand-title {
-        font-size: 0.95rem; font-weight: 900; letter-spacing: 1.5px; line-height: 1.2;
-        background: linear-gradient(135deg, #f5a623, #f0c040);
-        -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        background-clip: text;
+        font-size:0.95rem; font-weight:900; letter-spacing:1.5px; line-height:1.2;
+        background:linear-gradient(135deg,#f5a623,#f0c040);
+        -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
     }
-    .sidebar-brand-prof {
-        font-size: 0.72rem; color: #c8a96e; font-weight: 600;
-        margin-top: 4px; letter-spacing: 0.3px;
-    }
+    .sidebar-brand-prof { font-size:0.72rem; color:#c8a96e; font-weight:600; margin-top:4px; letter-spacing:0.3px; }
     [data-testid="stSidebar"],
     [data-testid="stSidebar"] > div,
     [data-testid="stSidebar"] > div:first-child,
-    section[data-testid="stSidebar"] {
-        background-color: #1a1200 !important;
-        background: #1a1200 !important;
-    }
-    div[data-testid="stSidebarContent"] { padding: 1.5rem 1rem; }
+    section[data-testid="stSidebar"] { background-color:#1a1200 !important; background:#1a1200 !important; }
+    div[data-testid="stSidebarContent"] { padding:1.5rem 1rem; }
     .sidebar-section {
-        color: #f5a623; font-size: 0.75rem; font-weight: 700;
-        letter-spacing: 2px; text-transform: uppercase; margin: 1.2rem 0 0.4rem;
-        border-left: 3px solid #f5a623; padding-left: 8px;
+        color:#f5a623; font-size:0.75rem; font-weight:700;
+        letter-spacing:2px; text-transform:uppercase; margin:1.2rem 0 0.4rem;
+        border-left:3px solid #f5a623; padding-left:8px;
     }
-    .stRadio label { color: #e8d5a0 !important; font-size: 0.9rem; }
-    .stSelectbox label { color: #f5a623 !important; font-weight: 700;
-        font-size: 0.75rem; letter-spacing: 1.5px; text-transform: uppercase; }
+    .stRadio label { color:#e8d5a0 !important; font-size:0.9rem; }
+    .stSelectbox label { color:#f5a623 !important; font-weight:700; font-size:0.75rem; letter-spacing:1.5px; text-transform:uppercase; }
     .stButton > button {
-        width: 100%; border-radius: 8px; font-weight: 700;
-        transition: all 0.2s; cursor: pointer;
-        background-color: #1c1a0a !important;
-        color: #e8d5a0 !important;
-        border: 1px solid #5a4010 !important;
+        width:100%; border-radius:8px; font-weight:700;
+        transition:all 0.2s; cursor:pointer;
+        background-color:#1c1a0a !important; color:#e8d5a0 !important; border:1px solid #5a4010 !important;
     }
-    .stButton > button:hover {
-        background-color: #2a2000 !important;
-        border-color: #f5a623 !important;
-        color: #f5a623 !important;
-    }
-    .stButton > button:active {
-        background-color: #3a2e00 !important;
-        transform: scale(0.98);
-    }
-    .btn-aleatorio > button {
-        background: linear-gradient(135deg, #7a4a00, #c07a00);
-        color: #fff8e0; border: 1px solid #f5a623;
-    }
-    .btn-aleatorio > button:hover { background: linear-gradient(135deg, #c07a00, #f5a623); color: #1a1200; }
+    .stButton > button:hover { background-color:#2a2000 !important; border-color:#f5a623 !important; color:#f5a623 !important; }
+    .stButton > button:active { background-color:#3a2e00 !important; transform:scale(0.98); }
+    .btn-aleatorio > button { background:linear-gradient(135deg,#7a4a00,#c07a00); color:#fff8e0; border:1px solid #f5a623; }
+    .btn-aleatorio > button:hover { background:linear-gradient(135deg,#c07a00,#f5a623); color:#1a1200; }
     .btn-random-timer > button {
-        background: linear-gradient(135deg, #7a4a00, #c07a00) !important;
-        color: #fff8e0 !important; border: 1px solid #f5a623 !important;
-        margin-top: 0.3rem;
+        background:linear-gradient(135deg,#7a4a00,#c07a00) !important;
+        color:#fff8e0 !important; border:1px solid #f5a623 !important; margin-top:0.3rem;
     }
-    .btn-random-timer > button:hover { background: linear-gradient(135deg, #c07a00, #f5a623) !important; color: #1a1200 !important; }
+    .btn-random-timer > button:hover { background:linear-gradient(135deg,#c07a00,#f5a623) !important; color:#1a1200 !important; }
     .btn-reiniciar > button {
-        background: linear-gradient(135deg, #374151, #4b5563) !important;
-        color: #f9fafb !important;
-        border: 1px solid #6b7280 !important;
-        margin-top: 0.2rem;
+        background:linear-gradient(135deg,#374151,#4b5563) !important;
+        color:#f9fafb !important; border:1px solid #6b7280 !important; margin-top:0.2rem;
     }
-    .btn-reiniciar > button:hover {
-        background: linear-gradient(135deg, #4b5563, #6b7280) !important;
-    }
+    .btn-reiniciar > button:hover { background:linear-gradient(135deg,#4b5563,#6b7280) !important; }
     .btn-actividades > button {
-        background: linear-gradient(135deg, #1a3a6a, #2255aa) !important;
-        color: #c8e0ff !important;
-        border: 1px solid #3a6abf !important;
-        margin-top: 0.3rem;
+        background:linear-gradient(135deg,#1a3a6a,#2255aa) !important;
+        color:#c8e0ff !important; border:1px solid #3a6abf !important; margin-top:0.3rem;
     }
-    .btn-actividades > button:hover {
-        background: linear-gradient(135deg, #2255aa, #3a7aee) !important;
-        color: #ffffff !important;
-    }
-
-    /* ── Botón de acceso rápido ── */
-    .btn-acceso-rapido > button {
-        background: linear-gradient(135deg, #1a5a1a, #2a8a2a) !important;
-        color: #c8ffc8 !important;
-        border: 2px solid #4aee4a !important;
-        font-size: 1rem !important;
-        padding: 0.7rem 1.5rem !important;
-        border-radius: 12px !important;
-        letter-spacing: 0.5px !important;
-        box-shadow: 0 0 18px rgba(74,238,74,0.25) !important;
-    }
-    .btn-acceso-rapido > button:hover {
-        background: linear-gradient(135deg, #2a8a2a, #3aee3a) !important;
-        color: #0a1a0a !important;
-        box-shadow: 0 0 28px rgba(74,238,74,0.45) !important;
-    }
-
-    .stSelectbox > div > div {
-        background-color: #2a1f00 !important;
-        color: #e8d5a0 !important;
-        border-color: #7a5a1a !important;
-    }
-    .stTextInput > div > div > input {
-        background-color: #2a1f00 !important;
-        color: #e8d5a0 !important;
-        border-color: #7a5a1a !important;
-    }
-    .stTextInput > div > div > input::placeholder {
-        color: #7a5a1a !important;
-    }
+    .btn-actividades > button:hover { background:linear-gradient(135deg,#2255aa,#3a7aee) !important; color:#ffffff !important; }
+    .stSelectbox > div > div { background-color:#2a1f00 !important; color:#e8d5a0 !important; border-color:#7a5a1a !important; }
+    .stTextInput > div > div > input { background-color:#2a1f00 !important; color:#e8d5a0 !important; border-color:#7a5a1a !important; }
+    .stTextInput > div > div > input::placeholder { color:#7a5a1a !important; }
     .question-card {
-        background: #ffffff; border-radius: 16px; padding: 2rem 2.5rem;
-        box-shadow: 0 4px 32px rgba(0,0,0,0.4); color: #1a1a2e;
-        margin: 0 auto; max-width: 820px;
+        background:#ffffff; border-radius:16px; padding:2rem 2.5rem;
+        box-shadow:0 4px 32px rgba(0,0,0,0.4); color:#1a1a2e;
+        margin:0 auto; max-width:820px;
     }
-    .badge-prueba {
-        display: inline-block; background: #1e3a5f; color: #7ecfff;
-        border-radius: 20px; padding: 3px 14px; font-size: 0.8rem;
-        font-weight: 700; margin-right: 6px;
-    }
-    .badge-eje {
-        display: inline-block; background: #1a4a2e; color: #5debb0;
-        border-radius: 20px; padding: 3px 14px; font-size: 0.8rem;
-        font-weight: 700; margin-right: 6px;
-    }
-    .badge-nombre {
-        display: inline-block; background: #2d1f4e; color: #c084fc;
-        border-radius: 20px; padding: 3px 14px; font-size: 0.8rem; font-weight: 700;
-    }
-    .result-msg-correct {
-        background: #d1fae5; border-left: 5px solid #059669;
-        padding: 0.9rem 1.2rem; border-radius: 8px; color: #065f46;
-        font-weight: 700; margin-top: 1rem;
-    }
-    .result-msg-incorrect {
-        background: #fee2e2; border-left: 5px solid #dc2626;
-        padding: 0.9rem 1.2rem; border-radius: 8px; color: #7f1d1d;
-        font-weight: 700; margin-top: 1rem;
-    }
-    .timer-box {
-        background: #161b27; border-radius: 16px; padding: 1.2rem;
-        text-align: center; border: 1px solid #2d3748; margin-bottom: 1rem;
-    }
-    .timer-display {
-        font-size: 3rem; font-weight: 900; color: #7ecfff;
-        font-family: 'Courier New', monospace; letter-spacing: 4px;
-    }
-    .block-container { padding-top: 1.5rem !important; }
-    .consejos-panel {
-        background: #0d1424;
-        border: 1px solid #2d4a7a;
-        border-radius: 12px;
-        padding: 1.1rem 1.3rem;
-        margin-bottom: 0.8rem;
-        font-size: 0.82rem;
-        color: #b0c4e8;
-        line-height: 1.6;
-    }
-    .consejos-panel h4 {
-        color: #f5a623;
-        font-size: 0.78rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
-        text-transform: uppercase;
-        margin: 0.7rem 0 0.3rem;
-        border-left: 3px solid #f5a623;
-        padding-left: 7px;
-    }
-    .consejos-panel h4:first-child { margin-top: 0; }
-    .consejos-panel p { margin: 0 0 0.3rem 0; }
-    .consejos-icono { font-size: 14px; margin-right: 5px; }
-    .header-versiculo {
-        font-size: 0.78rem; color: #d4af6e; font-style: italic;
-        margin-top: 6px; letter-spacing: 0.3px;
-        font-family: Georgia, 'Times New Roman', serif;
-    }
+    .badge-prueba { display:inline-block; background:#1e3a5f; color:#7ecfff; border-radius:20px; padding:3px 14px; font-size:0.8rem; font-weight:700; margin-right:6px; }
+    .badge-eje    { display:inline-block; background:#1a4a2e; color:#5debb0; border-radius:20px; padding:3px 14px; font-size:0.8rem; font-weight:700; margin-right:6px; }
+    .badge-nombre { display:inline-block; background:#2d1f4e; color:#c084fc; border-radius:20px; padding:3px 14px; font-size:0.8rem; font-weight:700; }
+    .result-msg-correct   { background:#d1fae5; border-left:5px solid #059669; padding:0.9rem 1.2rem; border-radius:8px; color:#065f46; font-weight:700; margin-top:1rem; }
+    .result-msg-incorrect { background:#fee2e2; border-left:5px solid #dc2626; padding:0.9rem 1.2rem; border-radius:8px; color:#7f1d1d; font-weight:700; margin-top:1rem; }
+    .timer-box { background:#161b27; border-radius:16px; padding:1.2rem; text-align:center; border:1px solid #2d3748; margin-bottom:1rem; }
+    .timer-display { font-size:3rem; font-weight:900; color:#7ecfff; font-family:'Courier New',monospace; letter-spacing:4px; }
+    .block-container { padding-top:1.5rem !important; }
+    .consejos-panel { background:#0d1424; border:1px solid #2d4a7a; border-radius:12px; padding:1.1rem 1.3rem; margin-bottom:0.8rem; font-size:0.82rem; color:#b0c4e8; line-height:1.6; }
+    .consejos-panel h4 { color:#f5a623; font-size:0.78rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; margin:0.7rem 0 0.3rem; border-left:3px solid #f5a623; padding-left:7px; }
+    .consejos-panel h4:first-child { margin-top:0; }
+    .consejos-panel p { margin:0 0 0.3rem 0; }
     .footer-biblica {
-        position: fixed; bottom: 0; left: 0; right: 0;
-        background: linear-gradient(90deg, #1a0f00, #2a1800, #1a0f00);
-        border-top: 1px solid #7a5a1a;
-        padding: 0.55rem 2rem;
-        text-align: center;
-        z-index: 9997;
+        position:fixed; bottom:0; left:0; right:0;
+        background:linear-gradient(90deg,#1a0f00,#2a1800,#1a0f00);
+        border-top:1px solid #7a5a1a; padding:0.55rem 2rem;
+        text-align:center; z-index:9997;
     }
-    .footer-biblica p {
-        margin: 0;
-        font-family: Georgia, 'Times New Roman', serif;
-        font-size: 0.82rem;
-        font-style: italic;
-        color: #f0d090;
-        letter-spacing: 0.6px;
-    }
-    .footer-biblica span.ref {
-        font-style: normal;
-        font-weight: 700;
-        color: #f5a623;
-        font-size: 0.78rem;
-        margin-left: 6px;
-        letter-spacing: 1px;
-    }
-    .block-container { padding-bottom: 3.5rem !important; }
-    [data-testid="stSidebar"] details {
-        background-color: #2a1f00 !important;
-        border: 1px solid #5a4010 !important;
-        border-radius: 8px !important;
-        margin-bottom: 0.3rem !important;
-    }
-    [data-testid="stSidebar"] details summary {
-        color: #f5a623 !important;
-        font-size: 0.75rem !important;
-        font-weight: 700 !important;
-        letter-spacing: 1.5px !important;
-        text-transform: uppercase !important;
-        padding: 0.55rem 0.8rem !important;
-        border-radius: 8px !important;
-        list-style: none !important;
-    }
-    [data-testid="stSidebar"] details summary::-webkit-details-marker {
-        display: none !important;
-    }
-    [data-testid="stSidebar"] details summary::before {
-        content: "▶  ";
-        font-size: 0.6rem;
-        margin-right: 4px;
-        color: #f5a623;
-    }
-    [data-testid="stSidebar"] details[open] summary::before {
-        content: "▼  ";
-    }
-    [data-testid="stSidebar"] details[open] {
-        border-color: #f5a623 !important;
-    }
-    [data-testid="stSidebar"] details > div {
-        background-color: #1a1200 !important;
-        border-top: 1px solid #5a4010 !important;
-        padding: 0.6rem 0.4rem 0.3rem !important;
-    }
-    [data-testid="stSidebar"] .stCheckbox label p {
-        color: #e8d5a0 !important;
-        font-size: 0.85rem !important;
-    }
-    [data-testid="stSidebar"] .stCheckbox {
-        margin-bottom: 0.1rem !important;
-    }
+    .footer-biblica p { margin:0; font-family:Georgia,'Times New Roman',serif; font-size:0.82rem; font-style:italic; color:#f0d090; letter-spacing:0.6px; }
+    .footer-biblica span.ref { font-style:normal; font-weight:700; color:#f5a623; font-size:0.78rem; margin-left:6px; letter-spacing:1px; }
+    .block-container { padding-bottom:3.5rem !important; }
+    [data-testid="stSidebar"] details { background-color:#2a1f00 !important; border:1px solid #5a4010 !important; border-radius:8px !important; margin-bottom:0.3rem !important; }
+    [data-testid="stSidebar"] details summary { color:#f5a623 !important; font-size:0.75rem !important; font-weight:700 !important; letter-spacing:1.5px !important; text-transform:uppercase !important; padding:0.55rem 0.8rem !important; border-radius:8px !important; list-style:none !important; }
+    [data-testid="stSidebar"] details summary::-webkit-details-marker { display:none !important; }
+    [data-testid="stSidebar"] details summary::before { content:"▶  "; font-size:0.6rem; margin-right:4px; color:#f5a623; }
+    [data-testid="stSidebar"] details[open] summary::before { content:"▼  "; }
+    [data-testid="stSidebar"] details[open] { border-color:#f5a623 !important; }
+    [data-testid="stSidebar"] details > div { background-color:#1a1200 !important; border-top:1px solid #5a4010 !important; padding:0.6rem 0.4rem 0.3rem !important; }
+    [data-testid="stSidebar"] .stCheckbox label p { color:#e8d5a0 !important; font-size:0.85rem !important; }
+    [data-testid="stSidebar"] .stCheckbox { margin-bottom:0.1rem !important; }
 </style>
-
-<!-- ── Fondo animado con ecuaciones flotantes ── -->
-<div id="math-bg"></div>
-<script>
-(function() {
-    var exprs = [
-        "ax² + bx + c = 0",
-        "∫f(x)dx",
-        "E = mc²",
-        "sen²θ + cos²θ = 1",
-        "Δx = v₀t + ½at²",
-        "F = ma",
-        "y = mx + b",
-        "π ≈ 3.14159",
-        "√(a²+b²) = c",
-        "P(A∪B) = P(A)+P(B)−P(A∩B)",
-        "lím x→∞",
-        "∑ᵢ₌₁ⁿ i = n(n+1)/2",
-        "log(ab) = log a + log b",
-        "d/dx [xⁿ] = nxⁿ⁻¹",
-        "V = πr²h",
-        "σ² = Σ(xᵢ−μ)²/N",
-        "eⁱᵖⁱ + 1 = 0",
-        "A = ½bh",
-        "v = λf",
-        "Q = mcΔT",
-        "p = mv",
-        "W = Fd·cosθ",
-        "x = (−b ± √(b²−4ac)) / 2a",
-        "f(x) = aˣ",
-        "tan θ = sen θ / cos θ",
-    ];
-
-    var bg = document.getElementById('math-bg');
-    if (!bg) return;
-
-    function spawnParticle() {
-        var el = document.createElement('span');
-        el.className = 'math-particle';
-        el.textContent = exprs[Math.floor(Math.random() * exprs.length)];
-
-        var fontSize = (0.7 + Math.random() * 0.85).toFixed(2);
-        var leftPct  = (Math.random() * 96).toFixed(1);
-        var duration = (14 + Math.random() * 22).toFixed(1);
-        var delay    = (Math.random() * 6).toFixed(2);
-        var opacity  = (0.07 + Math.random() * 0.13).toFixed(2);
-
-        el.style.fontSize        = fontSize + 'rem';
-        el.style.left            = leftPct + '%';
-        el.style.animationDuration  = duration + 's';
-        el.style.animationDelay     = delay + 's';
-        el.style.opacity            = opacity;
-
-        bg.appendChild(el);
-
-        // Remove element after animation ends to avoid DOM bloat
-        var totalMs = (parseFloat(duration) + parseFloat(delay)) * 1000 + 500;
-        setTimeout(function() {
-            if (el.parentNode) el.parentNode.removeChild(el);
-        }, totalMs);
-    }
-
-    // Initial burst
-    for (var i = 0; i < 18; i++) spawnParticle();
-
-    // Keep spawning continuously
-    setInterval(spawnParticle, 1200);
-})();
-</script>
 """, unsafe_allow_html=True)
 
 
@@ -614,18 +298,24 @@ def mostrar_header():
 
 
 def mostrar_bienvenida():
-    # ── Botón de acceso rápido al repositorio (ARRIBA del bloque) ────────────
+    # ── Animación de fondo (ecuaciones flotantes) ────────────────────────────
+    inject_math_background()
+
+    # ── Botón esfera (acceso rápido) ─────────────────────────────────────────
     st.markdown(
-        '<div style="max-width:820px;margin:0 auto 1.2rem auto;">',
+        '<div style="max-width:820px;margin:0.5rem auto 1rem auto;'
+        'display:flex;flex-direction:column;align-items:center;">'
+        '<div style="font-size:0.78rem;color:#c8a96e;letter-spacing:1.5px;'
+        'text-transform:uppercase;font-weight:700;margin-bottom:0.4rem;">'
+        '⚡ Acceso rápido</div>',
         unsafe_allow_html=True
     )
-    col_l, col_c, col_r = st.columns([1, 2, 1])
-    with col_c:
-        st.markdown('<div class="btn-acceso-rapido">', unsafe_allow_html=True)
-        if st.button("⚡ Ingresar al repositorio", key="btn_acceso_rapido", use_container_width=True):
-            st.session_state.bienvenida_vista = True
-            st.rerun()
-        st.markdown('</div>', unsafe_allow_html=True)
+
+    clicked = mostrar_boton_esfera()
+    if clicked:
+        st.session_state.bienvenida_vista = True
+        st.rerun()
+
     st.markdown('</div>', unsafe_allow_html=True)
 
     # ── Bloque de bienvenida ─────────────────────────────────────────────────
@@ -681,11 +371,9 @@ def mostrar_bienvenida():
         'text-transform:uppercase;margin-bottom:1rem;">&#128203; Recomendaciones para tu proceso de preparación</div>'
         + items_html +
         '</div>'
-        '<div style="font-size:0.85rem;color:#8899bb;text-align:right;'
-        'margin-top:0.8rem;font-style:italic;">'
+        '<div style="font-size:0.85rem;color:#8899bb;text-align:right;margin-top:0.8rem;font-style:italic;">'
         'Mucho éxito en tus procesos de aprendizaje.<br>'
-        '<strong style="color:#f5a623;font-style:normal;">'
-        'Atte. Prof. Bastiani Calabrano Inostroza</strong>'
+        '<strong style="color:#f5a623;font-style:normal;">Atte. Prof. Bastiani Calabrano Inostroza</strong>'
         '</div>'
         '</div>'
         '<div style="background:#0d1624;border:1px solid #2a3a5a;border-radius:10px;'
@@ -718,10 +406,7 @@ def mostrar_bienvenida():
             + (
                 f'<img src="data:image/png;base64,{LOGO_B64}" '
                 'style="height:28px;width:28px;border-radius:50%;object-fit:cover;flex-shrink:0;" alt="Logo">'
-                if LOGO_B64 else
-                '<svg width="22" height="22" viewBox="0 0 24 24" fill="white" style="flex-shrink:0;">'
-                '<path d="M23.5 6.2a3 3 0 0 0-2.1-2.1C19.5 3.5 12 3.5 12 3.5s-7.5 0-9.4.6A3 3 0 0 0 .5 6.2 31 31 0 0 0 0 12a31 31 0 0 0 .5 5.8 3 3 0 0 0 2.1 2.1c1.9.6 9.4.6 9.4.6s7.5 0 9.4-.6a3 3 0 0 0 2.1-2.1A31 31 0 0 0 24 12a31 31 0 0 0-.5-5.8zM9.7 15.5V8.5l6.3 3.5-6.3 3.5z"/>'
-                '</svg>'
+                if LOGO_B64 else ''
             )
             + 'Complemento Matemático — YouTube'
             '</a>'
@@ -809,64 +494,25 @@ def mostrar_pregunta_card(pregunta, preguntas):
             elapsed  = int(_time.time() - t_start)
             duracion = st.session_state.get("timer_duracion_ts", 90)
             usados   = min(elapsed, duracion)
-            m_u = usados // 60
-            s_u = usados % 60
+            m_u = usados // 60; s_u = usados % 60
             tiempo_str = f" · ⏱ {m_u}m {s_u}s" if m_u > 0 else f" · ⏱ {s_u} segundos"
 
         if st.session_state[sel_key] == resp:
-            st.markdown(
-                f'<div class="result-msg-correct">✅ ¡Correcto! Muy bien.{tiempo_str}</div>',
-                unsafe_allow_html=True
-            )
+            st.markdown(f'<div class="result-msg-correct">✅ ¡Correcto! Muy bien.{tiempo_str}</div>', unsafe_allow_html=True)
         else:
-            st.markdown(
-                f'<div class="result-msg-incorrect">❌ Incorrecto. La respuesta correcta es <strong>{resp}</strong>.{tiempo_str}</div>',
-                unsafe_allow_html=True
-            )
+            st.markdown(f'<div class="result-msg-incorrect">❌ Incorrecto. La respuesta correcta es <strong>{resp}</strong>.{tiempo_str}</div>', unsafe_allow_html=True)
 
         if video:
             import re
-            match = re.search(
-                r"(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]{11})",
-                video
-            )
+            match = re.search(r"(?:youtu\.be/|youtube\.com/(?:watch\?v=|shorts/|embed/))([A-Za-z0-9_-]{11})", video)
             if match:
                 video_id = match.group(1)
-                st.markdown("""
-                <p style="text-align:center; color:#6b7280; font-size:0.85rem;
-                margin-top:1rem; margin-bottom:0.4rem; font-style:italic;">
-                    Compara tu desarrollo y respuesta con el siguiente video explicativo.
-                </p>
-                """, unsafe_allow_html=True)
-                st.markdown(f"""
-                <div style="margin-top:0rem;border-radius:10px;overflow:hidden;">
-                    <iframe
-                        width="100%"
-                        height="220"
-                        src="https://www.youtube.com/embed/{video_id}"
-                        frameborder="0"
-                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                        allowfullscreen
-                        style="border-radius:10px;">
-                    </iframe>
-                </div>
-                """, unsafe_allow_html=True)
+                st.markdown('<p style="text-align:center;color:#6b7280;font-size:0.85rem;margin-top:1rem;margin-bottom:0.4rem;font-style:italic;">Compara tu desarrollo y respuesta con el siguiente video explicativo.</p>', unsafe_allow_html=True)
+                st.markdown(f'<div style="margin-top:0rem;border-radius:10px;overflow:hidden;"><iframe width="100%" height="220" src="https://www.youtube.com/embed/{video_id}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen style="border-radius:10px;"></iframe></div>', unsafe_allow_html=True)
             else:
-                st.markdown(f'''
-                <div style="margin-top:0.6rem;">
-                    <a href="{video}" target="_blank"
-                       style="display:block;background:linear-gradient(135deg,#c0392b,#e74c3c);
-                              color:white;text-align:center;padding:0.7rem;border-radius:10px;
-                              text-decoration:none;font-weight:700;">
-                        ▶ Ver solución en YouTube
-                    </a>
-                </div>
-                ''', unsafe_allow_html=True)
+                st.markdown(f'<div style="margin-top:0.6rem;"><a href="{video}" target="_blank" style="display:block;background:linear-gradient(135deg,#c0392b,#e74c3c);color:white;text-align:center;padding:0.7rem;border-radius:10px;text-decoration:none;font-weight:700;">▶ Ver solución en YouTube</a></div>', unsafe_allow_html=True)
 
-        st.markdown(
-            "<hr style='border-color:#e2e8f0;margin:1.2rem 0 0.8rem'>",
-            unsafe_allow_html=True
-        )
+        st.markdown("<hr style='border-color:#e2e8f0;margin:1.2rem 0 0.8rem'>", unsafe_allow_html=True)
         st.markdown('<div class="btn-reiniciar">', unsafe_allow_html=True)
         if st.button("🔄 Reiniciar pregunta", key=f"reset_{nombre}", use_container_width=True):
             del st.session_state[sel_key]
@@ -888,12 +534,7 @@ def sidebar_timer():
     """, unsafe_allow_html=True)
 
     st.sidebar.markdown('<div class="sidebar-section">⏱ TIEMPO POR PREGUNTA</div>', unsafe_allow_html=True)
-    tiempo_seg = st.sidebar.radio(
-        "",
-        options=[90, 120],
-        format_func=lambda x: f"{x} segundos",
-        key="tiempo_radio"
-    )
+    tiempo_seg = st.sidebar.radio("", options=[90, 120], format_func=lambda x: f"{x} segundos", key="tiempo_radio")
     return tiempo_seg
 
 
@@ -910,7 +551,6 @@ def main():
         return
 
     preguntas = cargar_preguntas()
-
     if not preguntas:
         st.error("No se encontraron preguntas. Verifica el archivo problems.json.")
         return
@@ -924,246 +564,155 @@ def main():
 
     tiempo_seg = sidebar_timer()
 
-    # ── Filtro por PRUEBA ────────────────────────────────────────────────────
+    # ── Filtro PRUEBA ────────────────────────────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">📋 FILTRAR POR PRUEBA</div>', unsafe_allow_html=True)
-
-    pruebas_disponibles = ["Todas"] + sorted(list(set(
-        p.get("prueba", "Sin prueba") for p in preguntas if p.get("prueba")
-    )))
-
+    pruebas_disponibles = ["Todas"] + sorted(list(set(p.get("prueba","Sin prueba") for p in preguntas if p.get("prueba"))))
     if "filtro_prueba" not in st.session_state:
         st.session_state.filtro_prueba = "Todas"
 
     def on_prueba_change():
         prueba_sel = st.session_state["filtro_prueba"]
-        st.session_state.filtro_eje         = "Todos"
-        st.session_state.texto_busqueda     = ""
+        st.session_state.filtro_eje = "Todos"
+        st.session_state.texto_busqueda = ""
         st.session_state.filtro_habilidades = []
         st.session_state.filtro_contenidos  = []
-        filtradas = preguntas if prueba_sel == "Todas" else [
-            p for p in preguntas if p.get("prueba") == prueba_sel
-        ]
+        filtradas = preguntas if prueba_sel == "Todas" else [p for p in preguntas if p.get("prueba") == prueba_sel]
         if filtradas:
-            primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id", ""))
-            st.session_state.pregunta_idx   = nombres.index(primer_nombre)
-            st.session_state.timer_start_ts = None
-            st.session_state.timer_stopped  = False
+            primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id",""))
+            st.session_state.pregunta_idx = nombres.index(primer_nombre)
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
 
-    st.sidebar.selectbox(
-        "",
-        options=pruebas_disponibles,
-        key="filtro_prueba",
-        on_change=on_prueba_change,
-    )
+    st.sidebar.selectbox("", options=pruebas_disponibles, key="filtro_prueba", on_change=on_prueba_change)
 
-    # ── Filtro por EJE — depende de PRUEBA ───────────────────────────────────
+    # ── Filtro EJE ───────────────────────────────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">📚 FILTRAR POR EJE</div>', unsafe_allow_html=True)
-
     prueba_activa = st.session_state.filtro_prueba
-    preguntas_por_prueba = preguntas if prueba_activa == "Todas" else [
-        p for p in preguntas if p.get("prueba") == prueba_activa
-    ]
-
+    preguntas_por_prueba = preguntas if prueba_activa == "Todas" else [p for p in preguntas if p.get("prueba") == prueba_activa]
     if prueba_activa == "Todas":
-        ejes_disponibles = ["Todos"] + sorted(list(set(
-            p.get("eje", "Sin eje") for p in preguntas_por_prueba if p.get("eje")
-        )))
+        ejes_disponibles = ["Todos"] + sorted(list(set(p.get("eje","Sin eje") for p in preguntas_por_prueba if p.get("eje"))))
     else:
-        ejes_validos     = EJES_POR_PRUEBA.get(prueba_activa, [])
-        ejes_en_datos    = set(p.get("eje", "") for p in preguntas_por_prueba)
+        ejes_validos  = EJES_POR_PRUEBA.get(prueba_activa, [])
+        ejes_en_datos = set(p.get("eje","") for p in preguntas_por_prueba)
         ejes_disponibles = ["Todos"] + [e for e in ejes_validos if e in ejes_en_datos]
 
     if "filtro_eje" not in st.session_state:
         st.session_state.filtro_eje = "Todos"
 
     def on_eje_change():
-        eje_sel    = st.session_state["filtro_eje"]
-        prueba_sel = st.session_state["filtro_prueba"]
-        st.session_state.texto_busqueda    = ""
-        st.session_state.filtro_contenidos = []
-        base = preguntas if prueba_sel == "Todas" else [
-            p for p in preguntas if p.get("prueba") == prueba_sel
-        ]
-        filtradas = base if eje_sel == "Todos" else [
-            p for p in base if p.get("eje") == eje_sel
-        ]
+        eje_sel = st.session_state["filtro_eje"]; prueba_sel = st.session_state["filtro_prueba"]
+        st.session_state.texto_busqueda = ""; st.session_state.filtro_contenidos = []
+        base = preguntas if prueba_sel == "Todas" else [p for p in preguntas if p.get("prueba") == prueba_sel]
+        filtradas = base if eje_sel == "Todos" else [p for p in base if p.get("eje") == eje_sel]
         if filtradas:
-            primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id", ""))
-            st.session_state.pregunta_idx   = nombres.index(primer_nombre)
-            st.session_state.timer_start_ts = None
-            st.session_state.timer_stopped  = False
+            primer_nombre = filtradas[0].get("nombre", filtradas[0].get("id",""))
+            st.session_state.pregunta_idx = nombres.index(primer_nombre)
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
 
     if st.session_state.filtro_eje not in ejes_disponibles:
         st.session_state.filtro_eje = "Todos"
+    st.sidebar.selectbox("", options=ejes_disponibles, key="filtro_eje", on_change=on_eje_change)
 
-    st.sidebar.selectbox(
-        "",
-        options=ejes_disponibles,
-        key="filtro_eje",
-        on_change=on_eje_change,
-    )
-
-    # ── Filtro por HABILIDADES — depende de PRUEBA ───────────────────────────
+    # ── Filtro HABILIDADES ───────────────────────────────────────────────────
     if "filtro_habilidades" not in st.session_state:
         st.session_state.filtro_habilidades = []
-
     habilidades_disponibles = _habilidades_para_filtro(st.session_state.filtro_prueba)
-    st.session_state.filtro_habilidades = [
-        h for h in st.session_state.filtro_habilidades if h in habilidades_disponibles
-    ]
-
-    n_hab     = len(st.session_state.filtro_habilidades)
-    label_hab = (
-        f"🧠 HABILIDADES ({n_hab} activa{'s' if n_hab != 1 else ''})"
-        if n_hab > 0 else "🧠 FILTRAR POR HABILIDAD"
-    )
-
+    st.session_state.filtro_habilidades = [h for h in st.session_state.filtro_habilidades if h in habilidades_disponibles]
+    n_hab = len(st.session_state.filtro_habilidades)
+    label_hab = f"🧠 HABILIDADES ({n_hab} activa{'s' if n_hab!=1 else ''})" if n_hab > 0 else "🧠 FILTRAR POR HABILIDAD"
     with st.sidebar.expander(label_hab, expanded=False):
         nuevas_habilidades = []
         for hab in habilidades_disponibles:
-            marcado = hab in st.session_state.filtro_habilidades
-            if st.checkbox(hab, value=marcado, key=f"chk_hab_{hab}"):
+            if st.checkbox(hab, value=hab in st.session_state.filtro_habilidades, key=f"chk_hab_{hab}"):
                 nuevas_habilidades.append(hab)
         if nuevas_habilidades != st.session_state.filtro_habilidades:
             st.session_state.filtro_habilidades = nuevas_habilidades
-            st.session_state.timer_start_ts = None
-            st.session_state.timer_stopped  = False
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
             st.rerun()
 
-    # ── Filtro por CONTENIDOS — depende de EJE y PRUEBA ──────────────────────
+    # ── Filtro CONTENIDOS ────────────────────────────────────────────────────
     if "filtro_contenidos" not in st.session_state:
         st.session_state.filtro_contenidos = []
-
-    contenidos_disponibles = _contenidos_para_eje(
-        st.session_state.filtro_eje,
-        st.session_state.filtro_prueba
-    )
-    st.session_state.filtro_contenidos = [
-        c for c in st.session_state.filtro_contenidos if c in contenidos_disponibles
-    ]
-
-    n_cont     = len(st.session_state.filtro_contenidos)
-    label_cont = (
-        f"📖 CONTENIDOS ({n_cont} activo{'s' if n_cont != 1 else ''})"
-        if n_cont > 0 else "📖 FILTRAR POR CONTENIDO"
-    )
-
+    contenidos_disponibles = _contenidos_para_eje(st.session_state.filtro_eje, st.session_state.filtro_prueba)
+    st.session_state.filtro_contenidos = [c for c in st.session_state.filtro_contenidos if c in contenidos_disponibles]
+    n_cont = len(st.session_state.filtro_contenidos)
+    label_cont = f"📖 CONTENIDOS ({n_cont} activo{'s' if n_cont!=1 else ''})" if n_cont > 0 else "📖 FILTRAR POR CONTENIDO"
     with st.sidebar.expander(label_cont, expanded=False):
         nuevos_contenidos = []
         for cont in contenidos_disponibles:
-            marcado = cont in st.session_state.filtro_contenidos
-            if st.checkbox(cont, value=marcado, key=f"chk_cont_{cont}"):
+            if st.checkbox(cont, value=cont in st.session_state.filtro_contenidos, key=f"chk_cont_{cont}"):
                 nuevos_contenidos.append(cont)
         if nuevos_contenidos != st.session_state.filtro_contenidos:
             st.session_state.filtro_contenidos = nuevos_contenidos
-            st.session_state.timer_start_ts = None
-            st.session_state.timer_stopped  = False
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
             st.rerun()
 
-    # ── Lista filtrada (todos los filtros combinados) ────────────────────────
+    # ── Lista filtrada ───────────────────────────────────────────────────────
     prueba_activa = st.session_state.filtro_prueba
     eje_activo    = st.session_state.filtro_eje
-
-    preguntas_filtradas = preguntas if prueba_activa == "Todas" else [
-        p for p in preguntas if p.get("prueba") == prueba_activa
-    ]
+    preguntas_filtradas = preguntas if prueba_activa == "Todas" else [p for p in preguntas if p.get("prueba") == prueba_activa]
     if eje_activo != "Todos":
         preguntas_filtradas = [p for p in preguntas_filtradas if p.get("eje") == eje_activo]
-
     habs_sel = st.session_state.get("filtro_habilidades", [])
     if habs_sel:
-        preguntas_filtradas = [
-            p for p in preguntas_filtradas
-            if any(h in p.get("habilidades", []) for h in habs_sel)
-        ]
-
+        preguntas_filtradas = [p for p in preguntas_filtradas if any(h in p.get("habilidades",[]) for h in habs_sel)]
     conts_sel = st.session_state.get("filtro_contenidos", [])
     if conts_sel:
-        preguntas_filtradas = [
-            p for p in preguntas_filtradas
-            if any(c in p.get("contenidos", []) for c in conts_sel)
-        ]
-
+        preguntas_filtradas = [p for p in preguntas_filtradas if any(c in p.get("contenidos",[]) for c in conts_sel)]
     if not preguntas_filtradas:
         st.sidebar.warning("No hay preguntas para este filtro.")
         preguntas_filtradas = preguntas
 
-    nombres_filtrados    = [p.get("nombre", p.get("id", "")) for p in preguntas_filtradas]
+    nombres_filtrados    = [p.get("nombre", p.get("id","")) for p in preguntas_filtradas]
     nombre_actual_global = nombres[st.session_state.pregunta_idx]
-
     if nombre_actual_global not in nombres_filtrados:
         st.session_state.pregunta_idx = nombres.index(nombres_filtrados[0])
 
     # ── Buscador ─────────────────────────────────────────────────────────────
     st.sidebar.markdown('<div class="sidebar-section">🔍 BUSCAR POR NOMBRE</div>', unsafe_allow_html=True)
-
     if "texto_busqueda" not in st.session_state:
         st.session_state.texto_busqueda = ""
-
-    texto_busqueda = st.sidebar.text_input(
-        "",
-        placeholder="Escribe parte del nombre...",
-        key="texto_busqueda",
-    )
-
-    nombres_buscados = (
-        [n for n in nombres_filtrados if texto_busqueda.lower() in n.lower()]
-        if texto_busqueda else nombres_filtrados
-    )
+    texto_busqueda = st.sidebar.text_input("", placeholder="Escribe parte del nombre...", key="texto_busqueda")
+    nombres_buscados = ([n for n in nombres_filtrados if texto_busqueda.lower() in n.lower()] if texto_busqueda else nombres_filtrados)
     if not nombres_buscados:
-        st.sidebar.caption("⚠️ Sin coincidencias. Mostrando todas.")
-        nombres_buscados = nombres_filtrados
+        st.sidebar.caption("⚠️ Sin coincidencias. Mostrando todas."); nombres_buscados = nombres_filtrados
 
     nombre_actual_global = nombres[st.session_state.pregunta_idx]
-    if nombre_actual_global in nombres_buscados:
-        idx_buscado = nombres_buscados.index(nombre_actual_global)
-    else:
-        idx_buscado = 0
+    idx_buscado = nombres_buscados.index(nombre_actual_global) if nombre_actual_global in nombres_buscados else 0
+    if nombre_actual_global not in nombres_buscados:
         st.session_state.pregunta_idx = nombres.index(nombres_buscados[0])
 
     def on_select_change():
         nombre_sel = st.session_state["buscar_select"]
         if nombre_sel in nombres:
-            st.session_state.pregunta_idx   = nombres.index(nombre_sel)
-            st.session_state.timer_start_ts = None
-            st.session_state.timer_stopped  = False
+            st.session_state.pregunta_idx = nombres.index(nombre_sel)
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
 
-    st.sidebar.selectbox(
-        "",
-        options=nombres_buscados,
-        index=idx_buscado,
-        key="buscar_select",
-        on_change=on_select_change,
-    )
-
+    st.sidebar.selectbox("", options=nombres_buscados, index=idx_buscado, key="buscar_select", on_change=on_select_change)
     st.sidebar.markdown(
-        f'<div style="color:#f5a623;font-size:0.75rem;font-weight:700;'
-        f'letter-spacing:1px;padding:3px 0 3px 11px;border-left:3px solid #f5a623;">'
+        f'<div style="color:#f5a623;font-size:0.75rem;font-weight:700;letter-spacing:1px;'
+        f'padding:3px 0 3px 11px;border-left:3px solid #f5a623;">'
         f'Mostrando {len(nombres_buscados)} de {len(nombres_filtrados)} preguntas</div>',
         unsafe_allow_html=True
     )
 
-    # ── Botón Aleatorio ──────────────────────────────────────────────────────
+    # ── Botón Aleatorio sidebar ──────────────────────────────────────────────
     st.sidebar.markdown("")
     st.markdown('<div class="btn-aleatorio">', unsafe_allow_html=True)
     if st.sidebar.button("🎲 Pregunta aleatoria", key="btn_aleatorio", use_container_width=True):
-        p_random      = random.choice(preguntas_filtradas)
-        nombre_random = p_random.get("nombre", p_random.get("id", ""))
-        st.session_state.pregunta_idx     = nombres.index(nombre_random)
+        p_random = random.choice(preguntas_filtradas)
+        nombre_random = p_random.get("nombre", p_random.get("id",""))
+        st.session_state.pregunta_idx = nombres.index(nombre_random)
         st.session_state.selectbox_nombre = nombre_random
-        st.session_state.timer_start_ts   = None
-        st.session_state.timer_stopped    = False
+        st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
         st.rerun()
     st.markdown('</div>', unsafe_allow_html=True)
 
-    # ── Si el modal está abierto, no mostrar pregunta ni timer ───────────────
     if st.session_state.get("modal_actividades", False):
         return
 
-    # ── Pregunta actual + timer ──────────────────────────────────────────────
+    # ── Pregunta + Timer ─────────────────────────────────────────────────────
     idx      = st.session_state.pregunta_idx
     pregunta = preguntas[idx]
-
     col_pregunta, col_timer = st.columns([3, 1])
 
     with col_pregunta:
@@ -1182,7 +731,6 @@ def main():
         st.markdown('</div>', unsafe_allow_html=True)
 
         st.markdown("<div style='margin-bottom:0.3rem;'></div>", unsafe_allow_html=True)
-
         label_btn = "✕ Cerrar consejos" if st.session_state.mostrar_consejos else "💡 Consejos de uso"
         if st.button(label_btn, key="btn_consejos", use_container_width=True):
             st.session_state.mostrar_consejos = not st.session_state.mostrar_consejos
@@ -1217,11 +765,9 @@ def main():
             st.session_state.timer_duracion_ts = tiempo_seg
             st.session_state.timer_stopped     = False
 
-        nombre_actual  = preguntas[st.session_state.pregunta_idx].get(
-                            "nombre", preguntas[st.session_state.pregunta_idx].get("id", ""))
+        nombre_actual  = preguntas[st.session_state.pregunta_idx].get("nombre", preguntas[st.session_state.pregunta_idx].get("id",""))
         sel_key_actual = f"sel_{nombre_actual}"
         ya_respondio   = st.session_state.get(sel_key_actual) is not None
-
         if ya_respondio and not st.session_state.timer_stopped and st.session_state.timer_start_ts:
             st.session_state.timer_stopped = True
 
@@ -1229,10 +775,9 @@ def main():
         start_ts  = st.session_state.timer_start_ts or 0
         duracion  = st.session_state.timer_duracion_ts if st.session_state.timer_start_ts else tiempo_seg
         corriendo = (st.session_state.timer_start_ts is not None) and (not detenido)
-
-        start_ms = int(start_ts * 1000)
-        cor_js   = "true" if corriendo else "false"
-        det_js   = "true" if detenido  else "false"
+        start_ms  = int(start_ts * 1000)
+        cor_js    = "true" if corriendo else "false"
+        det_js    = "true" if detenido  else "false"
 
         timer_html = (
             "<!DOCTYPE html><html><head><style>"
@@ -1261,29 +806,8 @@ def main():
             "var smsg=document.getElementById('smsg');"
             "var icon=document.getElementById('icon');"
             "function fmt(s){var m=Math.floor(s/60),r=s%60;return m+':'+(r<10?'0':'')+r;}"
-            "function tick(){"
-            "  var elapsed=Math.floor((Date.now()-START_MS)/1000);"
-            "  var rest=Math.max(0,DURACION-elapsed);"
-            "  disp.textContent=fmt(rest);"
-            "  disp.style.color=rest<=10?'#e74c3c':'#7ecfff';"
-            "  if(rest<=0){clearInterval(iv);smsg.style.color='#e74c3c';"
-            "    smsg.textContent='⏰ Tiempo agotado!';icon.textContent='⏰';}"
-            "}"
-            "if(DETENIDO){"
-            "  var el=Math.floor((Date.now()-START_MS)/1000);"
-            "  var re=Math.max(0,DURACION-el);"
-            "  var us=DURACION-re;"
-            "  var mu=Math.floor(us/60),su=us%60;"
-            "  disp.textContent=fmt(re);"
-            "  disp.style.color=re<=10?'#e74c3c':'#7ecfff';"
-            "  smsg.style.color='#059669';"
-            "  icon.textContent='🛑';"
-            "  smsg.textContent='✅ Tiempo: '+(mu>0?mu+'m ':'')+su+'s';"
-            "}else if(CORRIENDO){"
-            "  tick();iv=setInterval(tick,500);"
-            "}else{"
-            "  disp.textContent=fmt(DURACION);disp.style.color='#7ecfff';"
-            "}"
+            "function tick(){var elapsed=Math.floor((Date.now()-START_MS)/1000);var rest=Math.max(0,DURACION-elapsed);disp.textContent=fmt(rest);disp.style.color=rest<=10?'#e74c3c':'#7ecfff';if(rest<=0){clearInterval(iv);smsg.style.color='#e74c3c';smsg.textContent='⏰ Tiempo agotado!';icon.textContent='⏰';}}"
+            "if(DETENIDO){var el=Math.floor((Date.now()-START_MS)/1000);var re=Math.max(0,DURACION-el);var us=DURACION-re;var mu=Math.floor(us/60),su=us%60;disp.textContent=fmt(re);disp.style.color=re<=10?'#e74c3c':'#7ecfff';smsg.style.color='#059669';icon.textContent='🛑';smsg.textContent='✅ Tiempo: '+(mu>0?mu+'m ':'')+su+'s';}else if(CORRIENDO){tick();iv=setInterval(tick,500);}else{disp.textContent=fmt(DURACION);disp.style.color='#7ecfff';}"
             "</script></body></html>"
         )
         components.html(timer_html, height=155)
@@ -1304,12 +828,11 @@ def main():
         st.markdown("")
         st.markdown('<div class="btn-random-timer">', unsafe_allow_html=True)
         if st.button("🎲 Pregunta aleatoria", key="btn_random_timer", use_container_width=True):
-            p_random      = random.choice(preguntas_filtradas)
-            nombre_random = p_random.get("nombre", p_random.get("id", ""))
-            st.session_state.pregunta_idx     = nombres.index(nombre_random)
+            p_random = random.choice(preguntas_filtradas)
+            nombre_random = p_random.get("nombre", p_random.get("id",""))
+            st.session_state.pregunta_idx = nombres.index(nombre_random)
             st.session_state.selectbox_nombre = nombre_random
-            st.session_state.timer_start_ts   = None
-            st.session_state.timer_stopped    = False
+            st.session_state.timer_start_ts = None; st.session_state.timer_stopped = False
             st.rerun()
         st.markdown('</div>', unsafe_allow_html=True)
 

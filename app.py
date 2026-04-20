@@ -132,7 +132,6 @@ def _habilidades_para_filtro(prueba_activa):
 
 def _contenidos_para_eje(eje_activo, prueba_activa="Todas"):
     """Devuelve lista de contenidos según eje activo y prueba activa."""
-    # Determinar qué ejes son válidos para esta prueba
     if prueba_activa == "Todas":
         ejes_validos = list(CONTENIDOS_POR_EJE.keys())
     else:
@@ -141,7 +140,7 @@ def _contenidos_para_eje(eje_activo, prueba_activa="Todas"):
     if eje_activo == "Todos":
         visto = set()
         result = []
-        for eje in ejes_validos:          # solo itera ejes válidos para la prueba activa
+        for eje in ejes_validos:
             for c in CONTENIDOS_POR_EJE.get(eje, []):
                 if c not in visto:
                     visto.add(c)
@@ -170,6 +169,39 @@ LOGO_B64 = _cargar_logo_b64()
 
 st.markdown("""
 <style>
+    /* ── Animación de ecuaciones flotantes ── */
+    @keyframes floatUp {
+        0%   { transform: translateY(0)   rotate(0deg);   opacity: 0;    }
+        5%   { opacity: 0.18; }
+        90%  { opacity: 0.12; }
+        100% { transform: translateY(-110vh) rotate(20deg); opacity: 0; }
+    }
+
+    #math-bg {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        pointer-events: none;
+        z-index: 0;
+        overflow: hidden;
+    }
+
+    .math-particle {
+        position: absolute;
+        bottom: -60px;
+        color: #f5a623;
+        font-family: 'Georgia', serif;
+        font-style: italic;
+        white-space: nowrap;
+        user-select: none;
+        animation: floatUp linear infinite;
+    }
+
+    /* Make sure main content sits above the animation */
+    [data-testid="stAppViewContainer"] > * { position: relative; z-index: 1; }
+    [data-testid="stSidebar"]            { position: relative; z-index: 2; }
+
+    /* ── Existing styles ── */
     .stApp { background-color: #0f1117; }
     .stApp > header { background-color: transparent !important; }
     [data-testid="stAppViewContainer"] { background-color: #0f1117 !important; }
@@ -317,6 +349,24 @@ st.markdown("""
         background: linear-gradient(135deg, #2255aa, #3a7aee) !important;
         color: #ffffff !important;
     }
+
+    /* ── Botón de acceso rápido ── */
+    .btn-acceso-rapido > button {
+        background: linear-gradient(135deg, #1a5a1a, #2a8a2a) !important;
+        color: #c8ffc8 !important;
+        border: 2px solid #4aee4a !important;
+        font-size: 1rem !important;
+        padding: 0.7rem 1.5rem !important;
+        border-radius: 12px !important;
+        letter-spacing: 0.5px !important;
+        box-shadow: 0 0 18px rgba(74,238,74,0.25) !important;
+    }
+    .btn-acceso-rapido > button:hover {
+        background: linear-gradient(135deg, #2a8a2a, #3aee3a) !important;
+        color: #0a1a0a !important;
+        box-shadow: 0 0 28px rgba(74,238,74,0.45) !important;
+    }
+
     .stSelectbox > div > div {
         background-color: #2a1f00 !important;
         color: #e8d5a0 !important;
@@ -465,6 +515,75 @@ st.markdown("""
         margin-bottom: 0.1rem !important;
     }
 </style>
+
+<!-- ── Fondo animado con ecuaciones flotantes ── -->
+<div id="math-bg"></div>
+<script>
+(function() {
+    var exprs = [
+        "ax² + bx + c = 0",
+        "∫f(x)dx",
+        "E = mc²",
+        "sen²θ + cos²θ = 1",
+        "Δx = v₀t + ½at²",
+        "F = ma",
+        "y = mx + b",
+        "π ≈ 3.14159",
+        "√(a²+b²) = c",
+        "P(A∪B) = P(A)+P(B)−P(A∩B)",
+        "lím x→∞",
+        "∑ᵢ₌₁ⁿ i = n(n+1)/2",
+        "log(ab) = log a + log b",
+        "d/dx [xⁿ] = nxⁿ⁻¹",
+        "V = πr²h",
+        "σ² = Σ(xᵢ−μ)²/N",
+        "eⁱᵖⁱ + 1 = 0",
+        "A = ½bh",
+        "v = λf",
+        "Q = mcΔT",
+        "p = mv",
+        "W = Fd·cosθ",
+        "x = (−b ± √(b²−4ac)) / 2a",
+        "f(x) = aˣ",
+        "tan θ = sen θ / cos θ",
+    ];
+
+    var bg = document.getElementById('math-bg');
+    if (!bg) return;
+
+    function spawnParticle() {
+        var el = document.createElement('span');
+        el.className = 'math-particle';
+        el.textContent = exprs[Math.floor(Math.random() * exprs.length)];
+
+        var fontSize = (0.7 + Math.random() * 0.85).toFixed(2);
+        var leftPct  = (Math.random() * 96).toFixed(1);
+        var duration = (14 + Math.random() * 22).toFixed(1);
+        var delay    = (Math.random() * 6).toFixed(2);
+        var opacity  = (0.07 + Math.random() * 0.13).toFixed(2);
+
+        el.style.fontSize        = fontSize + 'rem';
+        el.style.left            = leftPct + '%';
+        el.style.animationDuration  = duration + 's';
+        el.style.animationDelay     = delay + 's';
+        el.style.opacity            = opacity;
+
+        bg.appendChild(el);
+
+        // Remove element after animation ends to avoid DOM bloat
+        var totalMs = (parseFloat(duration) + parseFloat(delay)) * 1000 + 500;
+        setTimeout(function() {
+            if (el.parentNode) el.parentNode.removeChild(el);
+        }, totalMs);
+    }
+
+    // Initial burst
+    for (var i = 0; i < 18; i++) spawnParticle();
+
+    // Keep spawning continuously
+    setInterval(spawnParticle, 1200);
+})();
+</script>
 """, unsafe_allow_html=True)
 
 
@@ -495,6 +614,21 @@ def mostrar_header():
 
 
 def mostrar_bienvenida():
+    # ── Botón de acceso rápido al repositorio (ARRIBA del bloque) ────────────
+    st.markdown(
+        '<div style="max-width:820px;margin:0 auto 1.2rem auto;">',
+        unsafe_allow_html=True
+    )
+    col_l, col_c, col_r = st.columns([1, 2, 1])
+    with col_c:
+        st.markdown('<div class="btn-acceso-rapido">', unsafe_allow_html=True)
+        if st.button("⚡ Ingresar al repositorio", key="btn_acceso_rapido", use_container_width=True):
+            st.session_state.bienvenida_vista = True
+            st.rerun()
+        st.markdown('</div>', unsafe_allow_html=True)
+    st.markdown('</div>', unsafe_allow_html=True)
+
+    # ── Bloque de bienvenida ─────────────────────────────────────────────────
     items = [
         ("1", "Reflexionar sobre su nivel de interés con la rendición de la evaluación."),
         ("2", "Reflexionar e informarse sobre carreras de nivel superior que se ajusten a sus intereses y posibilidades de ingreso y sostenibilidad."),
@@ -900,7 +1034,6 @@ def main():
     if "filtro_contenidos" not in st.session_state:
         st.session_state.filtro_contenidos = []
 
-    # CAMBIO CLAVE: se pasa también la prueba activa para acotar los contenidos
     contenidos_disponibles = _contenidos_para_eje(
         st.session_state.filtro_eje,
         st.session_state.filtro_prueba

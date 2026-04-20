@@ -1,12 +1,18 @@
 """
 sphere_button_component.py
-Botón "Ingresar al repositorio" con esfera 3D giratoria decorativa encima.
-La esfera es visual (canvas), el botón real es un st.button de Streamlit.
+
+Esfera circular giratoria como botón de ingreso.
+Solución sin rectángulo visible:
+  - Los anillos animados se dibujan en un components.html() con fondo transparente
+  - El botón real de Streamlit se posiciona encima con CSS (border-radius:50%)
+  - Se usa margin-top negativo para superponerlos visualmente
+  - NO hay botón de texto debajo
 """
 import streamlit as st
 import streamlit.components.v1 as components
 
-SPHERE_ANIM_HTML = """
+
+RINGS_HTML = """
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,189 +20,201 @@ SPHERE_ANIM_HTML = """
 <style>
   * { margin:0; padding:0; box-sizing:border-box; }
   html, body {
-    background: transparent;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 150px;
+    background: transparent !important;
     overflow: hidden;
-  }
-  .scene {
-    width: 280px;
-    height: 150px;
+    width: 100%;
+    height: 160px;
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
   }
-  #sphereCanvas {
-    position: absolute;
-    top: 0; left: 0;
-    width: 280px; height: 150px;
-    pointer-events: none;
-  }
-  .sphere-deco {
-    position: relative;
-    z-index: 10;
-    background: radial-gradient(circle at 35% 35%,
-      rgba(255,255,255,0.18) 0%,
-      rgba(245,166,35,0.22) 30%,
-      rgba(30,20,0,0.85) 80%,
-      rgba(10,8,0,0.95) 100%
-    );
-    border: 2px solid rgba(245,166,35,0.7);
-    border-radius: 50%;
-    width: 124px;
-    height: 124px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 4px;
-    box-shadow:
-      0 0 24px rgba(245,166,35,0.45),
-      0 0 60px rgba(245,166,35,0.15),
-      inset 0 0 20px rgba(245,166,35,0.08);
-    animation: spherePulse 3s ease-in-out infinite;
-    pointer-events: none;
-  }
-  @keyframes spherePulse {
-    0%,100% {
-      box-shadow: 0 0 24px rgba(245,166,35,0.45),
-                  0 0 60px rgba(245,166,35,0.15),
-                  inset 0 0 20px rgba(245,166,35,0.08);
-    }
-    50% {
-      box-shadow: 0 0 40px rgba(245,166,35,0.70),
-                  0 0 90px rgba(245,166,35,0.28),
-                  inset 0 0 30px rgba(245,166,35,0.16);
-    }
-  }
-  .bolt { font-size: 22px; line-height:1; }
-  .btn-label {
-    font-size: 10px;
-    font-weight: 800;
-    letter-spacing: 1.2px;
-    text-transform: uppercase;
-    color: #f5e6a0;
-    text-align: center;
-    line-height: 1.3;
-    text-shadow: 0 0 8px rgba(245,166,35,0.7);
-    padding: 0 6px;
-    font-family: Georgia, serif;
-  }
-  .sphere-deco::before {
-    content: '';
-    position: absolute;
-    top: 10%; left: 18%;
-    width: 38%; height: 28%;
-    background: radial-gradient(ellipse, rgba(255,255,255,0.25) 0%, transparent 70%);
-    border-radius: 50%;
-    pointer-events: none;
-  }
+  canvas { display: block; }
 </style>
 </head>
 <body>
-<div class="scene">
-  <canvas id="sphereCanvas" width="280" height="150"></canvas>
-  <div class="sphere-deco">
-    <span class="bolt">⚡</span>
-    <span class="btn-label">Ingresar<br>al repositorio</span>
-  </div>
-</div>
+<canvas id="c" width="160" height="160"></canvas>
 <script>
 (function(){
-  var canvas = document.getElementById('sphereCanvas');
-  var ctx    = canvas.getContext('2d');
-  var W = 280, H = 150, cx = W/2, cy = H/2, R = 62, t = 0;
-
+  var c = document.getElementById('c');
+  var ctx = c.getContext('2d');
+  var cx=80, cy=80, R=64, t=0;
   var rings = [
-    { tilt: 0.45,  speed: 0.012,  color: 'rgba(245,166,35,',  width: 1.4 },
-    { tilt: -0.55, speed: -0.009, color: 'rgba(126,207,255,', width: 1.1 },
-    { tilt: 1.1,   speed: 0.007,  color: 'rgba(245,166,35,',  width: 0.8 },
-    { tilt: 0.0,   speed: 0.015,  color: 'rgba(200,180,80,',  width: 1.0 },
+    {tilt:0.50, speed:0.013, col:'rgba(245,166,35,',  lw:1.4},
+    {tilt:-0.58,speed:-0.010,col:'rgba(126,207,255,', lw:1.1},
+    {tilt:1.15, speed:0.008, col:'rgba(245,166,35,',  lw:0.8},
+    {tilt:0.05, speed:0.016, col:'rgba(210,185,80,',  lw:0.9},
   ];
+  var phases=[0,1.6,3.1,4.7];
 
-  function drawRing(ring, angle) {
-    var rx = R, ry = R * Math.abs(Math.sin(ring.tilt));
+  function drawRing(r,angle){
+    var ry=R*Math.abs(Math.sin(r.tilt));
     ctx.beginPath();
-    for (var i = 0; i <= 120; i++) {
-      var theta = (i / 120) * Math.PI * 2;
-      var x3 = rx * Math.cos(theta);
-      var y3 = ry * Math.sin(theta) * Math.cos(ring.tilt);
-      var xR = x3 * Math.cos(angle);
-      var zR = x3 * Math.sin(angle);
-      var depth = (zR / (R * 1.5)) * 0.5 + 0.5;
-      var alpha = 0.12 + depth * 0.38;
-      if (i === 0) { ctx.moveTo(cx+xR, cy+y3); ctx.strokeStyle = ring.color + alpha + ')'; }
-      else ctx.lineTo(cx+xR, cy+y3);
+    for(var i=0;i<=120;i++){
+      var th=(i/120)*Math.PI*2;
+      var x3=R*Math.cos(th), y3=ry*Math.sin(th)*Math.cos(r.tilt);
+      var xR=x3*Math.cos(angle), zR=x3*Math.sin(angle);
+      var d=(zR/(R*1.5))*0.5+0.5;
+      if(i===0){ctx.moveTo(cx+xR,cy+y3);ctx.strokeStyle=r.col+(0.10+d*0.42)+')';}
+      else ctx.lineTo(cx+xR,cy+y3);
     }
-    ctx.lineWidth = ring.width;
-    ctx.stroke();
+    ctx.lineWidth=r.lw; ctx.stroke();
   }
 
-  function drawDot(ring, angle, phase) {
-    var theta = angle * ring.speed * 60 + phase;
-    var rx = R, ry = R * Math.abs(Math.sin(ring.tilt));
-    var x3 = rx * Math.cos(theta), y3 = ry * Math.sin(theta) * Math.cos(ring.tilt);
-    var xR = x3 * Math.cos(angle), zR = x3 * Math.sin(angle);
-    var depth = (zR / (R * 1.5)) * 0.5 + 0.5;
+  function drawDot(r,angle,ph){
+    var th=t*r.speed*0.9+ph;
+    var ry=R*Math.abs(Math.sin(r.tilt));
+    var x3=R*Math.cos(th), y3=ry*Math.sin(th)*Math.cos(r.tilt);
+    var xR=x3*Math.cos(angle), zR=x3*Math.sin(angle);
+    var d=(zR/(R*1.5))*0.5+0.5;
     ctx.beginPath();
-    ctx.arc(cx+xR, cy+y3, 2.2 + depth*1.8, 0, Math.PI*2);
-    ctx.fillStyle = ring.color + (0.4 + depth*0.6) + ')';
-    ctx.fill();
+    ctx.arc(cx+xR,cy+y3,1.8+d*2.2,0,Math.PI*2);
+    ctx.fillStyle=r.col+(0.35+d*0.65)+')'; ctx.fill();
   }
 
-  var phases = [0, 1.5, 3.0, 4.5];
-  function animate() {
-    ctx.clearRect(0, 0, W, H);
+  function frame(){
+    ctx.clearRect(0,0,160,160);
     t++;
-    rings.forEach(function(ring, i) {
-      var angle = t * ring.speed;
-      drawRing(ring, angle);
-      drawDot(ring, angle, phases[i]);
+    rings.forEach(function(r,i){
+      var a=t*r.speed;
+      drawRing(r,a); drawDot(r,a,phases[i]);
     });
-    requestAnimationFrame(animate);
+    requestAnimationFrame(frame);
   }
-  animate();
+  frame();
 })();
 </script>
 </body>
 </html>
 """
 
+
 def mostrar_boton_esfera():
     """
-    Muestra la esfera animada decorativa y un st.button real de Streamlit debajo.
+    Muestra anillos animados + botón circular superpuesto.
     Retorna True si el botón fue presionado.
     """
-    components.html(SPHERE_ANIM_HTML, height=150, scrolling=False)
 
     st.markdown("""
     <style>
-    .btn-esfera-wrapper > div > button {
-        background: linear-gradient(135deg, #7a4a00, #c07a00) !important;
-        color: #fff8e0 !important;
-        border: 2px solid #f5a623 !important;
-        border-radius: 10px !important;
-        font-size: 1rem !important;
-        font-weight: 800 !important;
-        letter-spacing: 1px !important;
-        box-shadow: 0 0 18px rgba(245,166,35,0.35) !important;
-        margin-top: -8px !important;
+    /* ─── Forzar fondo transparente en el iframe de anillos ─── */
+    div[data-testid="stCustomComponentV1"] > iframe,
+    div.element-container iframe {
+        background: transparent !important;
+        background-color: transparent !important;
     }
-    .btn-esfera-wrapper > div > button:hover {
-        background: linear-gradient(135deg, #c07a00, #f5a623) !important;
-        color: #1a0a00 !important;
-        box-shadow: 0 0 30px rgba(245,166,35,0.6) !important;
+
+    /* ─── Wrapper que sube el botón sobre los anillos ─── */
+    .sphere-overlap-wrapper {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 0;
+    }
+    .sphere-rings-row {
+        display: flex;
+        justify-content: center;
+        margin-bottom: -150px;   /* overlaps the button on top */
+        position: relative;
+        z-index: 0;
+        pointer-events: none;    /* rings don't steal clicks */
+        width: 100%;
+    }
+    .sphere-btn-row {
+        position: relative;
+        z-index: 10;
+        display: flex;
+        justify-content: center;
+        margin-bottom: 16px;
+    }
+
+    /* ─── El botón esfera circular perfecta ─── */
+    .sphere-btn-row button,
+    .sphere-btn-row > div > button,
+    .sphere-btn-row > div > div > button {
+        width:  130px !important;
+        height: 130px !important;
+        min-height: 130px !important;
+        border-radius: 50% !important;
+        padding: 0 12px !important;
+        font-size: 9.5px !important;
+        font-weight: 900 !important;
+        letter-spacing: 1.3px !important;
+        text-transform: uppercase !important;
+        line-height: 1.4 !important;
+        font-family: Georgia, serif !important;
+        color: #f5e6a0 !important;
+        text-align: center !important;
+        white-space: pre-line !important;
+        background: radial-gradient(circle at 33% 30%,
+            rgba(255,255,255,0.20) 0%,
+            rgba(245,166,35,0.18) 25%,
+            rgba(40,25,0,0.92) 65%,
+            rgba(10,6,0,0.97) 100%
+        ) !important;
+        border: 2px solid rgba(245,166,35,0.85) !important;
+        box-shadow:
+            0 0 28px rgba(245,166,35,0.55),
+            0 0 70px rgba(245,166,35,0.20),
+            inset 0 0 22px rgba(245,166,35,0.12) !important;
+        cursor: pointer !important;
+        animation: spherePulseBtn 3s ease-in-out infinite !important;
+        transition: transform 0.18s ease, box-shadow 0.18s ease !important;
+        overflow: hidden !important;
+    }
+
+    .sphere-btn-row button:hover,
+    .sphere-btn-row > div > button:hover,
+    .sphere-btn-row > div > div > button:hover {
+        transform: scale(1.08) !important;
+        box-shadow:
+            0 0 50px rgba(245,166,35,0.90),
+            0 0 110px rgba(245,166,35,0.35),
+            inset 0 0 36px rgba(245,166,35,0.25) !important;
+        animation: none !important;
+        color: #ffffff !important;
+        background: radial-gradient(circle at 33% 30%,
+            rgba(255,255,255,0.28) 0%,
+            rgba(245,166,35,0.30) 25%,
+            rgba(60,38,0,0.92) 65%,
+            rgba(20,12,0,0.97) 100%
+        ) !important;
+    }
+
+    .sphere-btn-row button:active,
+    .sphere-btn-row > div > button:active,
+    .sphere-btn-row > div > div > button:active {
+        transform: scale(0.93) !important;
+    }
+
+    @keyframes spherePulseBtn {
+        0%,100% {
+            box-shadow:
+                0 0 28px rgba(245,166,35,0.55),
+                0 0 70px rgba(245,166,35,0.20),
+                inset 0 0 22px rgba(245,166,35,0.12);
+        }
+        50% {
+            box-shadow:
+                0 0 46px rgba(245,166,35,0.80),
+                0 0 105px rgba(245,166,35,0.32),
+                inset 0 0 34px rgba(245,166,35,0.22);
+        }
     }
     </style>
     """, unsafe_allow_html=True)
 
-    col_l, col_c, col_r = st.columns([1, 2, 1])
-    with col_c:
-        st.markdown('<div class="btn-esfera-wrapper">', unsafe_allow_html=True)
-        clicked = st.button("⚡ Ingresar al repositorio", key="btn_esfera_ingreso", use_container_width=True)
-        st.markdown('</div>', unsafe_allow_html=True)
+    # ── Anillos (decorativos, z-index bajo) ──────────────────────────────────
+    st.markdown('<div class="sphere-overlap-wrapper">', unsafe_allow_html=True)
+    st.markdown('<div class="sphere-rings-row">', unsafe_allow_html=True)
+    _, mid, _ = st.columns([1, 1, 1])
+    with mid:
+        components.html(RINGS_HTML, height=160, scrolling=False)
+    st.markdown('</div>', unsafe_allow_html=True)  # close rings-row
+
+    # ── Botón circular (z-index alto, visualmente sobre los anillos) ──────────
+    st.markdown('<div class="sphere-btn-row">', unsafe_allow_html=True)
+    clicked = st.button("⚡\nIngresar\nal repositorio", key="btn_esfera_ingreso")
+    st.markdown('</div>', unsafe_allow_html=True)  # close btn-row
+    st.markdown('</div>', unsafe_allow_html=True)  # close wrapper
 
     return clicked

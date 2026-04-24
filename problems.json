@@ -778,5 +778,73 @@
   },
   "respuesta_correcta": "B",
   "video_youtube": "https://youtu.be/TKbTelSPips"
+},
+  {
+  "id": "P01-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P01-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P01-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/10uAoJJFr-k?feature=share"
+},
+  {
+  "id": "P10-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P10-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Geometría",
+  "contenidos": ["Números enteros", "Fracciones", "Decimales"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
+  "imagen": "images/m1/P10-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://youtu.be/bdt5J_eA9C0"
+},
+  {
+  "id": "P18-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P18-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Función exponencial", "Potencias", "Números enteros"],
+  "habilidades": ["Modelar", "Resolución de problemas"],
+  "imagen": "images/m1/P18-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://www.youtube.com/shorts/NYUPpIk2ag8?feature=share"
+},
+  {
+  "id": "P23-PAES-M1-AD-2026-I-DEMRE",
+  "nombre": "P23-PAES-M1-AD-2026-I-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Potencias"],
+  "habilidades": ["Argumentar y comunicar", "Modelar"],
+  "imagen": "images/m1/P23-PAES-M1-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://www.youtube.com/shorts/btb4c0Kf04E?feature=share"
 }
 ]

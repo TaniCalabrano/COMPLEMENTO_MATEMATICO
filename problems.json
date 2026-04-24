@@ -846,5 +846,56 @@
   },
   "respuesta_correcta": "C",
   "video_youtube": "https://www.youtube.com/shorts/btb4c0Kf04E?feature=share"
+},
+  {
+  "id": "P27-PAES-M2-AD-2026-I-DEMRE",
+  "nombre": "P27-PAES-M2-AD-2026-I-DEMRE",
+  "prueba": "M2",
+  "eje": "Álgebra",
+  "contenidos": ["Función cuadrática", "Expresiones algebraicas", "Simetría"],
+  "habilidades": ["Modelar", "Representar"],
+  "imagen": "images/m2/P27-PAES-M2-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/Rzl76lM7wzE?feature=share"
+},
+  {
+  "id": "P41-PAES-M2-AD-2026-I-DEMRE",
+  "nombre": "P41-PAES-M2-AD-2026-I-DEMRE",
+  "prueba": "M2",
+  "eje": "Geometría",
+  "contenidos": ["Razones trigonométricas", "Figuras planas", "Transformaciones isométricas", "Expresiones algebraicas"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
+  "imagen": "images/m2/P41-PAES-M2-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/Q0lLgkJFY-A?feature=share"
+},
+  {
+  "id": "P50-PAES-M2-AD-2026-I-DEMRE",
+  "nombre": "P50-PAES-M2-AD-2026-I-DEMRE",
+  "prueba": "M2",
+  "eje": "Estadística",
+  "contenidos": ["Probabilidad condicional", "Decimales", "Fracciones", "Números enteros"],
+  "habilidades": ["Resolución de problemas", "Modelar"],
+  "imagen": "images/m2/P50-PAES-M2-AD-2026-I-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://youtu.be/NWMWsjjLLQE"
 }
 ]

@@ -897,5 +897,107 @@
   },
   "respuesta_correcta": "D",
   "video_youtube": "https://youtu.be/NWMWsjjLLQE"
+},
+  {
+  "id": "P01-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P01-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros"],
+  "habilidades": ["Modelar", "Representar"],
+  "imagen": "images/m1/P01-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/xoTg-48ylQE"
+},
+  {
+  "id": "P02-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P02-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Decimales", "Fracciones", "Proporcionalidad", "Razones"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Rerpresentar"],
+  "imagen": "images/m1/P02-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/UjYwwfrothc"
+},
+  {
+  "id": "P03-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P03-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Fracciones", "Decimales", "Función lineal"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
+  "imagen": "images/m1/P03-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://youtu.be/l0Ikpj0sE5k"
+},
+  {
+  "id": "P04-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P04-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Fracciones", "Decimales", "Ecuaciones de primer grado"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P04-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://youtu.be/Il5QUUx8IVE"
+},
+  {
+  "id": "P05-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P05-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Fracciones"],
+  "habilidades": ["Modelar", "Argumentar y comunicar"],
+  "imagen": "images/m1/P05-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://youtu.be/fS6bBccR5Kk"
+},
+  {
+  "id": "P11-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P11-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Función afín", "Razones"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
+  "imagen": "images/m1/P11-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://youtu.be/Has_o0tQeP8"
 }
 ]

@@ -999,5 +999,73 @@
   },
   "respuesta_correcta": "C",
   "video_youtube": "https://youtu.be/Has_o0tQeP8"
+},
+  {
+  "id": "P25-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P25-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Fracciones", "Expresiones algebraicas", "Números enteros", "Ecuaciones de primer grado"],
+  "habilidades": ["Resolución de problemas", "Modelar"],
+  "imagen": "images/m1/P25-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/Qi2ZejXe0ts?feature=share"
+},
+  {
+  "id": "P41-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P41-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Ecuación cuadrática", "Figuras planas", "Números enteros"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
+  "imagen": "images/m1/P41-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/watch?v=ZAqU4pT61Yw"
+},
+  {
+  "id": "P45-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P45-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Geometría",
+  "contenidos": ["Áreas", "Figuras planas", "Decimales", "Fracciones", "Números enteros", "Ecuaciones de primer grado"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
+  "imagen": "images/m1/P45-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://youtu.be/uxWKeXgOL24"
+},
+  {
+  "id": "P64-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P64-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Números enteros", "Probabilidad clásica", "Regla de Laplace"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
+  "imagen": "images/m1/P64-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/fMIr9uLZY78?feature=share"
 }
 ]

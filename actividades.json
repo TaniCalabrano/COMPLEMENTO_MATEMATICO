@@ -52,7 +52,15 @@
     "nombre": "Cinemática",
     "descripcion": "App interactiva para aprender sobre Cinemática.",
     "eje": "Mecánica",
-    "icono": "🚗💨",
+    "icono": "🚗",
     "url": "https://tanicalabrano.github.io/ACT_CINEMATICA/"
+  },
+  {
+    "id": "Universo",
+    "nombre": "Universo",
+    "descripcion": "App interactiva para aprender sobre Mecánica de cuerpos celestes y teorías del Universo",
+    "eje": "Mecánica",
+    "icono": "🌍",
+    "url": "https://tanicalabrano.github.io/ACT_UNI/"
   }
 ]

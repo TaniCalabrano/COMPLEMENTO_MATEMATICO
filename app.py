@@ -14,8 +14,8 @@ logo_favicon = Image.open("LogoCM.png")
 
 # ── Habilidades por PRUEBA ───────────────────────────────────────────────────
 HABILIDADES_POR_PRUEBA = {
-    "M1": ["Resolver problemas", "Modelar", "Representar", "Argumentar y comunicar"],
-    "M2": ["Resolver problemas", "Modelar", "Representar", "Argumentar y comunicar"],
+    "M1": ["Resolución de problemas", "Modelar", "Representar", "Argumentar y comunicar"],
+    "M2": ["Resolución de problemas", "Modelar", "Representar", "Argumentar y comunicar"],
     "FISICA": [
         "Observar y preguntar", "Planificar y conducir investigaciones",
         "Analizar e interpretar datos", "Construir explicaciones",

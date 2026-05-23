@@ -1067,5 +1067,566 @@
   },
   "respuesta_correcta": "B",
   "video_youtube": "https://www.youtube.com/shorts/fMIr9uLZY78?feature=share"
+},
+  {
+  "id": "P13-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P13-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Potencias"],
+  "habilidades": ["Representar", "Modelar"],
+  "imagen": "images/m1/P13-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://www.youtube.com/shorts/l4Vixj2e5X4?feature=share"
+},
+  {
+  "id": "P14-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P14-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Potencias", "Números enteros", "Factorización"],
+  "habilidades": ["Modelar", "Argumentar y comunicar"],
+  "imagen": "images/m1/P14-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/spswe95juMU?feature=share"
+},
+  {
+  "id": "P15-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P15-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Potencias"],
+  "habilidades": ["Modelar", "Representar"],
+  "imagen": "images/m1/P15-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/KEOvkXVBHBQ?feature=share"
+},
+  {
+  "id": "P18-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P18-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Porcentajes", "Ecuaciones de primer grado", "Números enteros"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P18-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/smV6go0UEsY?feature=share"
+},
+  {
+  "id": "P19-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P19-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Porcentajes", "Números enteros", "Fracciones", "Decimales"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P19-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://www.youtube.com/shorts/TlwW1XSg-h8?feature=share"
+},
+  {
+  "id": "P22-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P22-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Porcentajes"],
+  "habilidades": ["Resolución de problemas", "Modelar"],
+  "imagen": "images/m1/P22-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/r-T4ISFriWU?feature=share"
+},
+  {
+  "id": "P23-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P23-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Números enteros", "Fracciones", "Porcentajes", "Ecuaciones de primer grado"],
+  "habilidades": ["Modelar", "Representar"],
+  "imagen": "images/m1/P23-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/TPsA0kSbI5w?feature=share"
+},
+  {
+  "id": "P24-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P24-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Números",
+  "contenidos": ["Porcentajes", "Variación porcentual"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P24-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://www.youtube.com/shorts/RKEhKg5-nVA?feature=share"
+},
+  {
+  "id": "P26-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P26-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Función afín", "Ecuaciones de primer grado", "Reducción de expresiones algebraicas"],
+  "habilidades": ["Modelar", "Resolución de problemas"],
+  "imagen": "images/m1/P26-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/wyY19PTPg6g?feature=share"
+},
+  {
+  "id": "P28-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P28-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Proporcionalidad", "Razones"],
+  "habilidades": ["Modelar", "Resolución de problemas"],
+  "imagen": "images/m1/P28-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/_kKhuEGQd7A?feature=share"
+},
+  {
+  "id": "P30-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P30-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Función lineal", "Ecuaciones de primer grado", "Porcentajes", "Fracciones", "Proporcionalidad"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P30-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://youtu.be/ilWF1jlQjG4"
+},
+  {
+  "id": "P31-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P31-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Ecuaciones de primer grado", "Números enteros", "Fracciones"],
+  "habilidades": ["Resolución de problemas", "Modelar"],
+  "imagen": "images/m1/P31-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://youtu.be/jws5Eirb2a8"
+},
+  {
+  "id": "P32-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P32-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["SEL 2x2", "Ecuaciones de primer grado", "Números enteros"],
+  "habilidades": ["Resolución de problemas", "Modelar"],
+  "imagen": "images/m1/P32-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://youtu.be/KyYtzwRZTQ4"
+},
+  {
+  "id": "P33-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P33-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Inecuaciones de primer grado", "Expresiones algebraicas"],
+  "habilidades": ["Modelar", "Representar"],
+  "imagen": "images/m1/P33-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/14068e-C18M?feature=share"
+},
+  {
+  "id": "P34-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P34-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["SEL 2x2"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P34-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/Q1I9-YNJyos?feature=share"
+},
+  {
+  "id": "P35-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P35-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["SEL 2x2", "Números enteros", "Ecuaciones de primer grado"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P35-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/QprWei9_Oew?feature=share"
+},
+  {
+  "id": "P40-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P40-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Función afín", "Números enteros"],
+  "habilidades": ["Modelar"],
+  "imagen": "images/m1/P40-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/XRr8vXQ0Fkw?feature=share"
+},
+  {
+  "id": "P42-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P42-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Función cuadrática", "Simetría", "Números enteros"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P42-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://youtu.be/mUL0zu2BcAM"
+},
+  {
+  "id": "P43-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P43-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Álgebra",
+  "contenidos": ["Función cuadrática", "Fracciones", "Números enteros", "Raíces", "Ecuación cuadrática"],
+  "habilidades": ["Resolución de problemas", "Modelar"],
+  "imagen": "images/m1/P43-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://youtu.be/cWaSxjOcjsE"
+},
+  {
+  "id": "P47-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P47-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Geometría",
+  "contenidos": ["Prismas rectos", "Números enteros"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P47-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/cfAs-O2fivs?feature=share"
+},
+  {
+  "id": "P48-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P48-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Geometría",
+  "contenidos": ["Función lineal", "Prismas rectos", "Áreas"],
+  "habilidades": ["Resolución de problemas", "Modelar"],
+  "imagen": "images/m1/P48-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/oHV6ZM_GeLc?feature=share"
+},
+  {
+  "id": "P50-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P50-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Geometría",
+  "contenidos": ["Transformaciones isométricas", "Vectores", "Simetría", "Rotación"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P50-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://youtu.be/t_jxQhvBXNI"
+},
+  {
+  "id": "P51-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P51-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Geometría",
+  "contenidos": ["Transformaciones isométricas", "Traslación", "Vectores"],
+  "habilidades": ["Representar", "Modelar"],
+  "imagen": "images/m1/P51-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/jlxfV3q7Pf4?feature=share"
+},
+  {
+  "id": "P52-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P52-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Geometría",
+  "contenidos": ["Transformaciones isométricas", "Traslación", "Vectores"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P52-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/wHeY8FxGJV0?feature=share"
+},
+  {
+  "id": "P53-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P53-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Gráficas de datos", "Frecuencias"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P53-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/UhLmwalYcuo?feature=share"
+},
+  {
+  "id": "P54-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P54-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Tablas de frecuencia", "Datos agrupados", "Inecuaciones de primer grado"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P54-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/WPVSls3lKRE?feature=share"
+},
+  {
+  "id": "P55-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P55-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Gráfica de datos", "Frecuencias"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P55-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/grU2bKaLIwQ?feature=share"
+},
+  {
+  "id": "P56-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P56-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Tablas de frecuencia", "Datos no agrupados", "Inecuaciones de primer grado"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P56-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/tNKyhkjpzvQ?feature=share"
+},
+  {
+  "id": "P57-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P57-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Gráficas de datos", "Frecuencias", "Probabilidad"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P57-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "D",
+  "video_youtube": "https://www.youtube.com/shorts/RgRNmwqQecg?feature=share"
+},
+  {
+  "id": "P59-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P59-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Medidas de tendencia central", "Promedio", "Tablas de frecuencia", "Datos no agrupados"],
+  "habilidades": ["Representar", "Modelar"],
+  "imagen": "images/m1/P59-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://youtu.be/iVgollqUhn4"
+},
+  {
+  "id": "P60-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P60-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Medidas de tendencia central", "Promedio", "Números enteros", "Fracciones", "Decimales"],
+  "habilidades": ["Representar", "Modelar", "Resolución de problemas"],
+  "imagen": "images/m1/P60-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "B",
+  "video_youtube": "https://www.youtube.com/shorts/hgwzTuUC_0E?feature=share"
+},
+  {
+  "id": "P61-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P61-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Gráfica de datos", "Frecuencias", "Medidas de tendencia central", "Moda"],
+  "habilidades": ["Representar"],
+  "imagen": "images/m1/P61-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "A",
+  "video_youtube": "https://www.youtube.com/shorts/yXztb2Tf3C0?feature=share"
+},
+  {
+  "id": "P62-PAES-M1-AD-2026-R-DEMRE",
+  "nombre": "P62-PAES-M1-AD-2026-R-DEMRE",
+  "prueba": "M1",
+  "eje": "Estadística",
+  "contenidos": ["Medidas de tendencia central", "Promedio"],
+  "habilidades": ["Representar", "Modelar"],
+  "imagen": "images/m1/P62-PAES-M1-AD-2026-R-DEMRE.png",
+  "alternativas": {
+    "A": "",
+    "B": "",
+    "C": "",
+    "D": ""
+  },
+  "respuesta_correcta": "C",
+  "video_youtube": "https://www.youtube.com/shorts/bPftfFXaVes?feature=share"
 }
 ]

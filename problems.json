@@ -5,7 +5,7 @@
   "prueba": "M1",
   "eje": "Álgebra",
   "contenidos": ["Expresiones algebraicas", "Perímetro", "Ecuaciones de primer grado"],
-  "habilidades": ["Resolver problemas", "Modelar", "Representar"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
   "imagen": "images/m1/P27-PAES-M1-AD-2026-R-DEMRE.png",
   "alternativas": {
     "A": "",
@@ -22,7 +22,7 @@
   "prueba": "M1",
   "eje": "Números",
   "contenidos": ["Fracciones", "Números enteros", "Ecuaciones de primer grado", "Proporcionalidad"],
-  "habilidades": ["Resolver problemas", "Modelar", "Representar"],
+  "habilidades": ["Resolución de problemas", "Modelar", "Representar"],
   "imagen": "images/m1/P08-PAES-M1-AD-2026-I-DEMRE.png",
   "alternativas": {
     "A": "",

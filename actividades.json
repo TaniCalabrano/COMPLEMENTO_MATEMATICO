@@ -70,5 +70,13 @@
     "eje": "Electricidad",
     "icono": "🔌",
     "url": "https://tanicalabrano.github.io/ACT_ELECTRICIDAD/"
+  },
+  {
+    "id": "Electricidad",
+    "nombre": "Carga eléctrica",
+    "descripcion": "Página completa sobre Cargas eléctricas, átomo y fomras de electrización. PAES - Física",
+    "eje": "Electricidad",
+    "icono": "⚡",
+    "url": "https://tanicalabrano.github.io/ACT_CARGA_ELECTRICA/"
   }
 ]

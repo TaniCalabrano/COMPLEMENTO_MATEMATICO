@@ -62,5 +62,13 @@
     "eje": "Mecánica",
     "icono": "🌍",
     "url": "https://tanicalabrano.github.io/ACT_UNI/"
+  },
+  {
+    "id": "Electricidad",
+    "nombre": "Electricidad",
+    "descripcion": "Página completa sobre Electricidad PAES - Física",
+    "eje": "Electricidad",
+    "icono": "🔌",
+    "url": "https://tanicalabrano.github.io/ACT_ELECTRICIDAD/"
   }
 ]
